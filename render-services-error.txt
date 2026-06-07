@@ -1,0 +1,9 @@
+Invoke-RestMethod : {"message":"Unauthorized"}
+At line:1 char:7
++ try { Invoke-RestMethod -Uri 'https://api.render.com/v1/services?limi ...
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:Http 
+   WebRequest) [Invoke-RestMethod], WebException
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShel 
+   l.Commands.InvokeRestMethodCommand
+
