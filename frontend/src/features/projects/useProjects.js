@@ -93,7 +93,7 @@ export const useProjects = (timeoutMs = 4000) => {
           setIsFallback(false);
           setError(null);
         } else {
-          applyFallback(null);
+          applyFallback('Service unavailable. Showing saved archive.');
         }
         setLoading(false);
       })
