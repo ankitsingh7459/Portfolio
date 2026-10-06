@@ -1,120 +1,173 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const LINKS = [
-  { label: 'Home', id: 'hero' },
-  { label: 'About', id: 'about' },
-  { label: 'Skills', id: 'skills' },
-  { label: 'Projects', id: 'projects' },
-  { label: 'Journey', id: 'journey' },
-  { label: 'Certifications', id: 'certifications' },
-  { label: 'Contact', id: 'contact' },
+  { label: 'about', id: 'about' },
+  { label: 'skills', id: 'skills' },
+  { label: 'projects', id: 'projects' },
+  { label: 'timeline', id: 'timeline' },
+  { label: 'certifications', id: 'certifications' },
+  { label: 'contact', id: 'contact' },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [active, setActive] = useState('hero');
+  const [active, setActive] = useState('');
+  const [hovered, setHovered] = useState(null);
+  const prefersReduced = useReducedMotion();
+  const navRef = useRef(null);
 
+  // Scroll border & background handler
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 40);
-      const sections = LINKS.map((l) => document.getElementById(l.id));
-      const idx = sections.findIndex((el, i) => {
-        if (!el) return false;
-        const next = sections[i + 1];
-        const top = el.offsetTop - 120;
-        const bottom = next ? next.offsetTop - 120 : Infinity;
-        return window.scrollY >= top && window.scrollY < bottom;
-      });
-      if (idx >= 0) setActive(LINKS[idx].id);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll-spy via IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -50% 0px',
+        threshold: 0,
+      }
+    );
+
+    LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    const heroEl = document.getElementById('hero');
+    if (heroEl) observer.observe(heroEl);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Keyboard accessibility: Escape closes mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileOpen]);
+
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth' });
+    }
     setMobileOpen(false);
   };
 
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass py-3 shadow-lg' : 'bg-transparent py-5'
+    <header
+      ref={navRef}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 ${
+        scrolled
+          ? 'bg-[#16140F]/95 backdrop-none border-b border-[#2E2A21] py-3'
+          : 'bg-transparent border-b border-transparent py-4'
       }`}
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
     >
-      <motion.div
-        className="section-padding !py-0 flex items-center justify-between"
-        layout
-      >
+      <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
+        {/* Terminal Logo */}
         <button
           type="button"
           onClick={() => scrollTo('hero')}
-          className="neon-text text-lg font-bold tracking-tight"
+          className="group flex items-center gap-1 font-mono text-sm md:text-base font-semibold text-[#F1E9D2] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2"
+          aria-label="Scroll to top"
         >
-          AS
+          <span className="text-[#E8A33D] group-hover:underline">~/</span>
+          <span>ankit</span>
         </button>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {LINKS.map((link) => (
-            <li key={link.id}>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+          {LINKS.map((link) => {
+            const isActive = active === link.id;
+            const isHovered = hovered === link.id;
+            const showLine = isHovered || (isActive && hovered === null);
+
+            return (
               <button
+                key={link.id}
                 type="button"
                 onClick={() => scrollTo(link.id)}
-                className={`rounded-lg px-3 py-2 text-sm transition-colors ${
-                  active === link.id
-                    ? 'text-[#00d4ff]'
-                    : 'text-zinc-400 hover:text-white'
+                onMouseEnter={() => setHovered(link.id)}
+                onMouseLeave={() => setHovered(null)}
+                className={`relative px-3 py-1.5 font-mono text-sm transition-colors rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 ${
+                  isActive ? 'text-[#E8A33D]' : 'text-[#B9B09A] hover:text-[#F1E9D2]'
                 }`}
+                aria-current={isActive ? 'page' : undefined}
               >
+                <span className="text-[#E8A33D]/60 mr-1 select-none">.</span>
                 {link.label}
+                {showLine && (
+                  <span
+                    className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#E8A33D] transition-all duration-200"
+                    aria-hidden="true"
+                  />
+                )}
               </button>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </nav>
 
+        {/* Mobile Menu Toggle Button */}
         <button
           type="button"
-          className="rounded-lg p-2 text-zinc-300 md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          className="md:hidden p-2 text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] bg-[#1E1B15] rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
-      </motion.div>
+      </div>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            className="glass mx-4 mt-2 rounded-2xl p-4 md:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <ul className="flex flex-col gap-1">
-              {LINKS.map((link) => (
-                <li key={link.id}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo(link.id)}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm ${
-                      active === link.id ? 'text-[#00d4ff] bg-white/5' : 'text-zinc-400'
-                    }`}
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+      {/* Mobile Dropdown Menu */}
+      {mobileOpen && (
+        <div
+          className="md:hidden bg-[#1E1B15] border-b border-[#2E2A21] px-4 py-3 mx-2 mt-2 rounded-[2px]"
+          role="dialog"
+          aria-label="Mobile Navigation"
+        >
+          <nav className="flex flex-col gap-1">
+            {LINKS.map((link) => {
+              const isActive = active === link.id;
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => scrollTo(link.id)}
+                  className={`text-left px-3 py-2 font-mono text-sm border-l-2 rounded-[2px] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] ${
+                    isActive
+                      ? 'border-[#E8A33D] text-[#E8A33D] bg-[#16140F]'
+                      : 'border-transparent text-[#B9B09A] hover:text-[#F1E9D2] hover:bg-[#16140F]'
+                  }`}
+                >
+                  $ cd ~/{link.label}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 

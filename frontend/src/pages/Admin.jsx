@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Lock, Plus, Trash2, Pencil, LogOut } from 'lucide-react';
 import {
   loginAdmin,
@@ -141,119 +141,171 @@ const Admin = () => {
 
   if (!token) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f] p-4">
-        <motion.form
+      <div className="flex min-h-screen items-center justify-center bg-[#16140F] p-4 font-sans text-[#F1E9D2]">
+        <m.form
           onSubmit={handleLogin}
-          className="glass w-full max-w-md rounded-2xl p-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="w-full max-w-md border border-[#2E2A21] bg-[#1E1B15] p-8 rounded-[2px]"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <Lock className="mx-auto mb-4 text-[#00d4ff]" size={32} />
-          <h1 className="text-center text-2xl font-bold neon-text">Admin Login</h1>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Lock className="text-[#E8A33D]" size={20} />
+            <h1 className="font-mono text-xl font-semibold text-[#F1E9D2]">
+              $ auth login
+            </h1>
+          </div>
+
           {loginError && (
-            <p className="mt-4 text-center text-sm text-red-400">{loginError}</p>
+            <p className="mt-2 text-center text-xs font-mono text-[#D9644A] border border-[#D9644A]/30 bg-[#D9644A]/10 p-2 rounded-[2px]">
+              {loginError}
+            </p>
           )}
-          <input
-            type="email"
-            placeholder="Email"
-            required
-            value={loginForm.email}
-            onChange={(e) => setLoginForm((f) => ({ ...f, email: e.target.value }))}
-            className="mt-6 w-full rounded-xl bg-white/5 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-[#00d4ff]"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            value={loginForm.password}
-            onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
-            className="mt-4 w-full rounded-xl bg-white/5 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-[#00d4ff]"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-6 w-full rounded-xl bg-gradient-to-r from-[#00d4ff] to-[#a855f7] py-3 font-semibold text-black disabled:opacity-60"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </motion.form>
+
+          <div className="mt-6 space-y-4">
+            <div>
+              <label className="block text-xs font-mono text-[#B9B09A] mb-1">
+                user.email
+              </label>
+              <input
+                type="email"
+                placeholder="admin@example.com"
+                required
+                value={loginForm.email}
+                onChange={(e) => setLoginForm((f) => ({ ...f, email: e.target.value }))}
+                className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono text-[#B9B09A] mb-1">
+                user.password
+              </label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                required
+                value={loginForm.password}
+                onChange={(e) => setLoginForm((f) => ({ ...f, password: e.target.value }))}
+                className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="mt-2 w-full rounded-[2px] bg-[#E8A33D] py-2.5 font-mono text-sm font-medium text-[#16140F] hover:bg-[#d49332] transition-colors disabled:opacity-50"
+            >
+              {loading ? '$ verifying...' : '$ authenticate'}
+            </button>
+          </div>
+        </m.form>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f] p-4 md:p-8">
-      <motion.div className="mx-auto max-w-4xl">
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-2xl font-bold neon-text">Project Admin</h1>
+    <div className="min-h-screen bg-[#16140F] p-4 md:p-8 font-sans text-[#F1E9D2]">
+      <m.div
+        className="mx-auto max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <header className="mb-8 flex items-center justify-between border-b border-[#2E2A21] pb-4">
+          <h1 className="font-mono text-xl font-bold text-[#F1E9D2]">
+            <span className="text-[#E8A33D] mr-2">$</span>
+            manage projects
+          </h1>
           <button
             type="button"
             onClick={handleLogout}
-            className="flex items-center gap-2 rounded-xl glass px-4 py-2 text-sm text-zinc-400 hover:text-white"
+            className="flex items-center gap-2 border border-[#2E2A21] bg-[#1E1B15] px-3 py-1.5 font-mono text-xs text-[#B9B09A] hover:text-[#E8A33D] rounded-[2px] transition-colors"
           >
-            <LogOut size={16} />
-            Logout
+            <LogOut size={14} />
+            logout
           </button>
-        </div>
+        </header>
 
-        <motion.form
+        <form
           onSubmit={handleSubmit}
-          className="glass mb-8 rounded-2xl p-6 space-y-4"
+          className="mb-8 border border-[#2E2A21] bg-[#1E1B15] p-6 space-y-4 rounded-[2px]"
         >
-          <h2 className="flex items-center gap-2 font-semibold text-white">
-            {editingId ? <Pencil size={18} /> : <Plus size={18} />}
-            {editingId ? 'Edit Project' : 'Add Project'}
+          <h2 className="flex items-center gap-2 font-mono text-base font-semibold text-[#F1E9D2]">
+            {editingId ? <Pencil size={16} className="text-[#E8A33D]" /> : <Plus size={16} className="text-[#E8A33D]" />}
+            {editingId ? '$ edit --target ' + editingId : '$ create --new project'}
           </h2>
-          <input
-            placeholder="Title"
-            required
-            value={form.title}
-            onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-            className="w-full rounded-xl bg-white/5 px-4 py-2 text-white outline-none"
-          />
-          <textarea
-            placeholder="Description"
-            required
-            rows={3}
-            value={form.description}
-            onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-            className="w-full resize-none rounded-xl bg-white/5 px-4 py-2 text-white outline-none"
-          />
-          <input
-            placeholder="Tech stack (comma separated)"
-            value={form.techStack}
-            onChange={(e) => setForm((f) => ({ ...f, techStack: e.target.value }))}
-            className="w-full rounded-xl bg-white/5 px-4 py-2 text-white outline-none"
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
+
+          <div>
+            <label className="block text-xs font-mono text-[#B9B09A] mb-1">Title</label>
             <input
-              placeholder="GitHub URL"
-              value={form.githubUrl}
-              onChange={(e) => setForm((f) => ({ ...f, githubUrl: e.target.value }))}
-              className="rounded-xl bg-white/5 px-4 py-2 text-white outline-none"
-            />
-            <input
-              placeholder="Live URL"
-              value={form.liveUrl}
-              onChange={(e) => setForm((f) => ({ ...f, liveUrl: e.target.value }))}
-              className="rounded-xl bg-white/5 px-4 py-2 text-white outline-none"
+              placeholder="Project title"
+              required
+              value={form.title}
+              onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+              className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
             />
           </div>
-          <label className="flex items-center gap-2 text-sm text-zinc-400">
+
+          <div>
+            <label className="block text-xs font-mono text-[#B9B09A] mb-1">Description</label>
+            <textarea
+              placeholder="Project description"
+              required
+              rows={3}
+              value={form.description}
+              onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+              className="w-full resize-none rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono text-[#B9B09A] mb-1">Tech Stack (comma separated)</label>
+            <input
+              placeholder="React, Node.js, MySQL"
+              value={form.techStack}
+              onChange={(e) => setForm((f) => ({ ...f, techStack: e.target.value }))}
+              className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+            />
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-xs font-mono text-[#B9B09A] mb-1">GitHub URL</label>
+              <input
+                placeholder="https://github.com/..."
+                value={form.githubUrl}
+                onChange={(e) => setForm((f) => ({ ...f, githubUrl: e.target.value }))}
+                className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono text-[#B9B09A] mb-1">Live URL</label>
+              <input
+                placeholder="https://..."
+                value={form.liveUrl}
+                onChange={(e) => setForm((f) => ({ ...f, liveUrl: e.target.value }))}
+                className="w-full rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-3 py-2 text-sm text-[#F1E9D2] font-mono focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+              />
+            </div>
+          </div>
+
+          <label className="flex items-center gap-2 font-mono text-xs text-[#B9B09A] cursor-pointer">
             <input
               type="checkbox"
               checked={form.featured}
               onChange={(e) => setForm((f) => ({ ...f, featured: e.target.checked }))}
+              className="accent-[#E8A33D]"
             />
-            Featured project
+            featured: true
           </label>
-          <div className="flex gap-3">
+
+          <div className="flex gap-3 pt-2">
             <button
               type="submit"
               disabled={loading}
-              className="rounded-xl bg-[#00d4ff] px-6 py-2 font-semibold text-black disabled:opacity-60"
+              className="rounded-[2px] bg-[#E8A33D] px-5 py-2 font-mono text-xs font-medium text-[#16140F] hover:bg-[#d49332] transition-colors disabled:opacity-60"
             >
-              {editingId ? 'Update' : 'Create'}
+              {editingId ? '$ update' : '$ save'}
             </button>
             {editingId && (
               <button
@@ -262,23 +314,26 @@ const Admin = () => {
                   setEditingId(null);
                   setForm(EMPTY_PROJECT);
                 }}
-                className="rounded-xl glass px-6 py-2 text-sm text-zinc-400"
+                className="rounded-[2px] border border-[#2E2A21] bg-[#16140F] px-4 py-2 font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2]"
               >
-                Cancel
+                cancel
               </button>
             )}
           </div>
-        </motion.form>
+        </form>
 
-        <motion.div className="space-y-4">
+        <section className="space-y-3">
+          <h2 className="font-mono text-sm text-[#B9B09A] mb-2">$ ls projects/</h2>
           {projects.map((project) => (
-            <motion.div
+            <div
               key={project._id}
-              className="glass flex items-center justify-between rounded-xl p-4"
+              className="flex items-center justify-between border border-[#2E2A21] bg-[#1E1B15] p-4 rounded-[2px]"
             >
               <div>
-                <h3 className="font-semibold text-white">{project.title}</h3>
-                <p className="text-sm text-zinc-500 line-clamp-1">
+                <h3 className="font-mono text-sm font-semibold text-[#F1E9D2]">
+                  {project.title}
+                </h3>
+                <p className="mt-1 text-xs text-[#B9B09A] line-clamp-1 max-w-lg">
                   {project.description}
                 </p>
               </div>
@@ -286,27 +341,29 @@ const Admin = () => {
                 <button
                   type="button"
                   onClick={() => handleEdit(project)}
-                  className="rounded-lg p-2 text-zinc-400 hover:text-[#00d4ff]"
+                  className="border border-[#2E2A21] p-1.5 text-[#B9B09A] hover:text-[#E8A33D] rounded-[2px]"
                   aria-label="Edit"
                 >
-                  <Pencil size={16} />
+                  <Pencil size={14} />
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDelete(project._id)}
-                  className="rounded-lg p-2 text-zinc-400 hover:text-red-400"
+                  className="border border-[#2E2A21] p-1.5 text-[#B9B09A] hover:text-[#D9644A] rounded-[2px]"
                   aria-label="Delete"
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={14} />
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
           {projects.length === 0 && (
-            <p className="text-center text-zinc-500">No projects yet.</p>
+            <p className="border border-dashed border-[#2E2A21] p-6 text-center font-mono text-xs text-[#B9B09A]">
+              No projects recorded in database.
+            </p>
           )}
-        </motion.div>
-      </motion.div>
+        </section>
+      </m.div>
     </div>
   );
 };

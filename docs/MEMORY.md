@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 2 foundation in progress (TASK-006 complete).
+Phase 2 foundation completed (TASK-004, TASK-005, TASK-006, TASK-007 complete). Ready for Phase Gate 2 approval.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -9,10 +9,11 @@ Phase 2 foundation in progress (TASK-006 complete).
 - TASK-003: Created project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, RULES.md, TASKS.md, mirrored IDE rules, updated README.md, MEMORY.md) — commit `94c36a4`.
 - TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB) — commit `630b3b1`.
 - TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar — commit `661a47d`.
-- TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation. Motion chunk size: 146.35 kB (legacy sections still import motion; will migrate per slice).
+- TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation — commit `8185f73`.
+- TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic. Motion chunk reduced to 142.40 kB (vs 146.35 kB).
 
 ## Current task
-TASK-007: Shell (Navbar with ~/ankit logo, Footer, layout wrapper, ScrollProgress 2px amber line, reskin /admin with tokens).
+Phase Gate 2: Owner review and approval of Phase 2 foundation before Phase 3 (Slice 1: Hero).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -67,4 +68,4 @@ TASK-007: Shell (Navbar with ~/ankit logo, Footer, layout wrapper, ScrollProgres
 - Decision on whether to keep profile-photo.png (TASK-025).
 
 ## Next step
-TASK-006: Implement shared primitives and LazyMotion.
+TASK-008: Hero static (copy placeholders, ./projects button) upon Phase Gate 2 approval.
