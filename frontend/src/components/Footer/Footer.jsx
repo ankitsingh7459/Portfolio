@@ -1,7 +1,7 @@
 const LINKS = [
   { href: 'https://github.com/ankitsingh7459', label: 'github' },
-  { href: 'https://www.linkedin.com/in/ankit-singh-tech', label: 'linkedin' },
-  { href: 'mailto:ankitenterprises0001@gmail.com', label: 'email' },
+  { href: '[FILL: linkedin]', label: 'linkedin' },
+  { href: 'mailto:[FILL: email]', label: 'email' },
   { href: '/resume.pdf', label: 'resume.pdf' },
 ];
 
