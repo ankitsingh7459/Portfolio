@@ -121,12 +121,12 @@ export const Hero = () => {
         </p>
 
         {/* Name / Heading */}
-        <div className="min-h-[2.5rem] md:min-h-[3.75rem] flex items-center">
-          <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#F1E9D2]">
+        <div className="min-h-[2.5rem] sm:min-h-[3.25rem] md:min-h-[3.75rem] flex items-center flex-wrap">
+          <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#F1E9D2] break-words">
             {displayedName}
           </h1>
           {currentLine === 1 && (
-            <span className="cursor-block ml-1 text-[#E8A33D] text-4xl sm:text-5xl md:text-6xl">▍</span>
+            <span className="cursor-block ml-1 text-[#E8A33D] text-3xl sm:text-5xl md:text-6xl">▍</span>
           )}
         </div>
 
@@ -157,7 +157,7 @@ export const Hero = () => {
         <button
           type="button"
           onClick={() => scrollTo(heroData.primaryAction.targetId)}
-          className="rounded-[2px] bg-[#E8A33D] px-5 py-2.5 font-mono text-sm font-semibold text-[#16140F] hover:bg-[#d49332] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+          className="rounded-[2px] bg-[#E8A33D] px-5 py-3 font-mono text-sm font-semibold text-[#16140F] hover:bg-[#d49332] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 min-h-[44px] inline-flex items-center justify-center cursor-pointer"
         >
           {heroData.primaryAction.label}
         </button>
@@ -166,7 +166,7 @@ export const Hero = () => {
           href={heroData.secondaryAction.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-[2px] border border-[#2E2A21] bg-[#1E1B15] px-5 py-2.5 font-mono text-sm text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+          className="rounded-[2px] border border-[#2E2A21] bg-[#1E1B15] px-5 py-3 font-mono text-sm text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 min-h-[44px] inline-flex items-center justify-center"
         >
           {heroData.secondaryAction.label}
         </a>

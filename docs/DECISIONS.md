@@ -9,3 +9,4 @@
 - ADR-007: Site renders from local fallback data when API is unavailable. Reason: Render free tier cold starts must not blank the page.
 - ADR-008: PrintAPM case study shows high-level architecture only. Reason: no public security detail, endpoints, secrets, or audit findings.
 - ADR-009: Home.jsx VisitorStats removal was a deliberate owner change, committed before TASK-004. Reason: Owner deliberately disabled public visitor statistics UI component to align with the streamlined redesign.
+- ADR-010: Vitest and Testing Library for unit testing. Reason: Fast, native Vite integration, compatible with React 19 and JSDOM, verifies accessibility (.sr-only copy, focus targets), reduced motion, and interaction behavior without overhead.

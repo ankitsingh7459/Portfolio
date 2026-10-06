@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 3 (Hero slice) in progress (TASK-009 complete).
+Phase 3 (Hero slice) completed (TASK-008, TASK-009, TASK-010 complete). Awaiting Phase Gate 3 approval.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -12,10 +12,11 @@ Phase 3 (Hero slice) in progress (TASK-009 complete).
 - TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation — commit `8185f73`.
 - TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic — commit `8ad9eb5`.
 - TASK-008: Rebuilt features/hero/Hero.jsx static with Warm Terminal layout (~/ankit $ whoami, h1 in IBM Plex Mono, muted descriptor from data/hero.js, hero line, amber primary action ./projects, bordered mono secondary action cat resume.pdf). Removed neon-glow, old typing role-switcher, and glass classes — commit `3a08e6a`.
-- TASK-009: Implemented one-time terminal boot sequence in Hero: sequential typing with step(2) blinking block cursor on active line only, skippable on keydown/click, instant rendering under prefers-reduced-motion, accessible full text in .sr-only container from initial render, and zero layout shift.
+- TASK-009: Implemented one-time terminal boot sequence in Hero: sequential typing with step(2) blinking block cursor on active line only, skippable on keydown/click, instant rendering under prefers-reduced-motion, accessible full text in .sr-only container from initial render, and zero layout shift — commit `231739d`.
+- TASK-010: Verified mobile responsiveness (375/768/1440 px, zero horizontal scroll, break-words wrapping), accessibility (AA/AAA contrast, >=44px tap targets, visible amber focus rings with offset), and installed vitest test suite (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`) with 5 unit tests for Hero. Recorded ADR-010 in docs/DECISIONS.md and LazyMotion instruction in TASKS.md.
 
 ## Current task
-TASK-010: Hero mobile, a11y pass, and Vitest test suite.
+Phase Gate 3: Awaiting owner approval before proceeding to Phase 4 (Slice 2: Projects & PrintAPM Case Study).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
