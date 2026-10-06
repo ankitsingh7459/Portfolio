@@ -1,16 +1,17 @@
 # Project Memory
 
 ## Current status
-Phase 2 foundation in progress (TASK-004 complete).
+Phase 2 foundation in progress (TASK-005 complete).
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
 - TASK-002: Repo hygiene completed (removed 25 junk/log files, updated root & frontend `.gitignore` for `.vercel/`, `.env*`, `dist/`, `node_modules/`, resolved `README.md` merge markers, verified secrets with Gitleaks and history audit) — commit `1e6ff0e`.
 - TASK-003: Created project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, RULES.md, TASKS.md, mirrored IDE rules, updated README.md, MEMORY.md) — commit `94c36a4`.
-- TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB).
+- TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB) — commit `630b3b1`.
+- TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar.
 
 ## Current task
-TASK-005: Tokens, fonts, global CSS per DESIGN.md.
+TASK-006: Shared primitives (useReducedMotion, useReveal, Reveal, TypedText, SectionHeading, LazyMotion).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -49,7 +50,7 @@ TASK-005: Tokens, fonts, global CSS per DESIGN.md.
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- `Home.jsx` has preserved working changes (commented out VisitorStats).
+- Legacy classes (.glass, .neon-text, .neon-glow) are preserved temporarily in index.css until sections using them are rebuilt in their respective vertical slices (legacy, remove per slice).
 
 ## Open owner inputs
 - Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
@@ -65,4 +66,4 @@ TASK-005: Tokens, fonts, global CSS per DESIGN.md.
 - Decision on whether to keep profile-photo.png (TASK-025).
 
 ## Next step
-TASK-004: Remove listed components/hooks/context and unused deps; verify build passes (after owner approves Phase Gate 1).
+TASK-006: Implement shared primitives and LazyMotion.

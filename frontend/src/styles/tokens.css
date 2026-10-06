@@ -1,0 +1,11 @@
+:root {
+  --color-bg: #16140F;
+  --color-surface: #1E1B15;
+  --color-border: #2E2A21;
+  --color-text: #F1E9D2;
+  --color-muted: #B9B09A;
+  --color-accent: #E8A33D;
+  --color-on-accent: #16140F;
+  --color-danger: #D9644A;
+  --color-success: #8FB573;
+}
