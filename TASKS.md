@@ -26,7 +26,7 @@
 ## Phase 5: Slice 3, About / Stack / Log
 - [x] TASK-014 About (`cat about.txt`)
 - [x] TASK-015 Stack as grouped plain list (`stack.json` style)
-- [ ] TASK-016 Timeline and certifications as `git log`
+- [x] TASK-016 Timeline and certifications as `git log`
 - [ ] TASK-017 GitHub activity restyled, lazy, graceful failure
 
 ## Phase 6: Slice 4, Contact / Resume
