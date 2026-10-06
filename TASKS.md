@@ -31,7 +31,7 @@
 
 ## Phase 6: Slice 4, Contact / Resume
 - [x] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
-- [ ] TASK-019 Resume viewer/download (`cat resume.pdf`)
+- [x] TASK-019 Resume viewer/download (`cat resume.pdf`)
 *Instruction: After Phase 6: enable LazyMotion strict, make sure no file imports motion, record the motion chunk size.*
 
 ## Phase 7: Interactive

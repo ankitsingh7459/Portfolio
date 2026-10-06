@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { resumeData } from '../../data/resume';
 
 const LINKS = [
   { label: 'projects', id: 'projects' },
@@ -8,6 +9,7 @@ const LINKS = [
   { label: 'stack', id: 'stack' },
   { label: 'log', id: 'log' },
   { label: 'github', id: 'github' },
+  ...(resumeData?.available ? [{ label: 'resume', id: 'resume' }] : []),
   { label: 'contact', id: 'contact' },
 ];
 

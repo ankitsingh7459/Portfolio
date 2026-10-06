@@ -7,6 +7,7 @@ import Projects from '../components/Projects/Projects';
 import About from '../components/About/About';
 import Stack from '../features/stack/Stack';
 import Log from '../features/log/Log';
+import Resume from '../features/resume/Resume';
 import Contact from '../features/contact/Contact';
 
 const GitHubActivity = lazy(
@@ -30,6 +31,7 @@ const Home = () => {
       <Suspense fallback={null}>
         <GitHubActivity />
       </Suspense>
+      <Resume />
       <Contact />
     </Layout>
   );
