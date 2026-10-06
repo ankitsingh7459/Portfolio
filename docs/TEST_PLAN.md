@@ -44,6 +44,7 @@
 - Content placeholder check: run `npm run check:release` (`node scripts/check-release.mjs`) in `frontend`; verifies no `[FILL` placeholders exist in `src/`, `public/`, or `index.html`, and verifies no empty `href="#"` links exist in `src/`.
 - Verify `grep -r "\[FILL" frontend/src frontend/public frontend/index.html` returns nothing.
 - A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
+- VITE_API_URL is set in Vercel for Preview AND Production; backend FRONTEND_URL/CORS allows the preview and production origins.
 
 ## Automation
 - Unit: Vitest for `lib/terminalCommands`. E2E: Playwright for the flows above.
