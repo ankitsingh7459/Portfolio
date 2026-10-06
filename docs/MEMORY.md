@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 4 (Projects & PrintAPM slice) in progress (TASK-011 complete).
+Phase 4 (Projects & PrintAPM slice) in progress (TASK-012 complete).
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -14,10 +14,11 @@ Phase 4 (Projects & PrintAPM slice) in progress (TASK-011 complete).
 - TASK-008: Rebuilt features/hero/Hero.jsx static with Warm Terminal layout (~/ankit $ whoami, h1 in IBM Plex Mono, muted descriptor from data/hero.js, hero line, amber primary action ./projects, bordered mono secondary action cat resume.pdf). Removed neon-glow, old typing role-switcher, and glass classes — commit `3a08e6a`.
 - TASK-009: Implemented one-time terminal boot sequence in Hero: sequential typing with step(2) blinking block cursor on active line only, skippable on keydown/click, instant rendering under prefers-reduced-motion, accessible full text in .sr-only container from initial render, and zero layout shift — commit `231739d`.
 - TASK-010: Verified mobile responsiveness (375/768/1440 px, zero horizontal scroll, break-words wrapping), accessibility (AA/AAA contrast, >=44px tap targets, visible amber focus rings with offset), and installed vitest test suite (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`) with 5 unit tests for Hero. Recorded ADR-010 in docs/DECISIONS.md and LazyMotion instruction in TASKS.md — commit `3d06ce7`.
-- TASK-011: Rebuilt features/projects slice with SectionHeading ("$ ls projects"), bordered ProjectRow items, hover/focus amber marker with x+4px shift, staggered Reveal (0.06s), useProjects hook with 4s timeout and fallback, PrintAPM prepended and featured (ADR-011), and completely removed .glass and .neon-* classes from projects.
+- TASK-011: Rebuilt features/projects slice with SectionHeading ("$ ls projects"), bordered ProjectRow items, hover/focus amber marker with x+4px shift, staggered Reveal (0.06s), useProjects hook with 4s timeout and fallback, PrintAPM prepended and featured (ADR-011), and completely removed .glass and .neon-* classes from projects — commit `fbb8512`.
+- TASK-012: Created PrintAPM case study route /projects/printapm (lazy-loaded), terminal layout ($ cat problem.txt, solution.txt, stats.json, architecture.md, decisions.md, lessons.txt, screenshots with dashed placeholder, live link to printapm.online), route title, heading focus, back navigation, and 404 fallback route.
 
 ## Current task
-TASK-012: PrintAPM case study route /projects/printapm and page.
+TASK-013: Unit and integration tests for projects slice and PrintAPM case study.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
