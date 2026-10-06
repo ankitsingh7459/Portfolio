@@ -49,17 +49,13 @@ describe('GitHubActivity Component', () => {
     });
   });
 
-  it('renders fallback snapshot and graceful note on API failure', async () => {
+  it('renders muted line "// GitHub unavailable." on API failure', async () => {
     api.getGitHubActivity.mockRejectedValueOnce(new Error('Network failure'));
 
     renderGitHubActivity();
 
     await waitFor(() => {
-      expect(
-        screen.getByText(/Activity service unavailable. Showing local snapshot./i)
-      ).toBeInTheDocument();
-      // Default snapshot repo
-      expect(screen.getByText('Portfolio')).toBeInTheDocument();
+      expect(screen.getByText(/\/\/ GitHub unavailable\./i)).toBeInTheDocument();
     });
   });
 
@@ -72,9 +68,8 @@ describe('GitHubActivity Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/API rate limit reached. Showing local snapshot./i)
+        screen.getByText(/\/\/ GitHub rate limit reached\. Activity unavailable\./i)
       ).toBeInTheDocument();
-      expect(screen.getByText('Portfolio')).toBeInTheDocument();
     });
   });
 
@@ -84,7 +79,7 @@ describe('GitHubActivity Component', () => {
     const { container } = renderGitHubActivity();
 
     await waitFor(() => {
-      expect(screen.getByText('Portfolio')).toBeInTheDocument();
+      expect(screen.getByText(/\/\/ GitHub unavailable\./i)).toBeInTheDocument();
     });
 
     const links = container.querySelectorAll('a');

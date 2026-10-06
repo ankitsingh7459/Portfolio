@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getGitHubActivity } from '../../services/api';
-import { defaultGitHubData } from '../../data/github';
 
 /**
- * Hook to fetch GitHub activity via the backend proxy with 4s timeout and graceful fallback.
+ * Hook to fetch GitHub activity via backend proxy with 4s timeout.
+ * When unavailable, sets error to muted message and data to null.
  * @param {number} timeoutMs
  */
 export const useGitHubActivity = (timeoutMs = 4000) => {
-  const [data, setData] = useState(defaultGitHubData);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,17 +15,15 @@ export const useGitHubActivity = (timeoutMs = 4000) => {
     let isMounted = true;
     let timer = null;
 
-    const applyFallback = (errReason = null) => {
+    const handleFailure = (msg) => {
       if (!isMounted) return;
-      setData(defaultGitHubData);
-      if (errReason) setError(errReason);
+      setData(null);
+      setError(msg);
       setLoading(false);
     };
 
     timer = setTimeout(() => {
-      if (isMounted) {
-        applyFallback('Activity service timed out. Showing local snapshot.');
-      }
+      handleFailure('GitHub unavailable (request timed out).');
     }, timeoutMs);
 
     getGitHubActivity()
@@ -33,11 +31,11 @@ export const useGitHubActivity = (timeoutMs = 4000) => {
         if (!isMounted) return;
         clearTimeout(timer);
         const payload = res.data?.data || res.data;
-        if (payload && Array.isArray(payload.repos)) {
+        if (payload && Array.isArray(payload.repos) && payload.repos.length > 0) {
           setData(payload);
           setError(null);
         } else {
-          applyFallback(null);
+          handleFailure('GitHub unavailable.');
         }
         setLoading(false);
       })
@@ -46,9 +44,9 @@ export const useGitHubActivity = (timeoutMs = 4000) => {
         clearTimeout(timer);
         const isRateLimit = err?.response?.status === 403 || err?.response?.status === 429;
         const msg = isRateLimit
-          ? 'API rate limit reached. Showing local snapshot.'
-          : 'Activity service unavailable. Showing local snapshot.';
-        applyFallback(msg);
+          ? 'GitHub rate limit reached. Activity unavailable.'
+          : 'GitHub unavailable.';
+        handleFailure(msg);
       });
 
     return () => {
