@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 5 (Slice 3: About, Stack, Log, GitHub) complete. Ready for Phase Gate 5 review.
+Phase 6 (Slice 4: Contact and Resume) in progress.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -20,10 +20,11 @@ Phase 5 (Slice 3: About, Stack, Log, GitHub) complete. Ready for Phase Gate 5 re
 - TASK-014: Rebuilt features/about slice with SectionHeading ("$ cat about.txt"), isolated lines in data/about.js ([FILL: about line 1..4]), readable line length max-w-[65ch], Reveal on scroll, and removed old About component with cards/glass/neon — commit `0ea717d`.
 - TASK-015: Rebuilt features/stack slice with SectionHeading ("$ cat stack.json"), semantic dl/dt/dd/ul/li JSON markup with owner-approved technologies, no skill bars/percentages/icons, Reveal animation, and removed old Skills component — commit `412fc59`.
 - TASK-016: Consolidated Timeline and Certifications into features/log/Log.jsx ($ git log --oneline), data in data/timeline.js and data/certifications.js with bare placeholders and null URLs, decorative aria-hidden fake hashes, empty state, and removed legacy Timeline/Certifications components with .glass/.neon-* — commit `2fc0c66`.
-- TASK-017: Rebuilt features/github slice with SectionHeading ("$ gh activity --user ankitsingh7459"), useGitHubActivity hook with 4s timeout and graceful fallback on network failure or rate limits (403/429), terminal summary stats bar, bordered repo rows with hover shift, external profile link, removed legacy cyan/glass/neon styles, and added comprehensive unit test suite across Phase 5 slices.
+- TASK-017: Rebuilt features/github slice with SectionHeading ("$ gh activity --user ankitsingh7459"), useGitHubActivity hook with 4s timeout and graceful fallback on network failure or rate limits (403/429), terminal summary stats bar, bordered repo rows with hover shift, external profile link, removed legacy cyan/glass/neon styles, and added comprehensive unit test suite across Phase 5 slices — commit `ef6a85b` (fallback sanitized in `c77e146`).
+- TASK-018: Rebuilt features/contact slice with SectionHeading ("$ mail ankit"), useContactForm hook mirroring backend constraints (name 2-100 chars, valid email, message 10-2000 chars), accessible labels, inline errors with aria-describedby, focus management to first invalid input, double-submit protection, terminal status responses (success, 429 rate limit, 500 error, network unavailable), single source of truth in data/contact.js for Contact and Footer, zero unconfirmed emails exposed in DOM, and completely deleted legacy .glass/.neon-text styles.
 
 ## Current task
-Phase Gate 5 approval.
+TASK-019: Resume slice (features/resume, $ cat resume.pdf, open & download actions, last updated, build-time / data gating, ADR-013).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -62,7 +63,7 @@ Phase Gate 5 approval.
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until remaining section using them is rebuilt in its respective vertical slice (Contact). About, Projects, Stack, Timeline, Certifications, and GitHubActivity have been completely migrated to Warm Terminal tokens.
+- Zero known issues. All legacy classes (.glass, .neon-text) and deprecated styles have been completely removed from index.css.
 
 ## Open owner inputs
 - Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
@@ -70,7 +71,7 @@ Phase Gate 5 approval.
 - 3-4 lines for `about.txt`.
 - Copy language: English (confirmed).
 - data/projects.js descriptions come from the old site; owner rewrites in own words.
-- data/github.js repository descriptions for offline snapshot come from the old site; owner confirms or rewrites.
+- data/contact.js: email and LinkedIn URL (currently [FILL]).
 - PrintAPM real database metrics (total prints, kiosks deployed, launch date, average upload-to-print time).
 - PrintAPM screenshots (kiosk code screen, mobile upload flow, kiosk photo, blurred admin view).
 - PrintAPM problem statement, solution description, and lessons learned in Ankit's words.
@@ -84,4 +85,4 @@ Phase Gate 5 approval.
 - Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
 
 ## Next step
-Phase Gate 5 approval -> Phase 6: Slice 4, Contact / Resume (TASK-018 to TASK-019).
+TASK-019: Resume slice (`features/resume`, `$ cat resume.pdf`, open/download actions, data/resume.js).

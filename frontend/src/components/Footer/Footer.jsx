@@ -1,12 +1,41 @@
-const LINKS = [
-  { href: 'https://github.com/ankitsingh7459', label: 'github' },
-  { href: '[FILL: linkedin]', label: 'linkedin' },
-  { href: 'mailto:[FILL: email]', label: 'email' },
-  { href: '/resume.pdf', label: 'resume.pdf' },
-];
+import { contactData } from '../../data/contact';
+
+const isRealUrl = (url) => {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  if (
+    trimmed === '' ||
+    trimmed === '#' ||
+    trimmed.startsWith('[FILL') ||
+    trimmed.includes('[FILL') ||
+    trimmed === 'null' ||
+    trimmed === 'undefined'
+  ) {
+    return false;
+  }
+  return (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('mailto:') ||
+    trimmed.startsWith('/')
+  );
+};
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
+  const links = [
+    { label: 'github', href: contactData.githubUrl, external: true },
+    { label: 'linkedin', href: contactData.linkedinUrl, external: true },
+    {
+      label: 'email',
+      href: contactData.email.startsWith('mailto:')
+        ? contactData.email
+        : `mailto:${contactData.email}`,
+      external: false,
+    },
+    { label: 'resume.pdf', href: contactData.resumeUrl, external: true },
+  ];
 
   return (
     <footer className="border-t border-[#2E2A21] bg-[#16140F] py-12 mt-16 text-sm font-mono">
@@ -17,18 +46,27 @@ const Footer = () => {
         </div>
 
         <ul className="flex flex-wrap items-center justify-center gap-4 text-xs">
-          {LINKS.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                target={link.label === 'email' ? undefined : '_blank'}
-                rel="noopener noreferrer"
-                className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
-              >
-                [{link.label}]
-              </a>
-            </li>
-          ))}
+          {links.map((link) => {
+            const isReal = isRealUrl(link.href);
+            return (
+              <li key={link.label}>
+                {isReal ? (
+                  <a
+                    href={link.href}
+                    target={link.external ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                  >
+                    [{link.label}]
+                  </a>
+                ) : (
+                  <span className="text-[#B9B09A]/50 select-none">
+                    [{link.label}]
+                  </span>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </footer>

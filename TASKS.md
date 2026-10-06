@@ -30,7 +30,7 @@
 - [x] TASK-017 GitHub activity restyled, lazy, graceful failure
 
 ## Phase 6: Slice 4, Contact / Resume
-- [ ] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
+- [x] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
 - [ ] TASK-019 Resume viewer/download (`cat resume.pdf`)
 *Instruction: After Phase 6: enable LazyMotion strict, make sure no file imports motion, record the motion chunk size.*
 

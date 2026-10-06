@@ -7,7 +7,7 @@ import Projects from '../components/Projects/Projects';
 import About from '../components/About/About';
 import Stack from '../features/stack/Stack';
 import Log from '../features/log/Log';
-import Contact from '../components/Contact/Contact';
+import Contact from '../features/contact/Contact';
 
 const GitHubActivity = lazy(
   () => import('../features/github/GitHubActivity')
