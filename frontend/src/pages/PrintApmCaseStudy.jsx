@@ -54,7 +54,7 @@ export const PrintApmCaseStudy = () => {
               Role: {printApmCaseStudy.role}
             </span>
             <span className="font-mono text-xs border border-[#E8A33D]/40 text-[#E8A33D] px-2.5 py-1 rounded-[2px]">
-              Production System
+              {printApmCaseStudy.badge}
             </span>
           </div>
         </header>
