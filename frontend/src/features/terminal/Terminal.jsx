@@ -168,7 +168,8 @@ export const Terminal = () => {
           }}
           onFocus={() => setIsExpanded(true)}
           className="group inline-flex items-center gap-2 font-mono text-xs md:text-sm text-[#B9B09A] hover:text-[#F1E9D2] border border-transparent hover:border-[#2E2A21] px-2.5 py-1.5 rounded-[2px] transition-colors cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 min-h-[44px]"
-          aria-label="Open interactive terminal"
+          aria-label="~/ankit $ type 'help' - open interactive terminal"
+          aria-expanded={isExpanded}
         >
           <span className="text-[#E8A33D] select-none" aria-hidden="true">
             ~/ankit $
@@ -182,7 +183,11 @@ export const Terminal = () => {
           </span>
         </button>
       ) : (
-        <div className="border border-[#2E2A21] bg-[#16140F] rounded-[2px] p-4 space-y-3">
+        <div
+          role="region"
+          aria-label="Interactive terminal"
+          className="border border-[#2E2A21] focus-within:border-[#706654] bg-[#16140F] rounded-[2px] p-4 space-y-3"
+        >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-[#2E2A21] pb-2 font-mono text-xs text-[#B9B09A]">
             <div className="flex items-center gap-2">
@@ -195,7 +200,7 @@ export const Terminal = () => {
               type="button"
               onClick={() => setIsExpanded(false)}
               className="text-[#B9B09A] hover:text-[#F1E9D2] hover:underline px-1 py-0.5 rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] cursor-pointer"
-              aria-label="Collapse terminal panel"
+              aria-label="[close] terminal panel"
             >
               [close]
             </button>

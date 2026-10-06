@@ -25,10 +25,10 @@ export const Log = () => {
           {/* Milestones subsection */}
           {hasTimeline && (
             <div className="space-y-2">
-              <p className="font-mono text-xs text-[#B9B09A] mb-3 flex items-center gap-1.5 select-none">
-                <span className="text-[#E8A33D]">//</span>
+              <h3 className="font-mono text-xs text-[#B9B09A] mb-3 flex items-center gap-1.5">
+                <span className="text-[#E8A33D]" aria-hidden="true">//</span>
                 <span>Milestones</span>
-              </p>
+              </h3>
               <div className="border border-[#2E2A21] bg-[#16140F] divide-y divide-[#2E2A21] rounded-[2px]">
                 {timelineEntries.map((entry, idx) => (
                   <Reveal key={entry.id || idx} delay={idx * 0.05}>
@@ -62,10 +62,10 @@ export const Log = () => {
           {/* Certifications subsection */}
           {hasCerts && (
             <div className="space-y-2">
-              <p className="font-mono text-xs text-[#B9B09A] mb-3 flex items-center gap-1.5 select-none">
-                <span className="text-[#E8A33D]">//</span>
+              <h3 className="font-mono text-xs text-[#B9B09A] mb-3 flex items-center gap-1.5">
+                <span className="text-[#E8A33D]" aria-hidden="true">//</span>
                 <span>Credentials</span>
-              </p>
+              </h3>
               <div className="border border-[#2E2A21] bg-[#16140F] divide-y divide-[#2E2A21] rounded-[2px]">
                 {certifications.map((cert, idx) => (
                   <Reveal key={cert.id || idx} delay={idx * 0.05}>
@@ -95,9 +95,11 @@ export const Log = () => {
                             href={cert.credentialUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                            className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] inline-flex items-center gap-1"
                           >
-                            verify ↗
+                            <span>verify</span>
+                            <span aria-hidden="true">↗</span>
+                            <span className="sr-only"> (opens in new tab)</span>
                           </a>
                         )}
                       </div>

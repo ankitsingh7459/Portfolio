@@ -48,7 +48,9 @@ describe('Hero Component', () => {
     document.body.removeChild(mockTarget);
 
     // Test secondary link
-    const secondaryLink = screen.getByRole('link', { name: heroData.secondaryAction.label });
+    const secondaryLink = screen.getByRole('link', {
+      name: new RegExp(heroData.secondaryAction.label),
+    });
     expect(secondaryLink).toBeInTheDocument();
     expect(secondaryLink).toHaveAttribute('href', heroData.secondaryAction.href);
     expect(secondaryLink).toHaveAttribute('target', '_blank');

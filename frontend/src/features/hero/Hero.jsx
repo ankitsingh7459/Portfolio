@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
-import { m } from 'framer-motion';
 import { heroData } from '../../data/hero';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
@@ -122,7 +121,7 @@ export const Hero = () => {
     >
       {/* Screen Reader Full Text (Present on first render for crawlers & assistive tech) */}
       <div className="sr-only">
-        <h2>{heroData.prompt}</h2>
+        <p>{heroData.prompt}</p>
         <h1>{heroData.name}</h1>
         <p>{heroData.descriptor}</p>
         <p>{heroData.heroLine}</p>
@@ -141,9 +140,9 @@ export const Hero = () => {
 
         {/* Name / Heading */}
         <div className="min-h-[2.5rem] sm:min-h-[3.25rem] md:min-h-[3.75rem] flex items-center flex-wrap">
-          <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#F1E9D2] break-words">
+          <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#F1E9D2] break-words">
             {displayedName}
-          </h1>
+          </span>
           {currentLine === 1 && (
             <span className="cursor-block ml-1 text-[#E8A33D] text-3xl sm:text-5xl md:text-6xl">▍</span>
           )}
@@ -166,13 +165,8 @@ export const Hero = () => {
         </p>
       </div>
 
-      {/* Actions (Always accessible and clickable, smooth opacity transition) */}
-      <m.div
-        className="max-w-3xl flex flex-wrap items-center gap-4 pt-8"
-        initial={false}
-        animate={{ opacity: isComplete ? 1 : 0.4 }}
-        transition={{ duration: 0.3 }}
-      >
+      {/* Actions (Always accessible and clickable with full contrast) */}
+      <div className="max-w-3xl flex flex-wrap items-center gap-4 pt-8">
         <button
           type="button"
           onClick={() => scrollTo(heroData.primaryAction.targetId)}
@@ -187,9 +181,10 @@ export const Hero = () => {
           rel="noopener noreferrer"
           className="rounded-[2px] border border-[#2E2A21] bg-[#1E1B15] px-5 py-3 font-mono text-sm text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 min-h-[44px] inline-flex items-center justify-center"
         >
-          {heroData.secondaryAction.label}
+          <span>{heroData.secondaryAction.label}</span>
+          <span className="sr-only"> (opens in new tab)</span>
         </a>
-      </m.div>
+      </div>
 
       {/* Collapsed/Expanded Terminal UI under Hero actions */}
       {isComplete && isVisible && (

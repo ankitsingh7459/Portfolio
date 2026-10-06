@@ -91,7 +91,7 @@ const Navbar = () => {
           type="button"
           onClick={() => scrollTo('hero')}
           className="group flex items-center gap-1 font-mono text-sm md:text-base font-semibold text-[#F1E9D2] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2"
-          aria-label="Scroll to top"
+          aria-label="~/ankit, scroll to top"
         >
           <span className="text-[#E8A33D] group-hover:underline">~/</span>
           <span>ankit</span>
@@ -99,7 +99,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-3">
-          <nav className="flex items-center gap-1" aria-label="Main Navigation">
+          <nav className="flex items-center gap-1" aria-label="Primary">
             {LINKS.map((link) => {
               const isActive = active === link.id;
               const isHovered = hovered === link.id;
@@ -115,7 +115,7 @@ const Navbar = () => {
                   className={`relative px-3 py-1.5 font-mono text-sm transition-colors rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 ${
                     isActive ? 'text-[#E8A33D]' : 'text-[#B9B09A] hover:text-[#F1E9D2]'
                   }`}
-                  aria-current={isActive ? 'page' : undefined}
+                  aria-current={isActive ? 'location' : undefined}
                 >
                   <span className="text-[#E8A33D]/60 mr-1 select-none">.</span>
                   {link.label}
@@ -135,6 +135,8 @@ const Navbar = () => {
             onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
             className="font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] border border-[#2E2A21] bg-[#1E1B15] px-2.5 py-1 rounded-[2px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 flex items-center gap-1.5 min-h-[32px]"
             aria-label="Open command palette"
+            aria-haspopup="dialog"
+            aria-expanded="false"
           >
             <span className="text-[#E8A33D] select-none" aria-hidden="true">&gt;</span>
             <span>Ctrl K</span>
@@ -160,7 +162,7 @@ const Navbar = () => {
           role="dialog"
           aria-label="Mobile Navigation"
         >
-          <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1" aria-label="Mobile Primary">
             {LINKS.map((link) => {
               const isActive = active === link.id;
               return (
@@ -173,6 +175,7 @@ const Navbar = () => {
                       ? 'border-[#E8A33D] text-[#E8A33D] bg-[#16140F]'
                       : 'border-transparent text-[#B9B09A] hover:text-[#F1E9D2] hover:bg-[#16140F]'
                   }`}
+                  aria-current={isActive ? 'location' : undefined}
                 >
                   $ cd ~/{link.label}
                 </button>
@@ -187,8 +190,10 @@ const Navbar = () => {
                 setMobileOpen(false);
                 window.dispatchEvent(new CustomEvent('open-command-palette'));
               }}
-              className="w-full text-left font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] bg-[#16140F] px-3 py-2.5 rounded-[2px] min-h-[44px] flex items-center justify-between transition-colors"
+              className="w-full text-left font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] bg-[#16140F] px-3 py-2.5 rounded-[2px] min-h-[44px] flex items-center justify-between transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2"
               aria-label="Open command palette"
+              aria-haspopup="dialog"
+              aria-expanded="false"
             >
               <span>Ctrl K (Command Palette)</span>
               <span className="text-[#E8A33D]">&gt;</span>

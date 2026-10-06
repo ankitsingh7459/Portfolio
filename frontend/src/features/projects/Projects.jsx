@@ -24,7 +24,7 @@ export const Projects = () => {
 
       {/* Loading Skeleton Rows (No spinners or glowing elements) */}
       {loading ? (
-        <div className="space-y-3" aria-busy="true" aria-label="Loading projects">
+        <div role="status" className="space-y-3" aria-busy="true" aria-label="Loading projects">
           {[1, 2, 3, 4].map((idx) => (
             <div
               key={idx}

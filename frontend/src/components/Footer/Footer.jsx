@@ -38,10 +38,10 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="border-t border-[#2E2A21] bg-[#16140F] py-12 mt-16 text-sm font-mono">
+    <footer aria-label="Site Footer" className="border-t border-[#2E2A21] bg-[#16140F] py-12 mt-16 text-sm font-mono">
       <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex flex-col sm:flex-row items-center gap-3 text-[#B9B09A]">
-          <span className="text-[#E8A33D]">$</span>
+          <span className="text-[#E8A33D]" aria-hidden="true">$</span>
           <span>echo &quot;Ankit Singh (c) {year}&quot;</span>
         </div>
 
@@ -55,12 +55,15 @@ const Footer = () => {
                     href={link.href}
                     target={link.external ? '_blank' : undefined}
                     rel="noopener noreferrer"
-                    className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                    className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px]"
                   >
-                    [{link.label}]
+                    <span>[{link.label}]</span>
+                    {link.external && (
+                      <span className="sr-only"> (opens in new tab)</span>
+                    )}
                   </a>
                 ) : (
-                  <span className="text-[#B9B09A]/50 select-none">
+                  <span className="text-[#B9B09A] select-none" aria-hidden="true">
                     [{link.label}]
                   </span>
                 )}

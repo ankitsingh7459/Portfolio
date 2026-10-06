@@ -67,17 +67,20 @@ export const GitHubActivity = () => {
                           &gt;
                         </span>
                         {isRealUrl ? (
-                          <a
-                            href={repo.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-mono text-sm md:text-base font-semibold text-[#F1E9D2] hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] transition-colors inline-flex items-center gap-1.5"
-                          >
-                            <span>{repo.name}</span>
-                            <span className="text-[#E8A33D] text-xs select-none" aria-hidden="true">
-                              ↗
-                            </span>
-                          </a>
+                          <h3 className="font-mono text-sm md:text-base font-semibold text-[#F1E9D2]">
+                            <a
+                              href={repo.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] transition-colors inline-flex items-center gap-1.5"
+                            >
+                              <span>{repo.name}</span>
+                              <span className="text-[#E8A33D] text-xs select-none" aria-hidden="true">
+                                ↗
+                              </span>
+                              <span className="sr-only"> (opens in new tab)</span>
+                            </a>
+                          </h3>
                         ) : (
                           <h3 className="font-mono text-sm md:text-base font-semibold text-[#F1E9D2]">
                             {repo.name}
@@ -128,7 +131,8 @@ export const GitHubActivity = () => {
             className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] inline-flex items-center gap-1.5"
           >
             <span>View all on GitHub</span>
-            <span>→</span>
+            <span aria-hidden="true">→</span>
+            <span className="sr-only"> (opens in new tab)</span>
           </a>
         </div>
       </Reveal>

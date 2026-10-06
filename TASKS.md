@@ -41,7 +41,7 @@
 
 ## Phase 8: Polish
 - [x] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
-- [ ] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast)
+- [x] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast, axe-core audit)
 - [ ] TASK-025 Performance: lazy loading, font preload, bundle check, Lighthouse targets; WebP for profile-photo.png (baseline 523 kB) only if owner approves keeping the photo
 - [ ] TASK-026 Responsive pass 375/768/1440
 

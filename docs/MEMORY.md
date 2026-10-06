@@ -24,9 +24,14 @@ Phase 6 (Slice 4: Contact and Resume) complete. Ready for Phase Gate 6 review.
 - TASK-018: Rebuilt features/contact slice with SectionHeading ("$ mail ankit"), useContactForm hook mirroring backend constraints (name 2-100 chars, valid email, message 10-2000 chars), accessible labels, inline errors with aria-describedby, focus management to first invalid input, double-submit protection, terminal status responses (success, 429 rate limit, 500 error, network unavailable), single source of truth in data/contact.js for Contact and Footer, zero unconfirmed emails exposed in DOM, and completely deleted legacy .glass/.neon-text styles — commit `e7a3461`.
 - TASK-019: Created features/resume slice with SectionHeading ("$ cat resume.pdf"), open and download actions for /resume.pdf, last updated metadata from data/resume.js, no embedded iframe (ADR-013), and conditional Navbar/Home visibility gating based on file availability (ADR-012) — commit `58df578`.
 - TASK-019b: Motion cleanup completed. Verified 0 occurrences of motion. or full motion imports across frontend/src. Enabled LazyMotion strict in Root.jsx. Added ESLint no-restricted-imports rule forbidding import of motion from framer-motion. Verified motion chunk reduced from 145.93 kB (gzip: 48.87 kB) to 96.85 kB (gzip: 34.46 kB), saving 49.08 kB uncompressed (-33.6%).
+- TASK-020: Created pure terminal command parser `lib/terminalCommands.js` and targets `lib/navTargets.js` with 23 unit tests — commit `331d96d`.
+- TASK-021: Implemented Hero interactive Terminal panel (desktop input + history/tab completion, mobile button chips) with 10 unit tests — commit `edcd541`.
+- TASK-022: Implemented accessible Command Palette with combobox, listbox, focus trap, restoration, and 9 unit tests — commit `2f5cd43`.
+- TASK-023: SEO slice: dynamic robots.txt/sitemap.xml generator, `usePageMeta` hook, OpenGraph image generator script (19 kB PNG), `%SITE_URL%` Vite plugin, canonical links, and Person JSON-LD — commit `1ed099e`.
+- TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states.
 
 ## Current task
-Phase Gate 6 approval.
+TASK-025: Performance pass (Lighthouse audit, bundle analysis, fetch wrapper replacing axios, passive scroll listener, and font weight trimming).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)

@@ -74,6 +74,7 @@ export const Resume = () => {
             >
               <span>open</span>
               <span aria-hidden="true">↗</span>
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
 
             <a

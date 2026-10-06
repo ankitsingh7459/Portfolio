@@ -40,17 +40,20 @@ export const SectionHeading = ({
 
   return (
     <div ref={headingRef} className={`mb-8 ${className}`}>
-      <h2 className="flex items-center gap-2 font-mono text-xl md:text-2xl font-semibold text-[#F1E9D2]">
-        <span className="text-[#E8A33D] select-none" aria-hidden="true">
-          {prompt}
+      <h2 className="font-mono text-xl md:text-2xl font-semibold text-[#F1E9D2]">
+        <span className="sr-only">{command}</span>
+        <span aria-hidden="true" className="flex items-center gap-2">
+          <span className="text-[#E8A33D] select-none">
+            {prompt}
+          </span>
+          <TypedText
+            text={command}
+            speed={32}
+            isTriggered={isInView}
+            showCursor={!isInView}
+            className="text-[#F1E9D2]"
+          />
         </span>
-        <TypedText
-          text={command}
-          speed={32}
-          isTriggered={isInView}
-          showCursor={!isInView}
-          className="text-[#F1E9D2]"
-        />
       </h2>
       {description && (
         <p className="mt-2 font-sans text-sm text-[#B9B09A] max-w-2xl">

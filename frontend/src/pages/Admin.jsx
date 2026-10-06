@@ -212,7 +212,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#16140F] p-4 md:p-8 font-sans text-[#F1E9D2]">
+    <main className="min-h-screen bg-[#16140F] p-4 md:p-8 font-sans text-[#F1E9D2]">
       <m.div
         className="mx-auto max-w-4xl"
         initial={{ opacity: 0 }}
@@ -349,7 +349,7 @@ const Admin = () => {
                   type="button"
                   onClick={() => handleEdit(project)}
                   className="border border-[#2E2A21] p-1.5 text-[#B9B09A] hover:text-[#E8A33D] rounded-[2px]"
-                  aria-label="Edit"
+                  aria-label={`Edit ${project.title}`}
                 >
                   <Pencil size={14} />
                 </button>
@@ -357,7 +357,7 @@ const Admin = () => {
                   type="button"
                   onClick={() => handleDelete(project._id)}
                   className="border border-[#2E2A21] p-1.5 text-[#B9B09A] hover:text-[#D9644A] rounded-[2px]"
-                  aria-label="Delete"
+                  aria-label={`Delete ${project.title}`}
                 >
                   <Trash2 size={14} />
                 </button>
@@ -371,7 +371,7 @@ const Admin = () => {
           )}
         </section>
       </m.div>
-    </div>
+    </main>
   );
 };
 

@@ -98,7 +98,7 @@ export const Contact = () => {
                     aria-invalid={Boolean(errors.name)}
                     aria-describedby={errors.name ? 'contact-name-error' : undefined}
                     placeholder="Your name"
-                    className="w-full bg-[#1E1B15] border border-[#2E2A21] focus:border-[#E8A33D] rounded-[2px] px-3.5 py-2.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
+                    className="w-full bg-[#1E1B15] border border-[#706654] focus:border-[#E8A33D] rounded-[2px] px-3.5 py-2.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
                   />
                   {errors.name && (
                     <p id="contact-name-error" className="font-mono text-xs text-[#D9644A] mt-1.5 flex items-center gap-1">
@@ -123,7 +123,7 @@ export const Contact = () => {
                     aria-invalid={Boolean(errors.email)}
                     aria-describedby={errors.email ? 'contact-email-error' : undefined}
                     placeholder="you@domain.com"
-                    className="w-full bg-[#1E1B15] border border-[#2E2A21] focus:border-[#E8A33D] rounded-[2px] px-3.5 py-2.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
+                    className="w-full bg-[#1E1B15] border border-[#706654] focus:border-[#E8A33D] rounded-[2px] px-3.5 py-2.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[44px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
                   />
                   {errors.email && (
                     <p id="contact-email-error" className="font-mono text-xs text-[#D9644A] mt-1.5 flex items-center gap-1">
@@ -149,7 +149,7 @@ export const Contact = () => {
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? 'contact-message-error' : undefined}
                     placeholder="Brief outline of the project, question, or opportunity..."
-                    className="w-full bg-[#1E1B15] border border-[#2E2A21] focus:border-[#E8A33D] rounded-[2px] p-3.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[120px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors resize-y"
+                    className="w-full bg-[#1E1B15] border border-[#706654] focus:border-[#E8A33D] rounded-[2px] p-3.5 font-mono text-sm text-[#F1E9D2] placeholder-[#B9B09A]/40 min-h-[120px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors resize-y"
                   />
                   {errors.message && (
                     <p id="contact-message-error" className="font-mono text-xs text-[#D9644A] mt-1.5 flex items-center gap-1">
@@ -182,7 +182,7 @@ export const Contact = () => {
         <Reveal delay={0.1}>
           <div className="mt-8 border-t border-[#2E2A21] pt-6 font-mono text-xs space-y-2">
             <p className="text-[#B9B09A]">
-              <span className="text-[#E8A33D] mr-2">//</span>
+              <span className="text-[#E8A33D] mr-2" aria-hidden="true">//</span>
               <span>direct channels:</span>
             </p>
             <div className="flex flex-wrap items-center gap-4 text-[#B9B09A]">
@@ -191,9 +191,11 @@ export const Contact = () => {
                   href={contactData.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] inline-flex items-center gap-1"
                 >
-                  github ↗
+                  <span>github</span>
+                  <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               ) : (
                 <span className="text-[#B9B09A]/60 select-none">[github]</span>
@@ -204,9 +206,11 @@ export const Contact = () => {
                   href={contactData.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] inline-flex items-center gap-1"
                 >
-                  linkedin ↗
+                  <span>linkedin</span>
+                  <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               ) : (
                 <span className="text-[#B9B09A]/60 select-none">[linkedin: pending]</span>
@@ -215,9 +219,10 @@ export const Contact = () => {
               {isEmailReal && (
                 <a
                   href={contactData.email.startsWith('mailto:') ? contactData.email : `mailto:${contactData.email}`}
-                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px]"
+                  className="hover:text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] inline-flex items-center gap-1"
                 >
-                  email ↗
+                  <span>email</span>
+                  <span aria-hidden="true">↗</span>
                 </a>
               )}
             </div>

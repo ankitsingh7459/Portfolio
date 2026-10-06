@@ -235,7 +235,12 @@ export const CommandPalette = () => {
         </div>
 
         {/* Results Listbox */}
-        <div className="overflow-y-auto p-2 max-h-96">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Suggestions list"
+          className="overflow-y-auto p-2 max-h-96 focus:outline-none"
+        >
           {filteredItems.length === 0 ? (
             <p className="px-3 py-6 text-center font-mono text-xs text-[#B9B09A]">
               no matches

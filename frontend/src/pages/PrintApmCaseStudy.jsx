@@ -21,14 +21,14 @@ export const PrintApmCaseStudy = () => {
 
   return (
     <Layout>
-      <main className="section-padding py-16 md:py-24 space-y-12 max-w-4xl mx-auto">
+      <article className="section-padding py-16 md:py-24 space-y-12 max-w-4xl mx-auto">
         {/* Navigation Breadcrumb / cd .. */}
         <nav aria-label="Breadcrumb">
           <Link
             to="/"
             className="inline-flex items-center gap-2 font-mono text-xs md:text-sm text-[#B9B09A] hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] rounded-[2px] transition-colors"
           >
-            <span className="text-[#E8A33D] select-none">&lt;</span>
+            <span className="text-[#E8A33D] select-none" aria-hidden="true">&lt;</span>
             <span>cd .. (Return to Portfolio)</span>
           </Link>
         </nav>
@@ -36,7 +36,7 @@ export const PrintApmCaseStudy = () => {
         {/* Header Terminal Header */}
         <header className="space-y-4 border-b border-[#2E2A21] pb-8">
           <p className="font-mono text-xs md:text-sm text-[#B9B09A]">
-            <span className="text-[#E8A33D] select-none">$ </span>
+            <span className="text-[#E8A33D] select-none" aria-hidden="true">$ </span>
             <span>cat README.md</span>
           </p>
           <h1
@@ -184,7 +184,9 @@ export const PrintApmCaseStudy = () => {
             rel="noopener noreferrer"
             className="rounded-[2px] bg-[#E8A33D] px-6 py-3 font-mono text-sm font-semibold text-[#16140F] hover:bg-[#d49332] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 min-h-[44px] inline-flex items-center justify-center cursor-pointer shadow-none"
           >
-            ./launch printapm.online ↗
+            <span>./launch printapm.online</span>
+            <span aria-hidden="true" className="ml-1.5">↗</span>
+            <span className="sr-only"> (opens in new tab)</span>
           </a>
 
           <Link
@@ -194,7 +196,7 @@ export const PrintApmCaseStudy = () => {
             cd ~ (Back to home)
           </Link>
         </section>
-      </main>
+      </article>
     </Layout>
   );
 };

@@ -10,6 +10,7 @@ English.
 - bg: #16140F
 - surface: #1E1B15
 - border: #2E2A21
+- border-strong: #706654 (3.28:1 contrast for input and control boundaries against #16140F per WCAG 2.1 AA 1.4.11)
 - text: #F1E9D2
 - muted: #B9B09A
 - accent (amber): #E8A33D (only links, active states, one primary button, cursor)

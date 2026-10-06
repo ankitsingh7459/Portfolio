@@ -20,18 +20,18 @@ export const ProjectRow = ({ project }) => {
           </span>
 
           <div className="flex flex-wrap items-center gap-2">
-            {project.caseStudyUrl ? (
-              <Link
-                to={project.caseStudyUrl}
-                className="font-mono text-base md:text-lg font-semibold text-[#F1E9D2] hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] transition-colors"
-              >
-                {project.title}
-              </Link>
-            ) : (
-              <h3 className="font-mono text-base md:text-lg font-semibold text-[#F1E9D2]">
-                {project.title}
-              </h3>
-            )}
+            <h3 className="font-mono text-base md:text-lg font-semibold text-[#F1E9D2]">
+              {project.caseStudyUrl ? (
+                <Link
+                  to={project.caseStudyUrl}
+                  className="hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] transition-colors"
+                >
+                  {project.title}
+                </Link>
+              ) : (
+                <span>{project.title}</span>
+              )}
+            </h3>
 
             {project.featured && (
               <span className="font-mono text-[10px] tracking-wider uppercase border border-[#E8A33D]/50 text-[#E8A33D] px-1.5 py-0.5 rounded-[2px] select-none">
@@ -65,9 +65,10 @@ export const ProjectRow = ({ project }) => {
           {project.caseStudyUrl && (
             <Link
               to={project.caseStudyUrl}
-              className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap"
+              className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap inline-flex items-center gap-1"
             >
-              Case Study →
+              <span>Case Study</span>
+              <span aria-hidden="true">→</span>
             </Link>
           )}
 
@@ -76,9 +77,11 @@ export const ProjectRow = ({ project }) => {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs text-[#B9B09A] hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap"
+              className="font-mono text-xs text-[#B9B09A] hover:text-[#E8A33D] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap inline-flex items-center gap-1"
             >
-              Code ↗
+              <span>Code</span>
+              <span aria-hidden="true">↗</span>
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           )}
 
@@ -87,9 +90,11 @@ export const ProjectRow = ({ project }) => {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap"
+              className="font-mono text-xs text-[#E8A33D] hover:underline focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px] whitespace-nowrap inline-flex items-center gap-1"
             >
-              Live ↗
+              <span>Live</span>
+              <span aria-hidden="true">↗</span>
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           )}
         </div>
