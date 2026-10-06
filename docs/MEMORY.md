@@ -1,16 +1,28 @@
 # Project Memory
 
 ## Current status
-Phase 0 in progress (TASK-001 completed).
+Phase 0 completed (TASK-001 and TASK-002 complete). Ready for Phase Gate 0 approval.
 
 ## Completed
-- TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci`, baseline lint, baseline production build).
+- TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded).
+- TASK-002: Repo hygiene completed:
+  - Inspected and removed 25 tracked root junk/log files (`curl-*`, `dir.txt`, `files.txt`, `install-check.txt`, `node-version.txt`, `npm-*`, `pwd.txt`, `render-*`, `terminal-test.txt`, `test*.txt`, `vercel-*`).
+  - Verified `node_modules/`, `dist/`, `.vercel/`, and `.env*` are untracked and ignored; updated root `.gitignore` and `frontend/.gitignore` to ignore `.vercel/`, `.env*` (while keeping `!.env.example`), `dist/`, and `node_modules/`.
+  - Resolved merge conflict markers in `README.md` (`<<<<<<< HEAD` / `=======` / `>>>>>>>`) while preserving content from both branches.
+  - Secret audit: No real credentials were found in the inspected content. (Gitleaks scan across all 6 historical commits, history check for `.env` additions, and manual inspection of deployment logs and code patterns completed).
+
+## Secret Audit Details
+- Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
+- Committed `.env` audit: Ran `git log --all --diff-filter=A --name-only | Select-String -Pattern "\.env"`. Verified that only `frontend/.env.example` and `backend/.env.example` were ever added to Git history; no `.env` files were ever committed.
+- Log file inspection: Inspected `vercel-deploy.txt` and `vercel-deploy-utf8.txt` before removal. Confirmed they contained only Vercel CLI build output and deployment URLs; no tokens, API keys, or passwords were present.
+- Code references: Past references to `password`, `secret`, `key`, and `token` across `backend/config/`, `backend/controllers/`, `backend/middleware/`, `backend/database/schema.sql`, and `README.md` were inspected and confirmed to be standard environment variable bindings (`process.env.DB_PASSWORD || ''`, `process.env.ADMIN_PASSWORD`, `process.env.JWT_SECRET`), schema column definitions, or example placeholders.
+- Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Current task
-TASK-002: Repo hygiene (audit junk/log files, verify untracked dist/node_modules, resolve README conflict markers).
+Phase Gate 0 / Preparing for Phase 1 (TASK-003).
 
 ## Baseline (TASK-001)
-- Environment: Node.js, Vite 8.0.13, Windows (PowerShell)
+- Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
 - Dependencies: `npm ci` installed 234 packages cleanly with zero modifications to package-lock.json.
 - Lint status: `npm run lint` passed (0 errors, 0 warnings across all frontend files).
 - Production build status: `npm run build` completed cleanly in 2.02s.
@@ -36,16 +48,14 @@ TASK-002: Repo hygiene (audit junk/log files, verify untracked dist/node_modules
 - HTML:
   - `dist/index.html`: 1.71 kB (gzip: 0.72 kB)
 - Lighthouse mobile:
-  - Not measured locally (Lighthouse CLI is not installed locally in the development environment; will be measured against preview/browser during QA).
+  - Not measured locally (Lighthouse CLI not installed locally; will be measured against preview/browser during QA).
 
 ## Known issues
-- 22 root junk/log files tracked in git (curl-*.txt, render-*.txt, vercel-*.txt, etc.).
-- README.md has unresolved merge conflict markers (`<<<<<<< HEAD`).
 - `Home.jsx` has preserved working changes (commented out VisitorStats).
 
 ## Open owner inputs
 - Hero intro, about text, PrintAPM metrics and assets, contact links, timeline milestones, and production domain.
-- Confirmed: English language, CSE (AI & ML) undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM.
+- Confirmed profile: English language, CSE (AI & ML) undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM.
 
 ## Next step
-TASK-002: Repo hygiene.
+TASK-003: Create project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, RULES.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, TASKS.md, .env.example, README.md update) upon approval of Phase Gate 0.

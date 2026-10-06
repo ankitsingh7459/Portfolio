@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-# Portfolio
-Know Ankit Singh
-=======
-# Ankit Singh — Premium Portfolio Platform
+# Ankit Singh — Portfolio Platform
+
+Full-stack personal portfolio with dynamic content management, visitor analytics, and API.
 
 Production-grade full-stack personal portfolio with AI chatbot, interactive skill galaxy, terminal mode, visitor analytics, and dynamic content management.
 
@@ -182,4 +180,3 @@ Visit `/admin` to login and manage projects. Uses JWT from `POST /api/auth/login
 ## Author
 
 **Ankit Singh** — AI/ML Engineer | Vibe Coder | Tech Enthusiast
->>>>>>> 8a1bf2b (Initial commit)
