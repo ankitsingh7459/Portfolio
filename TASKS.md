@@ -10,7 +10,7 @@
 ## Phase 2: Foundation
 - [x] TASK-004 Remove listed components/hooks/context and unused deps; build still passes
 - [x] TASK-005 Tokens (`styles/tokens.css`), fonts, global CSS per DESIGN.md
-- [ ] TASK-006 Shared primitives: useReducedMotion, Reveal, TypedText, SectionHeading; LazyMotion + m components, record new motion chunk size (baseline 146 kB)
+- [x] TASK-006 Shared primitives: useReducedMotion, Reveal, TypedText, SectionHeading; LazyMotion + m components, record new motion chunk size (baseline 146 kB)
 - [ ] TASK-007 Shell: Navbar (`~/ankit`, active underline), Footer, layout, keep Router + `/admin` working with new tokens
 
 ## Phase 3: Slice 1, Hero

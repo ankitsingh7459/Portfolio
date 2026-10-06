@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 const App = lazy(() => import('./App'));
 
@@ -11,9 +12,11 @@ const RootLoader = () => (
 
 const Root = () => (
   <BrowserRouter>
-    <Suspense fallback={<RootLoader />}>
-      <App />
-    </Suspense>
+    <LazyMotion features={domAnimation} strict={false}>
+      <Suspense fallback={<RootLoader />}>
+        <App />
+      </Suspense>
+    </LazyMotion>
   </BrowserRouter>
 );
 

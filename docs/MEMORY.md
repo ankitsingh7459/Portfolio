@@ -1,17 +1,18 @@
 # Project Memory
 
 ## Current status
-Phase 2 foundation in progress (TASK-005 complete).
+Phase 2 foundation in progress (TASK-006 complete).
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
 - TASK-002: Repo hygiene completed (removed 25 junk/log files, updated root & frontend `.gitignore` for `.vercel/`, `.env*`, `dist/`, `node_modules/`, resolved `README.md` merge markers, verified secrets with Gitleaks and history audit) — commit `1e6ff0e`.
 - TASK-003: Created project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, RULES.md, TASKS.md, mirrored IDE rules, updated README.md, MEMORY.md) — commit `94c36a4`.
 - TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB) — commit `630b3b1`.
-- TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar.
+- TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar — commit `661a47d`.
+- TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation. Motion chunk size: 146.35 kB (legacy sections still import motion; will migrate per slice).
 
 ## Current task
-TASK-006: Shared primitives (useReducedMotion, useReveal, Reveal, TypedText, SectionHeading, LazyMotion).
+TASK-007: Shell (Navbar with ~/ankit logo, Footer, layout wrapper, ScrollProgress 2px amber line, reskin /admin with tokens).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
