@@ -51,7 +51,7 @@ export const PrintApmCaseStudy = () => {
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <span className="font-mono text-xs border border-[#2E2A21] bg-[#1E1B15] text-[#B9B09A] px-2.5 py-1 rounded-[2px]">
-              Role: [FILL: role]
+              Role: {printApmCaseStudy.role}
             </span>
             <span className="font-mono text-xs border border-[#E8A33D]/40 text-[#E8A33D] px-2.5 py-1 rounded-[2px]">
               Production System

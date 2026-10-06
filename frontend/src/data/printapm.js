@@ -14,6 +14,7 @@ export const printApmCaseStudy = {
   slug: 'printapm',
   title: 'PrintAPM',
   tagline: 'Automated campus document printing kiosk management system',
+  role: '[FILL: role]',
   liveUrl: 'https://printapm.online',
   problemText: "[FILL: PrintAPM problem statement in Ankit's words]",
   solutionText: "[FILL: PrintAPM solution description in Ankit's words]",
