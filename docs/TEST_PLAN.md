@@ -42,6 +42,7 @@
 
 ## Pre-deploy Checks
 - Content placeholder check: `grep -r "\[FILL" frontend/src frontend/public frontend/index.html` must return nothing.
+- A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
 
 ## Automation
 - Unit: Vitest for `lib/terminalCommands`. E2E: Playwright for the flows above.
