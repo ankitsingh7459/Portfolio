@@ -3,11 +3,11 @@ import { Menu, X } from 'lucide-react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 const LINKS = [
-  { label: 'about', id: 'about' },
-  { label: 'skills', id: 'skills' },
   { label: 'projects', id: 'projects' },
-  { label: 'timeline', id: 'timeline' },
-  { label: 'certifications', id: 'certifications' },
+  { label: 'about', id: 'about' },
+  { label: 'stack', id: 'stack' },
+  { label: 'log', id: 'log' },
+  { label: 'github', id: 'github' },
   { label: 'contact', id: 'contact' },
 ];
 
