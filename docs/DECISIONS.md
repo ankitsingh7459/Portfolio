@@ -13,3 +13,5 @@
 - ADR-011: PrintAPM always prepended and featured in projects list. Reason: Ensures Ankit's flagship project with real production deployment and IoT hardware integration is prominently presented regardless of backend database state or API connectivity.
 - ADR-012: Empty section gating at release. Reason: A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
 - ADR-013: Direct open and download actions for resume, no embedded iframe. Reason: Embedded iframes provide a degraded, poorly scrollable experience on mobile devices and inconsistently support pinch-to-zoom across iOS and Android browsers. Direct open in a new tab (with rel="noopener noreferrer") and download attributes provide reliable, accessible document access across all viewports.
+- ADR-014: axe-core devDependency for automated accessibility testing. Reason: Automated accessibility auditing via axe-core through headless Chrome CDP on key views and interactive states guarantees zero serious or critical WCAG 2.1 AA violations before release, with zero production bundle impact as a devDependency only.
+
