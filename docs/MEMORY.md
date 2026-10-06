@@ -1,25 +1,15 @@
 # Project Memory
 
 ## Current status
-Phase 0 completed (TASK-001 and TASK-002 complete). Ready for Phase Gate 0 approval.
+Phase 1 docs completed (TASK-003 complete). Ready for Phase Gate 1 approval.
 
 ## Completed
-- TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded).
-- TASK-002: Repo hygiene completed:
-  - Inspected and removed 25 tracked root junk/log files (`curl-*`, `dir.txt`, `files.txt`, `install-check.txt`, `node-version.txt`, `npm-*`, `pwd.txt`, `render-*`, `terminal-test.txt`, `test*.txt`, `vercel-*`).
-  - Verified `node_modules/`, `dist/`, `.vercel/`, and `.env*` are untracked and ignored; updated root `.gitignore` and `frontend/.gitignore` to ignore `.vercel/`, `.env*` (while keeping `!.env.example`), `dist/`, and `node_modules/`.
-  - Resolved merge conflict markers in `README.md` (`<<<<<<< HEAD` / `=======` / `>>>>>>>`) while preserving content from both branches.
-  - Secret audit: No real credentials were found in the inspected content. (Gitleaks scan across all 6 historical commits, history check for `.env` additions, and manual inspection of deployment logs and code patterns completed).
-
-## Secret Audit Details
-- Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
-- Committed `.env` audit: Ran `git log --all --diff-filter=A --name-only | Select-String -Pattern "\.env"`. Verified that only `frontend/.env.example` and `backend/.env.example` were ever added to Git history; no `.env` files were ever committed.
-- Log file inspection: Inspected `vercel-deploy.txt` and `vercel-deploy-utf8.txt` before removal. Confirmed they contained only Vercel CLI build output and deployment URLs; no tokens, API keys, or passwords were present.
-- Code references: Past references to `password`, `secret`, `key`, and `token` across `backend/config/`, `backend/controllers/`, `backend/middleware/`, `backend/database/schema.sql`, and `README.md` were inspected and confirmed to be standard environment variable bindings (`process.env.DB_PASSWORD || ''`, `process.env.ADMIN_PASSWORD`, `process.env.JWT_SECRET`), schema column definitions, or example placeholders.
-- Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
+- TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
+- TASK-002: Repo hygiene completed (removed 25 junk/log files, updated root & frontend `.gitignore` for `.vercel/`, `.env*`, `dist/`, `node_modules/`, resolved `README.md` merge markers, verified secrets with Gitleaks and history audit) — commit `1e6ff0e`.
+- TASK-003: Created project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, RULES.md, TASKS.md, mirrored IDE rules, updated README.md, MEMORY.md).
 
 ## Current task
-Phase Gate 0 / Preparing for Phase 1 (TASK-003).
+Phase Gate 1: Owner review and approval of documentation before Phase 2 foundation code.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -50,12 +40,28 @@ Phase Gate 0 / Preparing for Phase 1 (TASK-003).
 - Lighthouse mobile:
   - Not measured locally (Lighthouse CLI not installed locally; will be measured against preview/browser during QA).
 
+## Secret Audit Details
+- Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
+- Committed `.env` audit: Ran `git log --all --diff-filter=A --name-only | Select-String -Pattern "\.env"`. Verified that only `frontend/.env.example` and `backend/.env.example` were ever added to Git history; no `.env` files were ever committed.
+- Log file inspection: Inspected `vercel-deploy.txt` and `vercel-deploy-utf8.txt` before removal. Confirmed they contained only Vercel CLI build output and deployment URLs; no tokens, API keys, or passwords were present.
+- Code references: Past references to `password`, `secret`, `key`, and `token` across `backend/config/`, `backend/controllers/`, `backend/middleware/`, `backend/database/schema.sql`, and `README.md` were inspected and confirmed to be standard environment variable bindings (`process.env.DB_PASSWORD || ''`, `process.env.ADMIN_PASSWORD`, `process.env.JWT_SECRET`), schema column definitions, or example placeholders.
+- Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
+
 ## Known issues
 - `Home.jsx` has preserved working changes (commented out VisitorStats).
 
 ## Open owner inputs
-- Hero intro, about text, PrintAPM metrics and assets, contact links, timeline milestones, and production domain.
-- Confirmed profile: English language, CSE (AI & ML) undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM.
+- Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
+- Hero intro in Ankit's words.
+- 3-4 lines for `about.txt`.
+- Copy language: English (confirmed).
+- PrintAPM real database metrics (total prints/orders, users, kiosks/campuses, launch date, average upload-to-print time).
+- PrintAPM screenshots (kiosk code screen, mobile upload flow, kiosk photo, blurred admin view).
+- PrintAPM problem statement and lessons learned in Ankit's words.
+- Final domain, contact email, LinkedIn, GitHub links.
+- Timeline entries and certifications.
+- Which PrintAPM stack/architecture details are approved for public display.
+- Decision on whether to keep profile-photo.png (TASK-025).
 
 ## Next step
-TASK-003: Create project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, RULES.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, TASKS.md, .env.example, README.md update) upon approval of Phase Gate 0.
+TASK-004: Remove listed components/hooks/context and unused deps; verify build passes (after owner approves Phase Gate 1).

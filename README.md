@@ -1,55 +1,20 @@
 # Ankit Singh — Portfolio Platform
 
-Full-stack personal portfolio with dynamic content management, visitor analytics, and API.
+Personal portfolio and developer platform for Ankit Singh, [FILL: title]. Built with the "Warm Terminal" aesthetic (amber on charcoal, monospace prompt styling, and high-signal proof of work).
 
-Production-grade full-stack personal portfolio with AI chatbot, interactive skill galaxy, terminal mode, visitor analytics, and dynamic content management.
+## Architecture & Tech Stack
 
-## Tech Stack
-
-| Layer | Technologies |
-|-------|-------------|
-| Frontend | React 19, Vite 8, Tailwind CSS 4, Framer Motion, React Three Fiber, Axios |
-| Backend | Node.js, Express, MySQL, JWT, Appwrite (optional) |
-| Deploy | Vercel (frontend), Render (backend) |
-
-## Project Structure
-
-```
-Portfolio/
-├── frontend/          # React SPA
-│   ├── src/
-│   │   ├── components/   # UI sections & effects
-│   │   ├── pages/        # Home, Admin
-│   │   ├── hooks/        # Scroll, keyboard, easter egg
-│   │   ├── services/     # API client
-│   │   ├── context/      # Theme + access mode
-│   │   └── utils/        # Chatbot & terminal data
-│   └── public/           # SEO, resume, assets
-├── backend/
-│   ├── controllers/      # Route handlers
-│   ├── routes/           # REST endpoints
-│   ├── middleware/       # Auth, validation, rate limit
-│   ├── config/           # MySQL, Appwrite
-│   └── database/         # schema.sql
-└── README.md
-```
+- **Frontend:** React 19, Vite, Tailwind CSS 4, Framer Motion, React Router. Deployed on [Vercel](https://vercel.com).
+- **Backend:** Node.js, Express, MySQL, JWT. Deployed on [Render](https://render.com).
+- **Documentation:** Complete architectural specifications, design tokens, and decision records are maintained in [`docs/`](./docs/).
 
 ## Quick Start
 
 ### Prerequisites
-
-- Node.js 18+
+- Node.js 20+
 - MySQL 8+
-- (Optional) Appwrite account for file storage
 
-### 1. Database Setup
-
-```bash
-mysql -u root -p < backend/database/schema.sql
-```
-
-### 2. Backend
-
+### 1. Backend Setup
 ```bash
 cd backend
 cp .env.example .env
@@ -57,11 +22,9 @@ cp .env.example .env
 npm install
 npm run dev
 ```
+API runs locally at `http://localhost:5000`.
 
-API runs at `http://localhost:5000`
-
-### 3. Frontend
-
+### 2. Frontend Setup
 ```bash
 cd frontend
 cp .env.example .env
@@ -69,8 +32,7 @@ cp .env.example .env
 npm install
 npm run dev
 ```
-
-App runs at `http://localhost:5173`
+Frontend runs locally at `http://localhost:5173`.
 
 ## Environment Variables
 
@@ -79,104 +41,65 @@ App runs at `http://localhost:5173`
 | Variable | Description |
 |----------|-------------|
 | `PORT` | Server port (default 5000) |
-| `FRONTEND_URL` | CORS origin |
-| `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | MySQL connection |
-| `JWT_SECRET` | JWT signing key |
+| `FRONTEND_URL` | CORS allowed origin |
+| `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | MySQL database connection |
+| `JWT_SECRET` | Signing key for admin authentication |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Admin login credentials |
-| `APPWRITE_*` | Optional file storage |
-| `GITHUB_USERNAME` | GitHub activity widget |
+| `APPWRITE_*` | Optional storage configuration |
+| `GITHUB_USERNAME` | GitHub activity stats integration |
 
 ### Frontend (`frontend/.env`)
 
 | Variable | Description |
 |----------|-------------|
-| `VITE_API_URL` | Backend API base URL |
+| `VITE_API_URL` | Backend API base URL (e.g. `http://localhost:5000/api`) |
 
 ## API Endpoints
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/api/health` | No | Health check |
-| GET | `/api/profile` | No | Profile data |
-| GET | `/api/skills` | No | Skills list |
-| GET | `/api/projects` | No | Projects list |
-| POST | `/api/projects` | JWT | Create project |
-| PUT | `/api/projects/:id` | JWT | Update project |
-| DELETE | `/api/projects/:id` | JWT | Delete project |
-| GET | `/api/certifications` | No | Certifications |
+| GET | `/api/health` | Public | Service health check |
+| GET | `/api/profile` | Public | Profile data |
+| GET | `/api/skills` | Public | Skills data |
+| GET | `/api/projects` | Public | Project listings |
+| POST | `/api/projects` | JWT | Create new project |
+| PUT | `/api/projects/:id` | JWT | Update existing project |
+| DELETE | `/api/projects/:id` | JWT | Remove project |
+| GET | `/api/certifications` | Public | Certifications list |
 | POST | `/api/certifications` | JWT | Add certification |
-| POST | `/api/contact` | No | Submit contact form |
-| POST | `/api/analytics/track` | No | Track visitor |
-| GET | `/api/analytics/stats` | No | Visitor dashboard |
-| GET | `/api/analytics/github` | No | GitHub activity |
-| POST | `/api/auth/login` | No | Admin login |
+| POST | `/api/contact` | Public | Submit message via contact form |
+| POST | `/api/analytics/track` | Public | Log visit event |
+| GET | `/api/analytics/stats` | Public | Analytics dashboard summary |
+| GET | `/api/analytics/github` | Public | Cached GitHub activity data |
+| POST | `/api/auth/login` | Public | Admin authentication |
 
-## Appwrite Setup (Optional)
+## Scripts
 
-1. Create project at [cloud.appwrite.io](https://cloud.appwrite.io)
-2. Create a Storage bucket named `portfolio_assets`
-3. Add API key with storage read/write permissions
-4. Set `APPWRITE_*` variables in backend `.env`
+### Frontend (`frontend/`)
+- `npm run dev`: Start Vite development server
+- `npm run build`: Build production bundle
+- `npm run lint`: Run ESLint checks
+- `npm run preview`: Preview production build locally
+- `npm test`: Unit test suite (Vitest, configured in Phase 7)
+- `npm run test:e2e`: Playwright E2E suite (configured in Phase 9)
 
-Use Appwrite for resume uploads, project images, and certificate files.
+### Backend (`backend/`)
+- `npm run dev`: Start Express API with nodemon
+- `npm start`: Start production server
 
 ## Deployment
 
-### Frontend — Vercel
+- **Frontend (Vercel):** Connect repository, set root directory to `frontend/`, configure `VITE_API_URL`, deploy.
+- **Backend (Render):** Web service connected to repository root `backend/`, build command `npm install`, start command `npm start`, configure environment variables.
 
-1. Push repo to GitHub
-2. Import project in [vercel.com](https://vercel.com)
-3. Set root directory to `frontend`
-4. Environment: `VITE_API_URL=https://your-api.onrender.com/api`
-5. Deploy
-
-### Backend — Render
-
-1. Create Web Service at [render.com](https://render.com)
-2. Connect repo, set root to `backend`
-3. Build: `npm install` | Start: `npm start`
-4. Add all environment variables from `.env.example`
-5. Use Render's MySQL or external database host
-
-### Resume
-
-Place your resume at `frontend/public/resume.pdf` for the download button.
-
-## Features
-
-- **Hero** — Animated intro, profile photo, CTA buttons
-- **Skill Galaxy** — Orbital interactive skill visualization
-- **Dynamic Projects** — CRUD via admin panel at `/admin`
-- **AI Chatbot** — "Ask Ankit" with contextual responses
-- **Terminal Mode** — `Ctrl+`` ` for developer terminal
-- **Easter Egg** — Konami code → ACCESS GRANTED mode
-- **Visitor Analytics** — Live visitor and section stats
-- **GitHub Activity** — Repos and profile stats
-- **Dark/Light Theme** — `Ctrl+D` toggle
-- **Keyboard Shortcuts** — `/` chat, `` Ctrl+` `` terminal
-
-## Admin Panel
-
-Visit `/admin` to login and manage projects. Uses JWT from `POST /api/auth/login`.
-
-## Security
-
-- JWT authentication for write operations
-- Rate limiting (API, contact, auth)
-- Input validation via express-validator
-- Helmet security headers
-- Environment-based secrets
-
-## Future Scalability
-
-- Add Redis caching for analytics and GitHub data
-- WebSocket for real-time visitor count
-- CMS integration for blog posts
-- CI/CD with GitHub Actions
-- CDN for static assets via CloudFront
-- Multi-language i18n support
-- AI chatbot powered by OpenAI API
-
-## Author
-
-**Ankit Singh** — AI/ML Engineer | Vibe Coder | Tech Enthusiast
+## Project Documentation
+Detailed specifications and implementation guides are available in the [`docs/`](./docs/) directory:
+- [Product Requirements (PRD)](./docs/PRD.md)
+- [Architecture & Boundaries](./docs/ARCHITECTURE.md)
+- [Design System & Tokens](./docs/DESIGN.md)
+- [Architecture Decisions (ADRs)](./docs/DECISIONS.md)
+- [Test Plan](./docs/TEST_PLAN.md)
+- [Security Requirements](./docs/SECURITY.md)
+- [Development Rules](./RULES.md)
+- [Task Tracking](./TASKS.md)
+- [Project Memory & Baselines](./docs/MEMORY.md)
