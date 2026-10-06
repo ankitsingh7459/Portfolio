@@ -98,36 +98,48 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main Navigation">
-          {LINKS.map((link) => {
-            const isActive = active === link.id;
-            const isHovered = hovered === link.id;
-            const showLine = isHovered || (isActive && hovered === null);
+        <div className="hidden md:flex items-center gap-3">
+          <nav className="flex items-center gap-1" aria-label="Main Navigation">
+            {LINKS.map((link) => {
+              const isActive = active === link.id;
+              const isHovered = hovered === link.id;
+              const showLine = isHovered || (isActive && hovered === null);
 
-            return (
-              <button
-                key={link.id}
-                type="button"
-                onClick={() => scrollTo(link.id)}
-                onMouseEnter={() => setHovered(link.id)}
-                onMouseLeave={() => setHovered(null)}
-                className={`relative px-3 py-1.5 font-mono text-sm transition-colors rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 ${
-                  isActive ? 'text-[#E8A33D]' : 'text-[#B9B09A] hover:text-[#F1E9D2]'
-                }`}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                <span className="text-[#E8A33D]/60 mr-1 select-none">.</span>
-                {link.label}
-                {showLine && (
-                  <span
-                    className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#E8A33D] transition-all duration-200"
-                    aria-hidden="true"
-                  />
-                )}
-              </button>
-            );
-          })}
-        </nav>
+              return (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => scrollTo(link.id)}
+                  onMouseEnter={() => setHovered(link.id)}
+                  onMouseLeave={() => setHovered(null)}
+                  className={`relative px-3 py-1.5 font-mono text-sm transition-colors rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 ${
+                    isActive ? 'text-[#E8A33D]' : 'text-[#B9B09A] hover:text-[#F1E9D2]'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <span className="text-[#E8A33D]/60 mr-1 select-none">.</span>
+                  {link.label}
+                  {showLine && (
+                    <span
+                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#E8A33D] transition-all duration-200"
+                      aria-hidden="true"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+            className="font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] border border-[#2E2A21] bg-[#1E1B15] px-2.5 py-1 rounded-[2px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 flex items-center gap-1.5 min-h-[32px]"
+            aria-label="Open command palette"
+          >
+            <span className="text-[#E8A33D] select-none" aria-hidden="true">&gt;</span>
+            <span>Ctrl K</span>
+          </button>
+        </div>
 
         {/* Mobile Menu Toggle Button */}
         <button
@@ -144,7 +156,7 @@ const Navbar = () => {
       {/* Mobile Dropdown Menu */}
       {mobileOpen && (
         <div
-          className="md:hidden bg-[#1E1B15] border-b border-[#2E2A21] px-4 py-3 mx-2 mt-2 rounded-[2px]"
+          className="md:hidden bg-[#1E1B15] border-b border-[#2E2A21] px-4 py-3 mx-2 mt-2 rounded-[2px] space-y-2"
           role="dialog"
           aria-label="Mobile Navigation"
         >
@@ -167,6 +179,21 @@ const Navbar = () => {
               );
             })}
           </nav>
+
+          <div className="pt-2 border-t border-[#2E2A21]">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                window.dispatchEvent(new CustomEvent('open-command-palette'));
+              }}
+              className="w-full text-left font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] bg-[#16140F] px-3 py-2.5 rounded-[2px] min-h-[44px] flex items-center justify-between transition-colors"
+              aria-label="Open command palette"
+            >
+              <span>Ctrl K (Command Palette)</span>
+              <span className="text-[#E8A33D]">&gt;</span>
+            </button>
+          </div>
         </div>
       )}
     </header>

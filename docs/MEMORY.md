@@ -88,5 +88,6 @@ Phase Gate 6 approval.
 
 ## Next step
 - TASK-020 completed (`lib/terminalCommands.js` pure parser + `lib/navTargets.js` registry + Vitest unit tests).
-- TASK-021 completed (Terminal UI in Hero: lazy-loaded chunk 9.82 kB / gzip 3.53 kB, desktop input + history/tab completion, mobile button chips, and unit tests).
-- Next: TASK-022 (Ctrl/Cmd+K Command Palette).
+- TASK-021 completed (Terminal UI in Hero: lazy-loaded chunk 8.75 kB / gzip 3.20 kB, desktop input + history/tab completion, mobile button chips, and unit tests).
+- TASK-022 completed (Ctrl/Cmd+K Command Palette: accessible modal, combobox + listbox, focus trap & restoration, Navbar trigger button, and unit tests).
+- Phase 7 complete. Stop at Phase Gate 7 and wait for owner approval.
