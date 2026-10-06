@@ -10,7 +10,7 @@ import Log from '../features/log/Log';
 import Contact from '../components/Contact/Contact';
 
 const GitHubActivity = lazy(
-  () => import('../components/GitHubActivity/GitHubActivity')
+  () => import('../features/github/GitHubActivity')
 );
 
 const Home = () => {

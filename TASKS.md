@@ -27,7 +27,7 @@
 - [x] TASK-014 About (`cat about.txt`)
 - [x] TASK-015 Stack as grouped plain list (`stack.json` style)
 - [x] TASK-016 Timeline and certifications as `git log`
-- [ ] TASK-017 GitHub activity restyled, lazy, graceful failure
+- [x] TASK-017 GitHub activity restyled, lazy, graceful failure
 
 ## Phase 6: Slice 4, Contact / Resume
 - [ ] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
