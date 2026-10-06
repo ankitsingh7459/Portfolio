@@ -14,7 +14,7 @@
 - [x] TASK-007 Shell: Navbar (`~/ankit`, active underline), Footer, layout, keep Router + `/admin` working with new tokens
 
 ## Phase 3: Slice 1, Hero
-- [ ] TASK-008 Hero static (copy placeholders, `./projects` button)
+- [x] TASK-008 Hero static (copy placeholders, `./projects` button)
 - [ ] TASK-009 Boot sequence (once, cursor, skip on key/click, reduced motion)
 - [ ] TASK-010 Hero mobile + a11y pass + tests
 

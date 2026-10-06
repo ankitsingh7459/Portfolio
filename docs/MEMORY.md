@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 2 foundation completed (TASK-004, TASK-005, TASK-006, TASK-007 complete). Ready for Phase Gate 2 approval.
+Phase 3 (Hero slice) in progress (TASK-008 complete).
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -10,10 +10,11 @@ Phase 2 foundation completed (TASK-004, TASK-005, TASK-006, TASK-007 complete). 
 - TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB) — commit `630b3b1`.
 - TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar — commit `661a47d`.
 - TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation — commit `8185f73`.
-- TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic. Motion chunk reduced to 142.40 kB (vs 146.35 kB).
+- TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic — commit `8ad9eb5`.
+- TASK-008: Rebuilt features/hero/Hero.jsx static with Warm Terminal layout (~/ankit $ whoami, h1 in IBM Plex Mono, muted descriptor from data/hero.js, hero line, amber primary action ./projects, bordered mono secondary action cat resume.pdf). Removed neon-glow, old typing role-switcher, and glass classes. JS bundle: 453.98 kB (down from 477.3 kB baseline); CSS: 26.89 kB (down from 31.15 kB baseline).
 
 ## Current task
-Phase Gate 2: Owner review and approval of Phase 2 foundation before Phase 3 (Slice 1: Hero).
+TASK-009: Boot sequence (one-time type sequence, skippable, cursor, reduced motion, zero CLS).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -52,7 +53,7 @@ Phase Gate 2: Owner review and approval of Phase 2 foundation before Phase 3 (Sl
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Legacy classes (.glass, .neon-text, .neon-glow) are preserved temporarily in index.css until sections using them are rebuilt in their respective vertical slices (legacy, remove per slice).
+- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until sections using them are rebuilt in their respective vertical slices (.neon-glow was completely removed in TASK-008).
 
 ## Open owner inputs
 - Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
@@ -68,4 +69,4 @@ Phase Gate 2: Owner review and approval of Phase 2 foundation before Phase 3 (Sl
 - Decision on whether to keep profile-photo.png (TASK-025).
 
 ## Next step
-TASK-008: Hero static (copy placeholders, ./projects button) upon Phase Gate 2 approval.
+TASK-009: Boot sequence (one-time type sequence, skippable, cursor, reduced motion, zero CLS).
