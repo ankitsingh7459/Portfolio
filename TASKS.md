@@ -15,7 +15,7 @@
 
 ## Phase 3: Slice 1, Hero
 - [x] TASK-008 Hero static (copy placeholders, `./projects` button)
-- [ ] TASK-009 Boot sequence (once, cursor, skip on key/click, reduced motion)
+- [x] TASK-009 Boot sequence (once, cursor, skip on key/click, reduced motion)
 - [ ] TASK-010 Hero mobile + a11y pass + tests
 
 ## Phase 4: Slice 2, Projects and PrintAPM case study
