@@ -3,9 +3,9 @@ import { trackVisit } from '../services/api';
 
 import Layout from '../components/Layout';
 import Hero from '../components/Hero/Hero';
-import About from '../components/About/About';
-import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
+import About from '../components/About/About';
+import Stack from '../features/stack/Stack';
 import Timeline from '../components/Timeline/Timeline';
 import Certifications from '../components/Certifications/Certifications';
 import Contact from '../components/Contact/Contact';
@@ -26,7 +26,7 @@ const Home = () => {
       <Hero />
       <Projects />
       <About />
-      <Skills />
+      <Stack />
       <Timeline />
       <Certifications />
       <Suspense fallback={null}>
