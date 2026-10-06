@@ -5,10 +5,10 @@
 - [x] TASK-002 Repo hygiene: audit and delete junk files, untrack node_modules/dist, fix README conflict markers, secret scan (commit `1e6ff0e`)
 
 ## Phase 1: Docs
-- [ ] TASK-003 Create all docs, RULES.md, TASKS.md, .env.example; owner approves
+- [x] TASK-003 Create all docs, RULES.md, TASKS.md, .env.example; owner approves (commit `94c36a4`)
 
 ## Phase 2: Foundation
-- [ ] TASK-004 Remove listed components/hooks/context and unused deps; build still passes
+- [x] TASK-004 Remove listed components/hooks/context and unused deps; build still passes
 - [ ] TASK-005 Tokens (`styles/tokens.css`), fonts, global CSS per DESIGN.md
 - [ ] TASK-006 Shared primitives: useReducedMotion, Reveal, TypedText, SectionHeading; LazyMotion + m components, record new motion chunk size (baseline 146 kB)
 - [ ] TASK-007 Shell: Navbar (`~/ankit`, active underline), Footer, layout, keep Router + `/admin` working with new tokens

@@ -20,10 +20,6 @@ body {
   color: #e4e4e7;
   overflow-x: hidden;
 }
-body.light {
-  background: #f8fafc;
-  color: #18181b;
-}
 .glass {
   background: var(--color-glass);
   backdrop-filter: blur(20px);
