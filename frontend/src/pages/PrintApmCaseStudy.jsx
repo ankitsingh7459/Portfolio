@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { printApmCaseStudy } from '../data/printapm';
 import { Screenshot } from '../features/case-study/Screenshot';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 export const PrintApmCaseStudy = () => {
   const headingRef = useRef(null);
 
+  usePageMeta({
+    title: 'PrintAPM Case Study | Ankit Singh',
+    description: 'Engineering case study of the PrintAPM offline kiosk system and distributed architecture.',
+    canonicalPath: '/projects/printapm',
+  });
+
   useEffect(() => {
-    const prevTitle = document.title;
-    document.title = 'PrintAPM Case Study | Ankit Singh';
     headingRef.current?.focus();
     window.scrollTo(0, 0);
-
-    return () => {
-      document.title = prevTitle;
-    };
   }, []);
 
   return (

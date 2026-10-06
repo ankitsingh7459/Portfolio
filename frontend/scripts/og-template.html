@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1200px;
+      height: 630px;
+      background-color: #16140F;
+      color: #F1E9D2;
+      font-family: 'IBM Plex Mono', monospace, Consolas, 'Courier New';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #2E2A21;
+      background-color: #181611;
+      border-radius: 2px;
+      padding: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      color: #B9B09A;
+    }
+    .dot {
+      color: #E8A33D;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .prompt {
+      font-size: 28px;
+      color: #B9B09A;
+    }
+    .prompt-symbol {
+      color: #E8A33D;
+      margin-right: 12px;
+    }
+    .name {
+      font-size: 72px;
+      font-weight: 700;
+      color: #F1E9D2;
+      letter-spacing: -0.02em;
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #2E2A21;
+      padding-top: 24px;
+      font-size: 20px;
+      color: #B9B09A;
+    }
+    .site-url {
+      color: #E8A33D;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <span class="dot">●</span>
+      <span>terminal.portfolio</span>
+    </div>
+    <div class="main">
+      <div class="prompt">
+        <span class="prompt-symbol">$</span><span>~/ankit $ whoami</span>
+      </div>
+      <div class="name">ankit_singh</div>
+    </div>
+    <div class="footer">
+      <span class="site-url">[FILL: domain]</span>
+      <span>warm terminal</span>
+    </div>
+  </div>
+</body>
+</html>

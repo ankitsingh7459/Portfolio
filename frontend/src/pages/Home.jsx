@@ -10,11 +10,19 @@ import Log from '../features/log/Log';
 import Resume from '../features/resume/Resume';
 import Contact from '../features/contact/Contact';
 
+import { usePageMeta } from '../hooks/usePageMeta';
+
 const GitHubActivity = lazy(
   () => import('../features/github/GitHubActivity')
 );
 
 const Home = () => {
+  usePageMeta({
+    title: 'Ankit Singh | [FILL: title]',
+    description: 'Personal portfolio of Ankit Singh, [FILL: title].',
+    canonicalPath: '/',
+  });
+
   useEffect(() => {
     const sid = sessionStorage.getItem('session_id') || crypto.randomUUID();
     sessionStorage.setItem('session_id', sid);

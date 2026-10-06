@@ -87,7 +87,5 @@ Phase Gate 6 approval.
 - Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
 
 ## Next step
-- TASK-020 completed (`lib/terminalCommands.js` pure parser + `lib/navTargets.js` registry + Vitest unit tests).
-- TASK-021 completed (Terminal UI in Hero: lazy-loaded chunk 8.75 kB / gzip 3.20 kB, desktop input + history/tab completion, mobile button chips, and unit tests).
-- TASK-022 completed (Ctrl/Cmd+K Command Palette: accessible modal, combobox + listbox, focus trap & restoration, Navbar trigger button, and unit tests).
-- Phase 7 complete. Stop at Phase Gate 7 and wait for owner approval.
+- TASK-023 completed (SEO and sharing: data/site.js, index.html transform plugin, pure sitemap/robots generators, usePageMeta hook, ADR-015, headless Chrome OG image 19.08 kB, warm terminal favicon, 0 legacy domains).
+- Next: TASK-024 (Accessibility: skip link, landmarks, headings, contrast AA, axe-core devDependency audit).

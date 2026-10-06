@@ -40,7 +40,7 @@
 - [x] TASK-022 Ctrl/Cmd+K command palette (focus trap, Esc, arrows)
 
 ## Phase 8: Polish
-- [ ] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
+- [x] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
 - [ ] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast)
 - [ ] TASK-025 Performance: lazy loading, font preload, bundle check, Lighthouse targets; WebP for profile-photo.png (baseline 523 kB) only if owner approves keeping the photo
 - [ ] TASK-026 Responsive pass 375/768/1440

@@ -26,7 +26,14 @@ const normalizeProject = (project) => ({
   liveUrl: project.liveUrl ?? project.live_url ?? '',
 });
 
+import { usePageMeta } from '../hooks/usePageMeta';
+
 const Admin = () => {
+  usePageMeta({
+    title: 'Admin Dashboard | Ankit Singh',
+    noindex: true,
+  });
+
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [loginError, setLoginError] = useState('');

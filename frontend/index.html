@@ -6,19 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ankit Singh | [FILL: title]</title>
     <meta name="description" content="Personal portfolio of Ankit Singh, [FILL: title]." />
-    <meta name="keywords" content="Ankit Singh, Developer, Portfolio, Software Engineer, PrintAPM" />
     <meta name="author" content="Ankit Singh" />
-    <meta property="og:title" content="Ankit Singh | [FILL: title]" />
-    <meta property="og:description" content="Personal portfolio and proof of work." />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ankitsingh.dev" />
+    <meta property="og:title" content="Ankit Singh | [FILL: title]" />
+    <meta property="og:description" content="Personal portfolio and engineering proof of work." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og.png" />
+    <meta property="og:image:alt" content="Ankit Singh personal portfolio preview" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ankit Singh | [FILL: title]" />
+    <meta name="twitter:description" content="Personal portfolio and engineering proof of work." />
+    <meta name="twitter:image" content="%SITE_URL%/og.png" />
+
+    <!-- Theme & Color Scheme -->
     <meta name="theme-color" content="#16140F" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data (JSON-LD Person) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ankit Singh",
+      "url": "%SITE_URL%/",
+      "sameAs": [
+        "https://github.com/ankitsingh7459"
+      ]
+    }
+    </script>
   </head>
   <body>
+    <noscript>
+      <div style="padding: 2rem; font-family: monospace; background: #16140F; color: #F1E9D2; min-height: 100vh;">
+        <h1>Ankit Singh</h1>
+        <p>Personal engineering portfolio and systems proof of work.</p>
+        <p>The interactive terminal and dynamic interface features require JavaScript to be enabled in your browser.</p>
+        <ul>
+          <li><a href="https://github.com/ankitsingh7459" style="color: #E8A33D;">GitHub Profile: github.com/ankitsingh7459</a></li>
+          <li><a href="https://printapm.online" style="color: #E8A33D;">PrintAPM Project: printapm.online</a></li>
+        </ul>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
