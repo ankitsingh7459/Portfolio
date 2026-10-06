@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 3 (Hero slice) completed (TASK-008, TASK-009, TASK-010 complete). Awaiting Phase Gate 3 approval.
+Phase 4 (Projects & PrintAPM slice) in progress (TASK-011 complete).
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -13,10 +13,11 @@ Phase 3 (Hero slice) completed (TASK-008, TASK-009, TASK-010 complete). Awaiting
 - TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic — commit `8ad9eb5`.
 - TASK-008: Rebuilt features/hero/Hero.jsx static with Warm Terminal layout (~/ankit $ whoami, h1 in IBM Plex Mono, muted descriptor from data/hero.js, hero line, amber primary action ./projects, bordered mono secondary action cat resume.pdf). Removed neon-glow, old typing role-switcher, and glass classes — commit `3a08e6a`.
 - TASK-009: Implemented one-time terminal boot sequence in Hero: sequential typing with step(2) blinking block cursor on active line only, skippable on keydown/click, instant rendering under prefers-reduced-motion, accessible full text in .sr-only container from initial render, and zero layout shift — commit `231739d`.
-- TASK-010: Verified mobile responsiveness (375/768/1440 px, zero horizontal scroll, break-words wrapping), accessibility (AA/AAA contrast, >=44px tap targets, visible amber focus rings with offset), and installed vitest test suite (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`) with 5 unit tests for Hero. Recorded ADR-010 in docs/DECISIONS.md and LazyMotion instruction in TASKS.md.
+- TASK-010: Verified mobile responsiveness (375/768/1440 px, zero horizontal scroll, break-words wrapping), accessibility (AA/AAA contrast, >=44px tap targets, visible amber focus rings with offset), and installed vitest test suite (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`) with 5 unit tests for Hero. Recorded ADR-010 in docs/DECISIONS.md and LazyMotion instruction in TASKS.md — commit `3d06ce7`.
+- TASK-011: Rebuilt features/projects slice with SectionHeading ("$ ls projects"), bordered ProjectRow items, hover/focus amber marker with x+4px shift, staggered Reveal (0.06s), useProjects hook with 4s timeout and fallback, PrintAPM prepended and featured (ADR-011), and completely removed .glass and .neon-* classes from projects.
 
 ## Current task
-Phase Gate 3: Awaiting owner approval before proceeding to Phase 4 (Slice 2: Projects & PrintAPM Case Study).
+TASK-012: PrintAPM case study route /projects/printapm and page.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -55,7 +56,7 @@ Phase Gate 3: Awaiting owner approval before proceeding to Phase 4 (Slice 2: Pro
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until sections using them are rebuilt in their respective vertical slices (.neon-glow was completely removed in TASK-008).
+- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until remaining sections using them are rebuilt in their respective vertical slices (About, Certifications, Contact, GitHubActivity, Skills). Projects slice has been completely migrated to Warm Terminal tokens.
 
 ## Open owner inputs
 - Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).

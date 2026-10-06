@@ -10,3 +10,4 @@
 - ADR-008: PrintAPM case study shows high-level architecture only. Reason: no public security detail, endpoints, secrets, or audit findings.
 - ADR-009: Home.jsx VisitorStats removal was a deliberate owner change, committed before TASK-004. Reason: Owner deliberately disabled public visitor statistics UI component to align with the streamlined redesign.
 - ADR-010: Vitest and Testing Library for unit testing. Reason: Fast, native Vite integration, compatible with React 19 and JSDOM, verifies accessibility (.sr-only copy, focus targets), reduced motion, and interaction behavior without overhead.
+- ADR-011: PrintAPM always prepended and featured in projects list. Reason: Ensures Ankit's flagship project with real production deployment and IoT hardware integration is prominently presented regardless of backend database state or API connectivity.

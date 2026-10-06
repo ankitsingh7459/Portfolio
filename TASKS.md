@@ -19,7 +19,7 @@
 - [x] TASK-010 Hero mobile + a11y pass + tests
 
 ## Phase 4: Slice 2, Projects and PrintAPM case study
-- [ ] TASK-011 ProjectRow list from API with fallback, loading/error/empty states, hover motion
+- [x] TASK-011 ProjectRow list from API with fallback, loading/error/empty states, hover motion
 - [ ] TASK-012 PrintAPM case study page/section: `cat problem.txt`, `solution.txt`, `stats.json`, `architecture.md` (high level), `decisions.md`, `lessons.txt`, live link; real stats and screenshots from owner only
 - [ ] TASK-013 Tests for projects + case study (fallback, links, direct URL)
 
