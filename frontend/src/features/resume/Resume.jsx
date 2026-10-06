@@ -23,11 +23,19 @@ const isRealUrl = (url) => {
 };
 
 export const Resume = () => {
-  if (!resumeData || !resumeData.available || !resumeData.filePath) {
+  if (
+    !resumeData ||
+    !resumeData.available ||
+    !resumeData.filePath ||
+    !isRealUrl(resumeData.filePath)
+  ) {
     return null;
   }
 
-  const isReal = isRealUrl(resumeData.filePath);
+  const hasLastUpdated =
+    typeof resumeData.lastUpdated === 'string' &&
+    resumeData.lastUpdated.trim().length > 0 &&
+    !resumeData.lastUpdated.includes('[FILL');
 
   return (
     <section id="resume" className="section-padding py-20" aria-label="Resume">
@@ -46,9 +54,11 @@ export const Resume = () => {
               </span>
               <span className="font-semibold">resume.pdf</span>
             </div>
-            <span className="font-mono text-xs text-[#B9B09A]">
-              // last updated: {resumeData.lastUpdated}
-            </span>
+            {hasLastUpdated && (
+              <span className="font-mono text-xs text-[#B9B09A]">
+                // last updated: {resumeData.lastUpdated}
+              </span>
+            )}
           </div>
 
           <p className="font-sans text-xs text-[#B9B09A]">
@@ -56,32 +66,24 @@ export const Resume = () => {
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
-            {isReal ? (
-              <>
-                <a
-                  href={resumeData.filePath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs font-semibold bg-[#E8A33D] text-[#16140F] px-5 py-2.5 rounded-[2px] hover:bg-[#E8A33D]/90 min-h-[44px] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
-                >
-                  <span>open</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
+            <a
+              href={resumeData.filePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs font-semibold bg-[#E8A33D] text-[#16140F] px-5 py-2.5 rounded-[2px] hover:bg-[#E8A33D]/90 min-h-[44px] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
+            >
+              <span>open</span>
+              <span aria-hidden="true">↗</span>
+            </a>
 
-                <a
-                  href={resumeData.filePath}
-                  download="Ankit_Singh_Resume.pdf"
-                  className="font-mono text-xs text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] px-5 py-2.5 rounded-[2px] min-h-[44px] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
-                >
-                  <span>download</span>
-                  <span aria-hidden="true">↓</span>
-                </a>
-              </>
-            ) : (
-              <span className="font-mono text-xs text-[#B9B09A]/60">
-                // resume file path pending configuration
-              </span>
-            )}
+            <a
+              href={resumeData.filePath}
+              download="Ankit_Singh_Resume.pdf"
+              className="font-mono text-xs text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] px-5 py-2.5 rounded-[2px] min-h-[44px] inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 transition-colors"
+            >
+              <span>download</span>
+              <span aria-hidden="true">↓</span>
+            </a>
           </div>
         </div>
       </Reveal>
