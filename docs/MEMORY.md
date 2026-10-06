@@ -88,4 +88,5 @@ Phase Gate 6 approval.
 
 ## Next step
 - TASK-020 completed (`lib/terminalCommands.js` pure parser + `lib/navTargets.js` registry + Vitest unit tests).
-- Next: TASK-021 (Interactive Terminal UI in Hero).
+- TASK-021 completed (Terminal UI in Hero: lazy-loaded chunk 9.82 kB / gzip 3.53 kB, desktop input + history/tab completion, mobile button chips, and unit tests).
+- Next: TASK-022 (Ctrl/Cmd+K Command Palette).

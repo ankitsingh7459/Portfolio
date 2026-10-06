@@ -1,10 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import { m } from 'framer-motion';
 import { heroData } from '../../data/hero';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
+const Terminal = lazy(() => import('../terminal/Terminal'));
+
 export const Hero = () => {
   const prefersReduced = useReducedMotion();
+  const heroRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(
+    () => typeof IntersectionObserver === 'undefined'
+  );
 
   // State for typing animation
   const [currentLine, setCurrentLine] = useState(prefersReduced ? 4 : 0);
@@ -88,6 +94,18 @@ export const Hero = () => {
     };
   }, [currentLine, prefersReduced]);
 
+  useEffect(() => {
+    if (!heroRef.current || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(heroRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -97,6 +115,7 @@ export const Hero = () => {
   return (
     <section
       id="hero"
+      ref={heroRef}
       onClick={isComplete ? undefined : skipAnimation}
       className="section-padding min-h-[70vh] flex flex-col justify-center py-20 cursor-default"
       aria-label="Introduction"
@@ -171,6 +190,13 @@ export const Hero = () => {
           {heroData.secondaryAction.label}
         </a>
       </m.div>
+
+      {/* Collapsed/Expanded Terminal UI under Hero actions */}
+      {isComplete && isVisible && (
+        <Suspense fallback={null}>
+          <Terminal />
+        </Suspense>
+      )}
     </section>
   );
 };

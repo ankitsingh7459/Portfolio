@@ -36,7 +36,7 @@
 
 ## Phase 7: Interactive
 - [x] TASK-020 `lib/terminalCommands` pure parser + Vitest unit tests
-- [ ] TASK-021 Terminal UI in hero (desktop), Tab complete, history; mobile fallback buttons
+- [x] TASK-021 Terminal UI in hero (desktop), Tab complete, history; mobile fallback buttons
 - [ ] TASK-022 Ctrl/Cmd+K command palette (focus trap, Esc, arrows)
 
 ## Phase 8: Polish
