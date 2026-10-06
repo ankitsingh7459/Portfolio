@@ -27,9 +27,6 @@ const ParticleBackground = lazy(
 const AnimatedCursor = lazy(
   () => import('../components/AnimatedCursor/AnimatedCursor')
 );
-const VisitorStats = lazy(
-  () => import('../components/VisitorStats/VisitorStats')
-);
 const GitHubActivity = lazy(
   () => import('../components/GitHubActivity/GitHubActivity')
 );
@@ -98,9 +95,6 @@ const Home = () => {
               <Timeline />
               <Certifications />
               <Contact />
-              <Suspense fallback={null}>
-                <VisitorStats />
-              </Suspense>
               <Footer />
             </div>
 
