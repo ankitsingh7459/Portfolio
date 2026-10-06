@@ -24,14 +24,14 @@ const Home = () => {
   return (
     <Layout>
       <Hero />
+      <Projects />
       <About />
       <Skills />
-      <Projects />
+      <Timeline />
+      <Certifications />
       <Suspense fallback={null}>
         <GitHubActivity />
       </Suspense>
-      <Timeline />
-      <Certifications />
       <Contact />
     </Layout>
   );

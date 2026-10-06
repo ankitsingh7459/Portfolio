@@ -24,7 +24,7 @@
 - [x] TASK-013 Tests for projects + case study (fallback, links, direct URL)
 
 ## Phase 5: Slice 3, About / Stack / Log
-- [ ] TASK-014 About (`cat about.txt`)
+- [x] TASK-014 About (`cat about.txt`)
 - [ ] TASK-015 Stack as grouped plain list (`stack.json` style)
 - [ ] TASK-016 Timeline and certifications as `git log`
 - [ ] TASK-017 GitHub activity restyled, lazy, graceful failure

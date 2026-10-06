@@ -17,9 +17,10 @@ Phase 5 (Slice 3: About, Stack, Log, GitHub) in progress (Step 0 underway).
 - TASK-011: Rebuilt features/projects slice with SectionHeading ("$ ls projects"), bordered ProjectRow items, hover/focus amber marker with x+4px shift, staggered Reveal (0.06s), useProjects hook with 4s timeout and fallback, PrintAPM prepended and featured (ADR-011), and completely removed .glass and .neon-* classes from projects — commit `fbb8512`.
 - TASK-012: Created PrintAPM case study route /projects/printapm (lazy-loaded), terminal layout ($ cat problem.txt, solution.txt, stats.json, architecture.md, decisions.md, lessons.txt, screenshots with dashed placeholder, live link to printapm.online), route title, heading focus, back navigation, and 404 fallback route — commit `9a417ec` (refactored `c850614`).
 - TASK-013: Added test suites for projects slice (API mocking, PrintAPM priority, fallback on failure/timeout, zero '#' links, skeleton loading) and PrintAPM case study (all terminal sections rendered from data, live link attributes, route title, and unknown route 404 fallback). 14 unit tests passing — commit `42df058`.
+- TASK-014: Rebuilt features/about slice with SectionHeading ("$ cat about.txt"), isolated lines in data/about.js ([FILL: about line 1..4]), readable line length max-w-[65ch], Reveal on scroll, and removed old About component with cards/glass/neon.
 
 ## Current task
-Step 0: Baseline reconciliation, PrintAPM content sanitization, and verification standards.
+TASK-015: Stack slice (features/stack, $ cat stack.json).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -58,7 +59,7 @@ Step 0: Baseline reconciliation, PrintAPM content sanitization, and verification
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until remaining sections using them are rebuilt in their respective vertical slices (About, Certifications, Contact, GitHubActivity, Skills). Projects slice has been completely migrated to Warm Terminal tokens.
+- Legacy classes (.glass, .neon-text) are preserved temporarily in index.css until remaining sections using them are rebuilt in their respective vertical slices (Certifications, Contact, GitHubActivity, Skills). About and Projects have been completely migrated to Warm Terminal tokens.
 
 ## Open owner inputs
 - Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
