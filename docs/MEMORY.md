@@ -87,4 +87,5 @@ Phase Gate 6 approval.
 - Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
 
 ## Next step
-Phase Gate 6 approval -> Phase 7: Interactive (Terminal UI & command palette, TASK-020 to TASK-022).
+- TASK-020 completed (`lib/terminalCommands.js` pure parser + `lib/navTargets.js` registry + Vitest unit tests).
+- Next: TASK-021 (Interactive Terminal UI in Hero).

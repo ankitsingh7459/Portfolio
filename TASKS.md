@@ -35,7 +35,7 @@
 - [x] TASK-019b Motion cleanup: LazyMotion strict enabled, no-restricted-imports rule added, motion chunk reduced from 145.93 kB to 96.85 kB (gzip: 34.46 kB)
 
 ## Phase 7: Interactive
-- [ ] TASK-020 `lib/terminalCommands` pure parser + Vitest unit tests
+- [x] TASK-020 `lib/terminalCommands` pure parser + Vitest unit tests
 - [ ] TASK-021 Terminal UI in hero (desktop), Tab complete, history; mobile fallback buttons
 - [ ] TASK-022 Ctrl/Cmd+K command palette (focus trap, Esc, arrows)
 
