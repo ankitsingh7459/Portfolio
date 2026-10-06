@@ -17,5 +17,20 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'framer-motion',
+              importNames: ['motion'],
+              message:
+                'Use m from framer-motion with LazyMotion instead of the full motion export to preserve small bundle size.',
+            },
+          ],
+        },
+      ],
+    },
   },
 ])

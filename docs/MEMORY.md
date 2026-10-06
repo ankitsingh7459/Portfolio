@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 6 (Slice 4: Contact and Resume) in progress.
+Phase 6 (Slice 4: Contact and Resume) complete. Ready for Phase Gate 6 review.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -22,10 +22,11 @@ Phase 6 (Slice 4: Contact and Resume) in progress.
 - TASK-016: Consolidated Timeline and Certifications into features/log/Log.jsx ($ git log --oneline), data in data/timeline.js and data/certifications.js with bare placeholders and null URLs, decorative aria-hidden fake hashes, empty state, and removed legacy Timeline/Certifications components with .glass/.neon-* — commit `2fc0c66`.
 - TASK-017: Rebuilt features/github slice with SectionHeading ("$ gh activity --user ankitsingh7459"), useGitHubActivity hook with 4s timeout and graceful fallback on network failure or rate limits (403/429), terminal summary stats bar, bordered repo rows with hover shift, external profile link, removed legacy cyan/glass/neon styles, and added comprehensive unit test suite across Phase 5 slices — commit `ef6a85b` (fallback sanitized in `c77e146`).
 - TASK-018: Rebuilt features/contact slice with SectionHeading ("$ mail ankit"), useContactForm hook mirroring backend constraints (name 2-100 chars, valid email, message 10-2000 chars), accessible labels, inline errors with aria-describedby, focus management to first invalid input, double-submit protection, terminal status responses (success, 429 rate limit, 500 error, network unavailable), single source of truth in data/contact.js for Contact and Footer, zero unconfirmed emails exposed in DOM, and completely deleted legacy .glass/.neon-text styles — commit `e7a3461`.
-- TASK-019: Created features/resume slice with SectionHeading ("$ cat resume.pdf"), open and download actions for /resume.pdf, last updated metadata from data/resume.js, no embedded iframe (ADR-013), and conditional Navbar/Home visibility gating based on file availability (ADR-012).
+- TASK-019: Created features/resume slice with SectionHeading ("$ cat resume.pdf"), open and download actions for /resume.pdf, last updated metadata from data/resume.js, no embedded iframe (ADR-013), and conditional Navbar/Home visibility gating based on file availability (ADR-012) — commit `58df578`.
+- TASK-019b: Motion cleanup completed. Verified 0 occurrences of motion. or full motion imports across frontend/src. Enabled LazyMotion strict in Root.jsx. Added ESLint no-restricted-imports rule forbidding import of motion from framer-motion. Verified motion chunk reduced from 145.93 kB (gzip: 48.87 kB) to 96.85 kB (gzip: 34.46 kB), saving 49.08 kB uncompressed (-33.6%).
 
 ## Current task
-TASK-019b: Motion cleanup (LazyMotion strict, audit remaining motion imports, add ESLint no-restricted-imports rule, record motion chunk size).
+Phase Gate 6 approval.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -86,4 +87,4 @@ TASK-019b: Motion cleanup (LazyMotion strict, audit remaining motion imports, ad
 - Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
 
 ## Next step
-TASK-019: Resume slice (`features/resume`, `$ cat resume.pdf`, open/download actions, data/resume.js).
+Phase Gate 6 approval -> Phase 7: Interactive (Terminal UI & command palette, TASK-020 to TASK-022).

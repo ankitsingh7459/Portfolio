@@ -12,7 +12,7 @@ const RootLoader = () => (
 
 const Root = () => (
   <BrowserRouter>
-    <LazyMotion features={domAnimation} strict={false}>
+    <LazyMotion features={domAnimation} strict>
       <Suspense fallback={<RootLoader />}>
         <App />
       </Suspense>

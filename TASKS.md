@@ -32,7 +32,7 @@
 ## Phase 6: Slice 4, Contact / Resume
 - [x] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
 - [x] TASK-019 Resume viewer/download (`cat resume.pdf`)
-*Instruction: After Phase 6: enable LazyMotion strict, make sure no file imports motion, record the motion chunk size.*
+- [x] TASK-019b Motion cleanup: LazyMotion strict enabled, no-restricted-imports rule added, motion chunk reduced from 145.93 kB to 96.85 kB (gzip: 34.46 kB)
 
 ## Phase 7: Interactive
 - [ ] TASK-020 `lib/terminalCommands` pure parser + Vitest unit tests
