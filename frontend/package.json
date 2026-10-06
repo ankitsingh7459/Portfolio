@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "test": "vitest run",
+    "check:release": "node scripts/check-release.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

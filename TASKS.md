@@ -50,7 +50,7 @@
 - [ ] TASK-028 Code review against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, SECURITY (report first, then fix)
 - [ ] TASK-029 Playwright E2E suite for TEST_PLAN flows
 - [ ] TASK-030 Preview deployment (Vercel preview of the branch); QA on live preview URL (refresh, direct URLs, slow network, API cold start, mobile)
-- [ ] TASK-031 Merge to main, production deploy, production QA on live URL; pre-deploy check: `grep -r "\[FILL" frontend/src frontend/public frontend/index.html` must return nothing. A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
+- [ ] TASK-031 Merge to main, production deploy, production QA on live URL; pre-deploy check: run `npm run check:release` (`node scripts/check-release.mjs`) and verify `grep -r "\[FILL" frontend/src frontend/public frontend/index.html` returns nothing. A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
 - [ ] TASK-032 Monitoring: uptime check on site and `/api/health`, error tracking/analytics decision recorded; update README and all docs
 - [ ] TASK-033 (stretch, only after owner approval) one small easter egg
 
