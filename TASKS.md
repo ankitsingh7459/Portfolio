@@ -43,7 +43,7 @@
 - [x] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
 - [x] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast, axe-core audit)
 - [x] TASK-025 Performance: fetch wrapper replacing axios (-40.36 kB api chunk), passive ScrollProgress (-10.32 kB motion chunk), font preload, dropped unused 523 kB photo, Lighthouse mobile audit
-- [ ] TASK-026 Responsive pass 375/768/1440
+- [x] TASK-026 Responsive pass: 320/375/414/768/1024/1440/200% zoom audited with zero overflow, touch targets >=44px, mobile menu Escape handling
 
 ## Phase 9: Release
 - [ ] TASK-027 Security review against SECURITY.md (report issues first, then fix one by one)

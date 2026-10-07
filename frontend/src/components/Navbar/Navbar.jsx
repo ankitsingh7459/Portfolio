@@ -147,7 +147,7 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] bg-[#1E1B15] rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
+          className="md:hidden min-h-[44px] min-w-[44px] inline-flex items-center justify-center p-2 text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] bg-[#1E1B15] rounded-[2px] focus-visible:outline-2 focus-visible:outline-[#E8A33D]"
           aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={mobileOpen}
         >
@@ -170,7 +170,7 @@ const Navbar = () => {
                   key={link.id}
                   type="button"
                   onClick={() => scrollTo(link.id)}
-                  className={`text-left px-3 py-2 font-mono text-sm border-l-2 rounded-[2px] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] ${
+                  className={`text-left px-3 py-2 min-h-[44px] flex items-center font-mono text-sm border-l-2 rounded-[2px] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] ${
                     isActive
                       ? 'border-[#E8A33D] text-[#E8A33D] bg-[#16140F]'
                       : 'border-transparent text-[#B9B09A] hover:text-[#F1E9D2] hover:bg-[#16140F]'

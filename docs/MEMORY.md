@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 6 (Slice 4: Contact and Resume) complete. Ready for Phase Gate 6 review.
+Phase 8 (Polish: TASK-023 to TASK-026) complete. Ready for Phase Gate 8 review.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -29,10 +29,11 @@ Phase 6 (Slice 4: Contact and Resume) complete. Ready for Phase Gate 6 review.
 - TASK-022: Implemented accessible Command Palette with combobox, listbox, focus trap, restoration, and 9 unit tests — commit `2f5cd43`.
 - TASK-023: SEO slice: dynamic robots.txt/sitemap.xml generator, `usePageMeta` hook, OpenGraph image generator script (19 kB PNG), `%SITE_URL%` Vite plugin, canonical links, and Person JSON-LD — commit `1ed099e`.
 - TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states — commit `6919668`.
-- TASK-025: Performance pass: replaced axios with native fetch wrapper (saving -40.36 kB / -97% in api chunk, 41.62 kB -> 1.26 kB), refactored ScrollProgress to passive event listener with rAF and GPU transform (saving -10.32 kB / -10.7% in motion chunk, 96.85 kB -> 86.53 kB), trimmed unused italic font weights in index.html, dropped unused 523 kB profile-photo.png, and verified mobile Lighthouse results (Accessibility 100, Best Practices 96, Performance 77, TBT 120ms, CLS 0.016).
+- TASK-025: Performance pass: replaced axios with native fetch wrapper (saving -40.36 kB / -97% in api chunk, 41.62 kB -> 1.26 kB), refactored ScrollProgress to passive event listener with rAF and GPU transform (saving -10.32 kB / -10.7% in motion chunk, 96.85 kB -> 86.53 kB), trimmed unused italic font weights in index.html, dropped unused 523 kB profile-photo.png, and verified mobile Lighthouse results (Accessibility 100, Best Practices 96, Performance 77, TBT 120ms, CLS 0.016) — commit `4a375a2`.
+- TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom): verified zero horizontal overflow, >=44px mobile touch targets, and mobile menu keyboard accessibility.
 
 ## Current task
-TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom).
+Phase Gate 8: Stop and wait for owner approval.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -60,8 +61,14 @@ TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, land
   - `dist/assets/profile-photo-D2fcBkY4.png`: 523.21 kB
 - HTML:
   - `dist/index.html`: 1.71 kB (gzip: 0.72 kB)
-- Lighthouse mobile:
-  - Not measured locally (Lighthouse CLI not installed locally; will be measured against preview/browser during QA).
+- Lighthouse mobile (measured in TASK-025 via local Chrome CDP audit under simulated mobile network throttling 150ms RTT / 1.6 Mbps):
+  - Accessibility: 100 / 100
+  - Best Practices: 96 / 100
+  - Performance: 77 / 100
+  - Total Blocking Time (TBT): 120 ms
+  - Cumulative Layout Shift (CLS): 0.016
+  - First Contentful Paint (FCP): 3.0 s
+  - Largest Contentful Paint (LCP): 4.6 s
 
 ## Secret Audit Details
 - Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
@@ -86,12 +93,17 @@ TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, land
 - Final domain, contact email, LinkedIn, GitHub links.
 - Timeline entries and certifications.
 - Which PrintAPM stack/architecture details are approved for public display.
-- Decision on whether to keep profile-photo.png (TASK-025).
+- Decision on whether to keep profile-photo.png: dropped in TASK-025 per owner direction (`default: drop`).
 
-## Verification Standards
+## Verification Standards & Audits
 - Headless `--dump-dom` captures rendered HTML elements and route resolution only.
 - Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
+- Accessibility audit (TASK-024): axe-core run across Default Home, Expanded Terminal, Open Command Palette, and PrintAPM Case Study route with 0 critical, 0 serious, 0 moderate, and 0 minor violations.
+- Responsive audit (TASK-026): Tested across 320px (Mobile Min), 375px (iPhone SE), 414px (Mobile Large), 812x375 (Landscape Mobile), 768px (Tablet Portrait), 1024px (Small Desktop), 1440px (Large Desktop), and 200% Zoom:
+  - Zero horizontal overflow across all tested viewports (Home and /projects/printapm).
+  - Mobile menu toggle open and Escape-to-close verified via CDP.
+  - Interactive touch targets satisfy >=44px minimum touch target guidelines.
 
 ## Next step
-- TASK-023 completed (SEO and sharing: data/site.js, index.html transform plugin, pure sitemap/robots generators, usePageMeta hook, ADR-015, headless Chrome OG image 19.08 kB, warm terminal favicon, 0 legacy domains).
-- Next: TASK-024 (Accessibility: skip link, landmarks, headings, contrast AA, axe-core devDependency audit).
+- Phase Gate 8 review and approval.
+- Next phase: Phase 9 (Release: TASK-027 to TASK-033).
