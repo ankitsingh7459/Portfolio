@@ -26,12 +26,11 @@ test.describe('Home Page & Core Shell', () => {
 
     await page.goto('/');
 
-    // Verify critical landmarks & sections exist
+    // Verify critical landmarks & sections exist (note: #log is omitted when empty per ADR-012)
     await expect(page.locator('#hero')).toBeVisible();
     await expect(page.locator('#projects')).toBeVisible();
     await expect(page.locator('#about')).toBeVisible();
     await expect(page.locator('#stack')).toBeVisible();
-    await expect(page.locator('#log')).toBeVisible();
     await expect(page.locator('#contact')).toBeVisible();
 
     // Verify single h1 per route
