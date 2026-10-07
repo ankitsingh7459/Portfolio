@@ -2,9 +2,9 @@ import { lazy, Suspense, useEffect } from 'react';
 import { trackVisit } from '../services/api';
 
 import Layout from '../components/Layout';
-import Hero from '../components/Hero/Hero';
-import Projects from '../components/Projects/Projects';
-import About from '../components/About/About';
+import Hero from '../features/hero/Hero';
+import Projects from '../features/projects/Projects';
+import About from '../features/about/About';
 import Stack from '../features/stack/Stack';
 import Log from '../features/log/Log';
 import Resume from '../features/resume/Resume';
