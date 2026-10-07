@@ -187,4 +187,80 @@ describe('CommandPalette Component', () => {
 
     expect(tabEvent.defaultPrevented).toBe(true);
   });
+
+  it('updates aria-expanded on Navbar trigger button when opened and closed', async () => {
+    render(
+      <MemoryRouter>
+        <div>
+          <Navbar />
+          <CommandPalette />
+        </div>
+      </MemoryRouter>
+    );
+
+    const triggerBtn = screen.getByRole('button', { name: /open command palette/i });
+    expect(triggerBtn).toHaveAttribute('aria-expanded', 'false');
+
+    // Click to open
+    fireEvent.click(triggerBtn);
+    expect(triggerBtn).toHaveAttribute('aria-expanded', 'true');
+
+    // Close via Escape
+    const searchInput = screen.getByRole('combobox');
+    fireEvent.keyDown(searchInput, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(triggerBtn).toHaveAttribute('aria-expanded', 'false');
+    });
+  });
+
+  it('safely falls back during focus restoration when opener element is detached from DOM', async () => {
+    const { rerender } = render(
+      <MemoryRouter>
+        <div>
+          <header>
+            <button aria-label="navigation menu">Nav Menu</button>
+          </header>
+          <div id="dynamic-container">
+            <button data-testid="temp-opener">Temporary Opener</button>
+          </div>
+          <CommandPalette />
+        </div>
+      </MemoryRouter>
+    );
+
+    const tempOpener = screen.getByTestId('temp-opener');
+    tempOpener.focus();
+    expect(document.activeElement).toBe(tempOpener);
+
+    // Open palette
+    fireEvent.keyDown(tempOpener, { key: 'k', ctrlKey: true });
+    expect(screen.getByRole('dialog', { name: /command palette/i })).toBeInTheDocument();
+
+    // Now unmount/remove the temporary opener from the DOM before closing
+    rerender(
+      <MemoryRouter>
+        <div>
+          <header>
+            <button aria-label="navigation menu">Nav Menu</button>
+          </header>
+          <div id="dynamic-container" />
+          <CommandPalette />
+        </div>
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByTestId('temp-opener')).toBeNull();
+
+    // Close palette with Escape
+    const searchInput = screen.getByRole('combobox');
+    fireEvent.keyDown(searchInput, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog', { name: /command palette/i })).toBeNull();
+      // Focus should have safely fallen back to the visible navigation control
+      const navMenuBtn = screen.getByRole('button', { name: /navigation menu/i });
+      expect(document.activeElement).toBe(navMenuBtn);
+    });
+  });
 });

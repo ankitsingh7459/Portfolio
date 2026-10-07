@@ -36,6 +36,9 @@ export const CommandPalette = () => {
     setIsOpen(true);
     setQuery('');
     setActiveIndex(0);
+    window.dispatchEvent(
+      new CustomEvent('command-palette-change', { detail: { isOpen: true } })
+    );
   };
 
   // Close modal handler
@@ -43,9 +46,23 @@ export const CommandPalette = () => {
     setIsOpen(false);
     setQuery('');
     setActiveIndex(0);
-    // Restore focus to opener element
-    if (previousFocusRef.current && typeof previousFocusRef.current.focus === 'function') {
+    window.dispatchEvent(
+      new CustomEvent('command-palette-change', { detail: { isOpen: false } })
+    );
+    // Restore focus to opener element safely
+    if (
+      previousFocusRef.current &&
+      typeof previousFocusRef.current.focus === 'function' &&
+      document.contains(previousFocusRef.current)
+    ) {
       previousFocusRef.current.focus();
+    } else {
+      // Opener was unmounted (e.g. from mobile menu). Fallback to visible nav controls.
+      const fallback =
+        document.querySelector('header button[aria-label*="navigation menu"]') ||
+        document.querySelector('header button[aria-label*="Ctrl K"]') ||
+        document.querySelector('main, #hero, a');
+      fallback?.focus();
     }
   };
 

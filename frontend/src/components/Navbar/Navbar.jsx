@@ -2,20 +2,33 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { resumeData } from '../../data/resume';
+import { timelineEntries } from '../../data/timeline';
+import { certifications } from '../../data/certifications';
 import { NAV_TARGETS } from '../../lib/navTargets';
 
 const LINKS = NAV_TARGETS
   .filter((target) => target.type === 'section')
   .filter((target) => target.id !== 'resume' || resumeData?.available)
+  .filter((target) => target.id !== 'log' || (timelineEntries?.length > 0 || certifications?.length > 0))
   .map((target) => ({ label: target.id, id: target.id }));
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const [active, setActive] = useState('');
   const [hovered, setHovered] = useState(null);
   const prefersReduced = useReducedMotion();
   const navRef = useRef(null);
+
+  // Sync command palette open state
+  useEffect(() => {
+    const handlePaletteChange = (e) => {
+      setPaletteOpen(Boolean(e.detail?.isOpen));
+    };
+    window.addEventListener('command-palette-change', handlePaletteChange);
+    return () => window.removeEventListener('command-palette-change', handlePaletteChange);
+  }, []);
 
   // Scroll border & background handler
   useEffect(() => {
@@ -132,7 +145,7 @@ const Navbar = () => {
             className="font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] border border-[#2E2A21] bg-[#1E1B15] px-2.5 py-1 rounded-[2px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 flex items-center gap-1.5 min-h-[32px]"
             aria-label="Ctrl K: Open command palette"
             aria-haspopup="dialog"
-            aria-expanded="false"
+            aria-expanded={paletteOpen}
           >
             <span className="text-[#E8A33D] select-none" aria-hidden="true">&gt;</span>
             <span>Ctrl K</span>
@@ -189,7 +202,7 @@ const Navbar = () => {
               className="w-full text-left font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] bg-[#16140F] px-3 py-2.5 rounded-[2px] min-h-[44px] flex items-center justify-between transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2"
               aria-label="Ctrl K (Command Palette)"
               aria-haspopup="dialog"
-              aria-expanded="false"
+              aria-expanded={paletteOpen}
             >
               <span>Ctrl K (Command Palette)</span>
               <span className="text-[#E8A33D]">&gt;</span>
