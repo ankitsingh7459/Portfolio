@@ -46,6 +46,7 @@
 - [x] TASK-026 Responsive pass: 320/375/414/768/1024/1440/200% zoom audited with zero overflow, touch targets >=44px, mobile menu Escape handling
 
 ## Phase 9: Release
+- [x] TASK-025b Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests, preloaded 2 critical font files, immediate hero heading paint for optimal LCP, official mobile Lighthouse Performance >= 90
 - [ ] TASK-027 Security review against SECURITY.md (report issues first, then fix one by one)
 - [ ] TASK-028 Code review against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, SECURITY (report first, then fix)
 - [ ] TASK-029 Playwright E2E suite for TEST_PLAN flows

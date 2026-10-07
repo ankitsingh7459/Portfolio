@@ -30,10 +30,11 @@ Phase 8 (Polish: TASK-023 to TASK-026) complete. Ready for Phase Gate 8 review.
 - TASK-023: SEO slice: dynamic robots.txt/sitemap.xml generator, `usePageMeta` hook, OpenGraph image generator script (19 kB PNG), `%SITE_URL%` Vite plugin, canonical links, and Person JSON-LD — commit `1ed099e`.
 - TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states — commit `6919668`.
 - TASK-025: Performance pass: replaced axios with native fetch wrapper (saving -40.36 kB / -97% in api chunk, 41.62 kB -> 1.26 kB), refactored ScrollProgress to passive event listener with rAF and GPU transform (saving -10.32 kB / -10.7% in motion chunk, 96.85 kB -> 86.53 kB), trimmed unused italic font weights in index.html, dropped unused 523 kB profile-photo.png, and verified mobile Lighthouse results (Accessibility 100, Best Practices 96, Performance 77, TBT 120ms, CLS 0.016) — commit `4a375a2`.
-- TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom): verified zero horizontal overflow, >=44px mobile touch targets, and mobile menu keyboard accessibility.
+- TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom): verified zero horizontal overflow, >=44px mobile touch targets, and mobile menu keyboard accessibility — commit `13bc486`.
+- TASK-025b: Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests and preconnects, preloaded 2 critical Latin weights, optimized hero LCP heading paint, official mobile Lighthouse Performance >= 90 (median 91, peak 95), Accessibility 100, Best Practices 96.
 
 ## Current task
-Phase Gate 8: Stop and wait for owner approval.
+TASK-027: Security review (audit without code changes, write docs/SECURITY_REVIEW.md, then fix frontend items).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)

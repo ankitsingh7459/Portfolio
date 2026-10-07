@@ -12,11 +12,12 @@ export const Hero = () => {
   );
 
   // State for typing animation
+  // State for typing animation (prompt line types; name and content painted immediately for optimal LCP)
   const [currentLine, setCurrentLine] = useState(prefersReduced ? 4 : 0);
   const [displayedPrompt, setDisplayedPrompt] = useState(prefersReduced ? heroData.prompt : '');
-  const [displayedName, setDisplayedName] = useState(prefersReduced ? heroData.name : '');
-  const [displayedDescriptor, setDisplayedDescriptor] = useState(prefersReduced ? heroData.descriptor : '');
-  const [displayedHeroLine, setDisplayedHeroLine] = useState(prefersReduced ? heroData.heroLine : '');
+  const [displayedName, setDisplayedName] = useState(heroData.name);
+  const [displayedDescriptor, setDisplayedDescriptor] = useState(heroData.descriptor);
+  const [displayedHeroLine, setDisplayedHeroLine] = useState(heroData.heroLine);
 
   // Skip handler
   const skipAnimation = useCallback(() => {
@@ -36,56 +37,23 @@ export const Hero = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prefersReduced, currentLine, skipAnimation]);
 
-  // Sequential typing effect
+  // Terminal prompt line typing effect
   useEffect(() => {
     if (prefersReduced || currentLine >= 4) return;
 
     let timer = null;
 
     if (currentLine === 0) {
-      // Type Prompt
+      // Type Prompt ($ whoami)
       let idx = 0;
       timer = setInterval(() => {
         idx += 1;
         setDisplayedPrompt(heroData.prompt.slice(0, idx));
         if (idx >= heroData.prompt.length) {
           clearInterval(timer);
-          setTimeout(() => setCurrentLine(1), 150);
+          setTimeout(() => setCurrentLine(4), 150);
         }
       }, 25);
-    } else if (currentLine === 1) {
-      // Type Name
-      let idx = 0;
-      timer = setInterval(() => {
-        idx += 1;
-        setDisplayedName(heroData.name.slice(0, idx));
-        if (idx >= heroData.name.length) {
-          clearInterval(timer);
-          setTimeout(() => setCurrentLine(2), 120);
-        }
-      }, 35);
-    } else if (currentLine === 2) {
-      // Type Descriptor
-      let idx = 0;
-      timer = setInterval(() => {
-        idx += 1;
-        setDisplayedDescriptor(heroData.descriptor.slice(0, idx));
-        if (idx >= heroData.descriptor.length) {
-          clearInterval(timer);
-          setTimeout(() => setCurrentLine(3), 100);
-        }
-      }, 20);
-    } else if (currentLine === 3) {
-      // Type Hero Line
-      let idx = 0;
-      timer = setInterval(() => {
-        idx += 1;
-        setDisplayedHeroLine(heroData.heroLine.slice(0, idx));
-        if (idx >= heroData.heroLine.length) {
-          clearInterval(timer);
-          setTimeout(() => setCurrentLine(4), 100);
-        }
-      }, 15);
     }
 
     return () => {
@@ -143,25 +111,16 @@ export const Hero = () => {
           <span className="font-mono text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#F1E9D2] break-words">
             {displayedName}
           </span>
-          {currentLine === 1 && (
-            <span className="cursor-block ml-1 text-[#E8A33D] text-3xl sm:text-5xl md:text-6xl">▍</span>
-          )}
         </div>
 
         {/* Descriptor */}
         <p className="font-mono text-sm md:text-base text-[#B9B09A] min-h-[1.5rem] flex items-center">
           <span>{displayedDescriptor}</span>
-          {currentLine === 2 && (
-            <span className="cursor-block ml-1 text-[#E8A33D]">▍</span>
-          )}
         </p>
 
         {/* Hero Line */}
         <p className="font-sans text-base md:text-lg text-[#F1E9D2] leading-relaxed max-w-2xl min-h-[2rem] flex items-center flex-wrap">
           <span>{displayedHeroLine}</span>
-          {currentLine === 3 && (
-            <span className="cursor-block ml-1 text-[#E8A33D]">▍</span>
-          )}
         </p>
       </div>
 
