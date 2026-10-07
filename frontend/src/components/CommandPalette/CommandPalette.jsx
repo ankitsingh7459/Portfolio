@@ -198,7 +198,7 @@ export const CommandPalette = () => {
       onClick={(e) => {
         if (e.target === backdropRef.current) closeModal();
       }}
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 md:pt-24 px-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-16 md:pt-24 px-4 bg-black/80"
       role="presentation"
     >
       <div
@@ -206,7 +206,7 @@ export const CommandPalette = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Command palette"
-        className="w-full max-w-xl bg-[#16140F] border border-[#2E2A21] rounded-[2px] shadow-2xl overflow-hidden flex flex-col max-h-[80vh]"
+        className="w-full max-w-xl bg-[#16140F] border border-[#2E2A21] rounded-[2px] overflow-hidden flex flex-col max-h-[80vh]"
       >
         {/* Search header / Combobox */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[#2E2A21] bg-[#1E1B15]">
