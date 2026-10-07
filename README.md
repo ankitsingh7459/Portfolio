@@ -53,6 +53,7 @@ Frontend runs locally at `http://localhost:5173`.
 | Variable | Description |
 |----------|-------------|
 | `VITE_API_URL` | Backend API base URL (e.g. `http://localhost:5000/api`) |
+| `VITE_SITE_URL` | Canonical site URL (e.g. `https://ankitsingh.dev`) for SEO metadata, OG image, and sitemap |
 
 ## API Endpoints
 
@@ -82,6 +83,7 @@ Frontend runs locally at `http://localhost:5173`.
 - `npm run preview`: Preview production build locally
 - `npm test`: Unit test suite (Vitest, configured in Phase 7)
 - `npm run test:e2e`: Playwright E2E suite (configured in Phase 9)
+- `npm run check:release`: Pre-release integrity check (validates zero `[FILL]` markers and no placeholder links)
 
 ### Backend (`backend/`)
 - `npm run dev`: Start Express API with nodemon
