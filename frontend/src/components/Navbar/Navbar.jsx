@@ -2,16 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { resumeData } from '../../data/resume';
+import { NAV_TARGETS } from '../../lib/navTargets';
 
-const LINKS = [
-  { label: 'projects', id: 'projects' },
-  { label: 'about', id: 'about' },
-  { label: 'stack', id: 'stack' },
-  { label: 'log', id: 'log' },
-  { label: 'github', id: 'github' },
-  ...(resumeData?.available ? [{ label: 'resume', id: 'resume' }] : []),
-  { label: 'contact', id: 'contact' },
-];
+const LINKS = NAV_TARGETS
+  .filter((target) => target.type === 'section')
+  .filter((target) => target.id !== 'resume' || resumeData?.available)
+  .map((target) => ({ label: target.id, id: target.id }));
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
