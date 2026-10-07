@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 9A completed: TASK-025b, TASK-027, TASK-028, and TASK-029 all completed and committed. Standing by at Phase Gate 9A for owner review and approval before proceeding to Phase 9B.
+Phase 9B Part 1 completed locally: VITE_API_URL /api suffix proven in unit test, SEO brought to 100/100, og.png regenerated with confirmed domain, zero CSP violations verified via CDP. Standing by for owner push (`git push -u origin redesign/warm-terminal`) and live PREVIEW_URL for Part 2.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -35,9 +35,10 @@ Phase 9A completed: TASK-025b, TASK-027, TASK-028, and TASK-029 all completed an
 - TASK-027: Security review against SECURITY.md completed: full Gitleaks history scan (0 leaks), npm audit fix in frontend (0 vulnerabilities), comprehensive audit report written to docs/SECURITY_REVIEW.md, backend security findings documented (report-only), and strict Content-Security-Policy & security headers configured in vercel.json with zero violations verified via CDP across all routes (updated with owner-provided backend origin https://portfolio-esod.onrender.com) — commits `edbf205`, `0957f8b`, `1feaffc`, `4b492ab`.
 - TASK-028: Comprehensive code review completed against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, and SECURITY. Removed 8 legacy component shim directories in favor of direct feature imports, removed dead useScrollAnimation hook and unused Vite assets, removed backdrop blur and shadow from CommandPalette to adhere strictly to flat Warm Terminal rules, unified Navbar with NAV_TARGETS registry, and documented VITE_SITE_URL and check:release script in README.md — commits `bc595bf`, `c59b45d`, `63f1647`, `43ac473`, `f55d6c4`.
 - TASK-029: Implemented comprehensive Playwright E2E test suite in frontend/e2e/ across desktop (1440x900), tablet (768x1024), and mobile (375x667). 47 passed, 13 skipped, 0 failed. Verified core shell landmarks, single h1, skip link, terminal commands & tab completion, mobile terminal chips, command palette filter & escape restore, contact form validation & mocked 201/429 flows, case study routing & back navigation, 404 with noindex meta tag, admin login form accessibility, automated axe-core audits (0 critical/serious violations), and measured mobile touch targets >= 44x44px — commit `540c4b4`.
+- TASK-030 (Part 1): Pre-push preview verification completed locally. Proven in unit test that VITE_API_URL must end in /api (commit `c521036`); regenerated og.png with confirmed domain text (commit `8d8e536`); verified SEO score 100/100 (Perf 91, A11y 100, BP 96, SEO 100); confirmed zero CSP violations across all routes via CDP; verified Hero boot sequence and reduced motion; audited dependency versions and title claims.
 
 ## Current task
-Phase Gate 9A: Standing by for owner review and approval before proceeding to Phase 9B (TASK-030 Preview Deployment).
+TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview QA.
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
