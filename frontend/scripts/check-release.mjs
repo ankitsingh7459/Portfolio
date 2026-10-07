@@ -10,6 +10,7 @@ const scanTargets = [
   { dir: path.join(frontendDir, 'src'), checkFill: true, checkEmptyHref: true },
   { dir: path.join(frontendDir, 'public'), checkFill: true, checkEmptyHref: false },
   { file: path.join(frontendDir, 'index.html'), checkFill: true, checkEmptyHref: false },
+  { file: path.join(frontendDir, 'scripts', 'og-template.html'), checkFill: true, checkEmptyHref: false },
 ];
 
 const ignoredExtensions = new Set([
