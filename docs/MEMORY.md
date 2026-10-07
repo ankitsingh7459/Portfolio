@@ -28,10 +28,11 @@ Phase 6 (Slice 4: Contact and Resume) complete. Ready for Phase Gate 6 review.
 - TASK-021: Implemented Hero interactive Terminal panel (desktop input + history/tab completion, mobile button chips) with 10 unit tests — commit `edcd541`.
 - TASK-022: Implemented accessible Command Palette with combobox, listbox, focus trap, restoration, and 9 unit tests — commit `2f5cd43`.
 - TASK-023: SEO slice: dynamic robots.txt/sitemap.xml generator, `usePageMeta` hook, OpenGraph image generator script (19 kB PNG), `%SITE_URL%` Vite plugin, canonical links, and Person JSON-LD — commit `1ed099e`.
-- TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states.
+- TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states — commit `6919668`.
+- TASK-025: Performance pass: replaced axios with native fetch wrapper (saving -40.36 kB / -97% in api chunk, 41.62 kB -> 1.26 kB), refactored ScrollProgress to passive event listener with rAF and GPU transform (saving -10.32 kB / -10.7% in motion chunk, 96.85 kB -> 86.53 kB), trimmed unused italic font weights in index.html, dropped unused 523 kB profile-photo.png, and verified mobile Lighthouse results (Accessibility 100, Best Practices 96, Performance 77, TBT 120ms, CLS 0.016).
 
 ## Current task
-TASK-025: Performance pass (Lighthouse audit, bundle analysis, fetch wrapper replacing axios, passive scroll listener, and font weight trimming).
+TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)

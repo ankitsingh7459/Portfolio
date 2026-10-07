@@ -42,7 +42,7 @@
 ## Phase 8: Polish
 - [x] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
 - [x] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast, axe-core audit)
-- [ ] TASK-025 Performance: lazy loading, font preload, bundle check, Lighthouse targets; WebP for profile-photo.png (baseline 523 kB) only if owner approves keeping the photo
+- [x] TASK-025 Performance: fetch wrapper replacing axios (-40.36 kB api chunk), passive ScrollProgress (-10.32 kB motion chunk), font preload, dropped unused 523 kB photo, Lighthouse mobile audit
 - [ ] TASK-026 Responsive pass 375/768/1440
 
 ## Phase 9: Release
