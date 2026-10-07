@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 9A in progress: TASK-025b, TASK-027, and TASK-028 completed. Ready for TASK-029 (Playwright E2E Suite).
+Phase 9A completed: TASK-025b, TASK-027, TASK-028, and TASK-029 all completed and committed. Standing by at Phase Gate 9A for owner review and approval before proceeding to Phase 9B.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -34,9 +34,10 @@ Phase 9A in progress: TASK-025b, TASK-027, and TASK-028 completed. Ready for TAS
 - TASK-025b: Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests and preconnects, preloaded 2 critical Latin weights, optimized hero LCP heading paint, official mobile Lighthouse Performance >= 90 (median 91, peak 95), Accessibility 100, Best Practices 96 — commit `a455468`.
 - TASK-027: Security review against SECURITY.md completed: full Gitleaks history scan (0 leaks), npm audit fix in frontend (0 vulnerabilities), comprehensive audit report written to docs/SECURITY_REVIEW.md, backend security findings documented (report-only), and strict Content-Security-Policy & security headers configured in vercel.json with zero violations verified via CDP across all routes — commits `edbf205`, `0957f8b`, `1feaffc`.
 - TASK-028: Comprehensive code review completed against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, and SECURITY. Removed 8 legacy component shim directories in favor of direct feature imports, removed dead useScrollAnimation hook and unused Vite assets, removed backdrop blur and shadow from CommandPalette to adhere strictly to flat Warm Terminal rules, unified Navbar with NAV_TARGETS registry, and documented VITE_SITE_URL and check:release script in README.md — commits `bc595bf`, `c59b45d`, `63f1647`, `43ac473`, `f55d6c4`.
+- TASK-029: Implemented comprehensive Playwright E2E test suite in frontend/e2e/ across desktop (1440x900), tablet (768x1024), and mobile (375x667). 47 passed, 13 skipped, 0 failed. Verified core shell landmarks, single h1, skip link, terminal commands & tab completion, mobile terminal chips, command palette filter & escape restore, contact form validation & mocked 201/429 flows, case study routing & back navigation, 404 with noindex meta tag, admin login form accessibility, automated axe-core audits (0 critical/serious violations), and measured mobile touch targets >= 44x44px — commit `540c4b4`.
 
 ## Current task
-TASK-029: Playwright E2E suite for TEST_PLAN flows.
+Phase Gate 9A: Standing by for owner review and approval before proceeding to Phase 9B (TASK-030 Preview Deployment).
 
 ## Baseline (TASK-001)
 - Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
@@ -122,5 +123,5 @@ TASK-029: Playwright E2E suite for TEST_PLAN flows.
   - Interactive touch targets satisfy >=44px minimum touch target guidelines.
 
 ## Next step
-- Phase Gate 8 review and approval.
-- Next phase: Phase 9 (Release: TASK-027 to TASK-033).
+- Phase Gate 9A review and owner approval.
+- Next phase: Phase 9B (Preview deployment: TASK-030).
