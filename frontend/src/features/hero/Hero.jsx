@@ -28,12 +28,29 @@ export const Hero = () => {
     setCurrentLine(4);
   }, []);
 
-  // Listen for keydown or click to skip
+  // Listen for intentional keydown to skip
   useEffect(() => {
     if (prefersReduced || currentLine >= 4) return;
 
-    const handleKeyDown = () => skipAnimation();
-    window.addEventListener('keydown', handleKeyDown, { once: true });
+    const handleKeyDown = (e) => {
+      if (e.defaultPrevented) return;
+      // Ignore modifier keys and Tab navigation
+      if (['Control', 'Shift', 'Alt', 'Meta', 'Tab'].includes(e.key)) return;
+      // Do not skip if user is focused inside a form input element
+      const target = e.target;
+      const tagName = target?.tagName?.toLowerCase();
+      if (
+        tagName === 'input' ||
+        tagName === 'textarea' ||
+        tagName === 'select' ||
+        target?.isContentEditable
+      ) {
+        return;
+      }
+      skipAnimation();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prefersReduced, currentLine, skipAnimation]);
 

@@ -141,4 +141,81 @@ describe('Hero Component', () => {
     expect(visualContainer).toHaveTextContent(heroData.descriptor);
     expect(visualContainer).toHaveTextContent(heroData.heroLine);
   });
+
+  it('does NOT skip typing animation on modifier keys or Tab navigation', () => {
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { container } = renderHero();
+    const visualContainer = container.querySelector('[aria-hidden="true"]');
+
+    // Press Shift and Control and Tab
+    act(() => {
+      fireEvent.keyDown(window, { key: 'Shift' });
+      fireEvent.keyDown(window, { key: 'Control' });
+      fireEvent.keyDown(window, { key: 'Tab' });
+    });
+
+    // Prompt line should not be instantly completed to the full prompt text
+    expect(visualContainer.querySelector('.cursor-block')).toBeInTheDocument();
+  });
+
+  it('does NOT skip typing animation when keydown occurs inside an input or textarea', () => {
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { container } = renderHero();
+    const input = document.createElement('input');
+    document.body.appendChild(input);
+
+    act(() => {
+      fireEvent.keyDown(input, { key: 'Enter' });
+    });
+
+    // Prompt typing is not skipped by input typing
+    const cursor = container.querySelector('.cursor-block');
+    expect(cursor).toBeInTheDocument();
+
+    document.body.removeChild(input);
+  });
+
+  it('removes cursor-block once typing sequence is skipped or completed', () => {
+    window.matchMedia = vi.fn().mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { container } = renderHero();
+    expect(container.querySelector('.cursor-block')).toBeInTheDocument();
+
+    // Skip
+    act(() => {
+      fireEvent.keyDown(window, { key: 'Enter' });
+    });
+
+    // Cursor is permanently removed, preventing infinite blinking
+    expect(container.querySelector('.cursor-block')).toBeNull();
+  });
 });
