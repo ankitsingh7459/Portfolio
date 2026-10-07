@@ -70,6 +70,20 @@ Phase Gate 8: Stop and wait for owner approval.
   - First Contentful Paint (FCP): 3.0 s
   - Largest Contentful Paint (LCP): 4.6 s
 
+## Production Asset Measurements (Phase 8 / Step 0A)
+- Script-computed totals across all files in `dist/assets/` (`scratch/compute_dist_totals.mjs`):
+  - Total JS chunks: 15 files
+  - Total JS raw bytes: 402,221 B (402.22 kB decimal / 392.79 KiB binary)
+  - Total JS gzip bytes: 129,076 B (129.08 kB decimal / 126.05 KiB binary)
+  - Total CSS files: 1 file (`index-MLn6EZjd.css`)
+  - Total CSS raw bytes: 31,671 B (31.67 kB decimal / 30.93 KiB binary)
+  - Total CSS gzip bytes: 6,614 B (6.61 kB decimal / 6.46 KiB binary)
+  - Image assets: 0 B (profile-photo.png deleted)
+- First-load network transfers on "/" (measured via CDP Network events, API unreachable / 503, cache disabled):
+  - JavaScript transferred: 123.98 kB (126,951 B) across 13 chunks (PrintAPM and Admin lazy chunks not loaded)
+  - CSS transferred: 7.96 kB (8,155 B) across 2 requests (local index.css + Google Fonts CSS)
+  - Total all transfers on first load: 208.72 kB (213,730 B) including HTML, fonts, favicon, and 503 responses
+
 ## Secret Audit Details
 - Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
 - Committed `.env` audit: Ran `git log --all --diff-filter=A --name-only | Select-String -Pattern "\.env"`. Verified that only `frontend/.env.example` and `backend/.env.example` were ever added to Git history; no `.env` files were ever committed.
