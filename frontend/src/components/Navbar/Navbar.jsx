@@ -130,7 +130,7 @@ const Navbar = () => {
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
             className="font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] hover:border-[#E8A33D] border border-[#2E2A21] bg-[#1E1B15] px-2.5 py-1 rounded-[2px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 flex items-center gap-1.5 min-h-[32px]"
-            aria-label="Open command palette"
+            aria-label="Ctrl K: Open command palette"
             aria-haspopup="dialog"
             aria-expanded="false"
           >
@@ -187,7 +187,7 @@ const Navbar = () => {
                 window.dispatchEvent(new CustomEvent('open-command-palette'));
               }}
               className="w-full text-left font-mono text-xs text-[#B9B09A] hover:text-[#F1E9D2] border border-[#2E2A21] hover:border-[#E8A33D] bg-[#16140F] px-3 py-2.5 rounded-[2px] min-h-[44px] flex items-center justify-between transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2"
-              aria-label="Open command palette"
+              aria-label="Ctrl K (Command Palette)"
               aria-haspopup="dialog"
               aria-expanded="false"
             >

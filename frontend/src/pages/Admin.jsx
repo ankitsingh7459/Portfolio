@@ -171,10 +171,11 @@ const Admin = () => {
 
           <div className="mt-6 space-y-4">
             <div>
-              <label className="block text-xs font-mono text-[#B9B09A] mb-1">
+              <label htmlFor="admin-email" className="block text-xs font-mono text-[#B9B09A] mb-1">
                 user.email
               </label>
               <input
+                id="admin-email"
                 type="email"
                 placeholder="admin@example.com"
                 required
@@ -185,10 +186,11 @@ const Admin = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-[#B9B09A] mb-1">
+              <label htmlFor="admin-password" className="block text-xs font-mono text-[#B9B09A] mb-1">
                 user.password
               </label>
               <input
+                id="admin-password"
                 type="password"
                 placeholder="••••••••"
                 required

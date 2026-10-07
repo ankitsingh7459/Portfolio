@@ -22,7 +22,7 @@ const NotFound = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#16140F] p-4 text-center">
-      <p className="font-mono text-xl text-[#E8A33D]">$ 404: command not found</p>
+      <h1 className="font-mono text-xl text-[#E8A33D]">$ 404: command not found</h1>
       <p className="font-mono text-sm text-[#B9B09A] mt-2">
         The requested route does not exist in this environment.
       </p>
