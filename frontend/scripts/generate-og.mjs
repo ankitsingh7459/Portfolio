@@ -26,8 +26,17 @@ if (!chromePath) {
   process.exit(1);
 }
 
+// Prepare HTML with interpolated SITE_URL
+const siteUrl = (process.env.VITE_SITE_URL || '').trim() || 'https://portfolio-gamma-lake-83.vercel.app';
+const cleanDomain = siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+const rawHtml = fs.readFileSync(templatePath, 'utf8');
+const renderedHtml = rawHtml.replace(/\[FILL:\s*domain\]/g, cleanDomain);
+
+const tempHtmlPath = path.join(__dirname, '.temp-og-render.html');
+fs.writeFileSync(tempHtmlPath, renderedHtml, 'utf8');
+
 // Convert template path to file:// URL
-const fileUrl = `file:///${templatePath.replace(/\\/g, '/')}`;
+const fileUrl = `file:///${tempHtmlPath.replace(/\\/g, '/')}`;
 
 const args = [
   '--headless=new',
@@ -39,8 +48,14 @@ const args = [
   fileUrl,
 ];
 
-console.log(`Generating OG image with Chrome at: ${chromePath}...`);
+console.log(`Generating OG image with Chrome at: ${chromePath} for domain: ${cleanDomain}...`);
 const result = spawnSync(chromePath, args);
+
+try {
+  if (fs.existsSync(tempHtmlPath)) fs.unlinkSync(tempHtmlPath);
+} catch {
+  // ignore cleanup error
+}
 
 if (result.error) {
   console.error('Failed to generate OG image:', result.error);
