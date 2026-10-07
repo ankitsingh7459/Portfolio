@@ -114,32 +114,101 @@ A static audit was performed across all frontend source files (`frontend/src/`):
 
 ## 6. Backend Security Findings (Report-Only)
 
-*Note: Per master instructions, `backend/` is untouched. The following findings are reported for owner approval.*
+*Note: Per master instructions, `backend/` remains strictly untouched. The following findings and recommendations are reported for owner approval.*
 
-1. **Missing `trust proxy`**:
-   - *Issue*: `app.set('trust proxy', 1)` is not configured in `backend/app.js`.
-   - *Risk*: Behind reverse proxies (Render, Cloudflare), `req.ip` resolves to the proxy IP. Since `contactLimiter` is set to 5 requests per hour, all site visitors share the single proxy IP counter and will experience false HTTP 429 rate-limiting.
-   - *Proposed Fix*: Add `app.set('trust proxy', 1);` immediately after `const app = express();` in `backend/app.js`.
-2. **CORS Configuration**:
+### Category A: Verified Defects (Code-Level)
+
+1. **Environment Variable Validation & `bcryptjs` Error Handling (`authController.js`)**:
+   - *Technical Verification*: An isolated runtime test was conducted on `bcryptjs`:
+     ```javascript
+     const bcrypt = require('bcryptjs');
+     bcrypt.hash(undefined, 12).catch(err => console.log(err.message));
+     // Output: ERROR: Illegal arguments: undefined, number
+     bcrypt.compare(undefined, 'hash').catch(err => console.log(err.message));
+     // Output: ERROR: Illegal arguments: undefined, string
+     ```
+     `bcryptjs` does *not* stringify `undefined` to `"undefined"`. Instead, it throws `Error: Illegal arguments: undefined, number`.
+   - *Defect in Source*: In `backend/controllers/authController.js`:
+     ```javascript
+     if (!admin && email === process.env.ADMIN_EMAIL) {
+       const hash = await bcrypt.hash(process.env.ADMIN_PASSWORD, 12);
+       ...
+     }
+     ```
+     If `ADMIN_PASSWORD` is undefined or unset in the production environment, the first login attempt will fail with an unhandled 500 error rather than silently hashing any value. Similarly, `jwt.sign` throws `Error: secretOrPrivateKey must have a value` if `JWT_SECRET` is unset.
+   - *Proposed Fix*: Implement explicit startup assertions in `server.js` validating that `JWT_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` are present and exceed minimum length requirements before binding the HTTP port.
+
+2. **Database Detail Leaks in Production (`backend/middleware/errorHandler.js`)**:
+   - *Defect*: `res.status(status).json({ success: false, message: err.message })` echoes the raw error message to clients. On 500 database failures, this exposes internal MySQL connection errors, table names, or SQL query syntax.
+   - *Proposed Fix*: In production (`process.env.NODE_ENV === 'production'`), mask 500-level error messages with generic text (`"Internal Server Error"`), while logging the full stack trace server-side.
+
+---
+
+### Category B: Deployment-Dependent Concerns (Infrastructure & Topology)
+
+3. **`trust proxy` Configuration & Proxy Topologies**:
+   - *Issue*: `app.set('trust proxy', ...)` is not configured in `backend/app.js`.
+   - *Analysis of Topologies*:
+     - **Single Reverse Proxy (e.g. Render direct)**: Setting `app.set('trust proxy', 1)` correctly trusts the immediate upstream proxy and extracts the client IP from `X-Forwarded-For`.
+     - **Multi-Hop Proxy (e.g. Cloudflare in front of Render)**: Setting `trust proxy: 1` blindly is insufficient; Express will trust Render, causing `req.ip` to resolve to Cloudflare's edge node IP instead of the end user. This causes all visitors passing through Cloudflare to share a single rate-limiting bucket. Multi-hop setups require `trust proxy: 2`, configuring trusted CIDR ranges, or reading Cloudflare's `CF-Connecting-IP` header.
+     - **Direct / Bare Metal**: Setting `trust proxy: 1` without a proxy allows arbitrary clients to spoof `X-Forwarded-For` and bypass rate limiters completely.
+   - *Proposed Fix*: Configure `trust proxy` according to the actual production network topology. For Render without an external CDN, `app.set('trust proxy', 1);` is appropriate. If Cloudflare is active, configure specific Cloudflare IP ranges or proxy hops.
+
+4. **CORS Allowlist for Production and Preview Environments**:
    - *Issue*: `backend/app.js` sets `cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173', credentials: true })`.
-   - *Risk*: A single string origin blocks Vercel Preview deployment URLs (`https://portfolio-*-ankitsingh.vercel.app`) when `FRONTEND_URL` points to production.
-   - *Proposed Fix*: Update CORS origin handler to accept an array of allowed origins or regex matching preview and production domains.
-3. **Body Parser Size Limit**:
-   - *Issue*: `app.use(express.json({ limit: '10mb' }));`.
-   - *Risk*: 10MB payload limit is unnecessarily large for a portfolio text API, creating unnecessary memory consumption risk under high volume.
-   - *Proposed Fix*: Reduce payload limit to `100kb` or `10kb`.
-4. **Visitor IP & Privacy in Analytics**:
-   - *Issue*: `trackVisit` in `analyticsController.js` and `submitContact` in `contactController.js` store raw IP addresses (`req.ip || req.headers['x-forwarded-for']`) and User-Agent strings directly in MySQL.
-   - *Risk*: Raw IP storage constitutes personally identifiable information (PII) under privacy regulations (GDPR).
-   - *Proposed Fix*: Anonymize IP before storage (e.g., zero out last octet in IPv4 / last 80 bits in IPv6, or SHA-256 hash with salt).
-5. **Admin Login Rate Limiting & Proxy**:
-   - *Issue*: `authLimiter` (10 attempts per 15 min) is properly attached to `/api/auth/login`, but shares the `trust proxy` vulnerability.
-   - *Proposed Fix*: Fixed once `trust proxy` is set.
-6. **JWT Secret & Admin Credential Guards**:
-   - *Issue*: `authController.js` uses `process.env.JWT_SECRET`. If missing, `jwt.sign` throws runtime error. In addition, auto-creation of admin on first login checks `email === process.env.ADMIN_EMAIL` and hashes `process.env.ADMIN_PASSWORD`.
-   - *Proposed Fix*: Add startup assertion in `server.js` ensuring `JWT_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` are non-empty strings with minimum length requirements.
-7. **Error Handling & Database Detail Leaks**:
-   - *Issue*: In `backend/middleware/errorHandler.js`, `err.message` is returned to client. On 500 database errors, SQL syntax or connection strings could be revealed.
-   - *Proposed Fix*: In production (`process.env.NODE_ENV === 'production'`), return generic `"Internal Server Error"` if `status === 500`.
-8. **Unused Dependencies Cleanup**:
-   - *Proposed Fix*: Uninstall `mongoose`, `axios`, `multer`, `cookie-parser`, and delete `backend/config/appwrite.js`.
+   - *Risk of Open Regex*: Recommending an open regex like `/.*\.vercel\.app$/` creates a major security hole: ANY third-party Vercel account (`attacker.vercel.app`) could make credentialed requests to the backend API.
+   - *Proposed Fix*: Implement an explicit origin array or a strictly scoped matcher restricted to the owner's domain and project prefix:
+     ```javascript
+     const allowedOrigins = [
+       process.env.FRONTEND_URL,
+       'https://portfolio-gamma-lake-83.vercel.app',
+       'http://localhost:5173',
+     ].filter(Boolean);
+
+     app.use(cors({
+       origin: (origin, callback) => {
+         if (!origin || allowedOrigins.includes(origin)) {
+           return callback(null, true);
+         }
+         return callback(new AppError('CORS origin not allowed', 403));
+       },
+       credentials: true,
+     }));
+     ```
+
+5. **Rate Limiting Scope & Proxy Dependency (`contactLimiter` / `authLimiter`)**:
+   - *Issue*: Rate limits on `/api/contact` (5 req/hour) and `/api/auth/login` (10 req/15 min) depend on `req.ip`. Misconfigured proxy trust causes global rate limit exhaustion for legitimate visitors.
+   - *Proposed Fix*: Resolved once the correct `trust proxy` topology setting from Item 3 is applied.
+
+---
+
+### Category C: Optional Improvements & Hygiene
+
+6. **Default Security Headers via `helmet()`**:
+   - *Verification*: Default `helmet()` automatically applies standard defensive headers without breaking API consumers:
+     - `X-Content-Type-Options: nosniff` (prevents MIME sniffing)
+     - `X-Frame-Options: SAMEORIGIN` (clickjacking defense)
+     - `Strict-Transport-Security: max-age=15552000; includeSubDomains` (HSTS)
+     - `X-DNS-Prefetch-Control: off`
+     - `Origin-Agent-Cluster: ?1`
+     - Removes `X-Powered-By: Express`
+   - *Proposed Fix*: Install and mount `app.use(helmet());` before route definitions in `backend/app.js`.
+
+7. **Request Body Size Limit**:
+   - *Issue*: `app.use(express.json({ limit: '10mb' }));` allows unnecessarily large payloads for an API that only receives JSON contact form submissions and authentication requests.
+   - *Proposed Fix*: Reduce JSON payload limit to `100kb`: `app.use(express.json({ limit: '100kb' }));`.
+
+8. **Visitor IP Privacy & GDPR Subnet Clarification**:
+   - *Issue*: `trackVisit` in `analyticsController.js` and `submitContact` in `contactController.js` log raw IP addresses.
+   - *Privacy Clarification*: Truncating IPv4 addresses to `/24` (e.g., `192.168.1.0/24`) constitutes **pseudonymization / truncation**, NOT complete GDPR anonymization. In low-density subnets or when combined with precise access timestamps and user-agent fingerprints, `/24` masking may still allow individual re-identification. Full GDPR anonymization requires either irreversibly hashing IPs with a rotating salt or omitting IP storage altogether.
+   - *Proposed Fix*: For privacy compliance, either drop the IP column from analytics visits or hash the client IP using `crypto.createHash('sha256').update(req.ip + process.env.ANALYTICS_SALT).digest('hex')`.
+
+9. **Dead Code & Unused Dependencies Removal**:
+   - *Findings*: The following packages in `backend/package.json` are completely unused:
+     - `mongoose` (^9.6.2): MySQL is used via `mysql2/promise`.
+     - `axios` (^1.16.1): Outbound calls use native Node.js `fetch`.
+     - `multer` (^2.1.1): No upload routes exist.
+     - `cookie-parser` (^1.4.7): Not imported in `app.js`.
+     - `backend/config/appwrite.js`: Dead file referencing uninstalled package `node-appwrite`.
+   - *Proposed Fix*: Run `npm uninstall mongoose axios multer cookie-parser` in `backend/` and delete `backend/config/appwrite.js`.
+
