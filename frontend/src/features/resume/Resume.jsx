@@ -8,8 +8,8 @@ const isRealUrl = (url) => {
   if (
     trimmed === '' ||
     trimmed === '#' ||
-    trimmed.startsWith('[FILL') ||
-    trimmed.includes('[FILL') ||
+    trimmed.startsWith('[') ||
+    trimmed.toLowerCase().includes('fill') ||
     trimmed === 'null' ||
     trimmed === 'undefined'
   ) {
@@ -35,7 +35,7 @@ export const Resume = () => {
   const hasLastUpdated =
     typeof resumeData.lastUpdated === 'string' &&
     resumeData.lastUpdated.trim().length > 0 &&
-    !resumeData.lastUpdated.includes('[FILL');
+    !resumeData.lastUpdated.startsWith('[');
 
   return (
     <section id="resume" className="section-padding py-20" aria-label="Resume">

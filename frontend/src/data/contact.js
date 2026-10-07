@@ -2,10 +2,9 @@ export const contactData = {
   heading: 'mail ankit',
   prompt: '$',
   description: 'Send a message or reach out directly for engineering work.',
-  // Real values only. Any unprovided value is [FILL: ...]
-  email: '[FILL: email]',
+  email: null,
   githubUrl: 'https://github.com/ankitsingh7459',
-  linkedinUrl: '[FILL: linkedin]',
+  linkedinUrl: 'https://www.linkedin.com/in/ankit-singh-tech',
   resumeUrl: '/resume.pdf',
 };
 

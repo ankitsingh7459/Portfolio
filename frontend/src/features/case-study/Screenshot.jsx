@@ -31,7 +31,7 @@ export const Screenshot = ({
           />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center border-2 border-dashed border-[#2E2A21] p-6 text-center">
-            <span className="font-mono text-xs text-[#E8A33D]">[FILL: screenshot]</span>
+            <span className="font-mono text-xs text-[#E8A33D]">// Preview unavailable</span>
             <p className="mt-2 font-mono text-xs text-[#B9B09A] max-w-sm">{alt}</p>
           </div>
         )}

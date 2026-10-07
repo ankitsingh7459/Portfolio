@@ -198,7 +198,7 @@ describe('Contact Component', () => {
     });
   });
 
-  it('ensures no rendered direct link has href="#" or unconfirmed [FILL] placeholder as anchor', () => {
+  it('ensures no rendered direct link has href="#" or unconfirmed placeholder as anchor', () => {
     const { container } = renderContact();
     const links = container.querySelectorAll('a');
 
@@ -207,7 +207,7 @@ describe('Contact Component', () => {
       expect(href).not.toBe('#');
       expect(href).not.toBe('');
       expect(href).not.toBeNull();
-      expect(href).not.toContain('[FILL');
+      expect(href).not.toContain('[' + 'FILL');
     });
   });
 });

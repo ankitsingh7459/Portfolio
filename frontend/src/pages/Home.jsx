@@ -18,8 +18,8 @@ const GitHubActivity = lazy(
 
 const Home = () => {
   usePageMeta({
-    title: 'Ankit Singh | [FILL: title]',
-    description: 'Personal portfolio of Ankit Singh, [FILL: title].',
+    title: 'Ankit Singh | Full-Stack Developer',
+    description: 'Personal portfolio of Ankit Singh, Full-Stack Developer and Co-Founder & Technical Lead at PrintAPM.',
     canonicalPath: '/',
   });
 

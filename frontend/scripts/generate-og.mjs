@@ -30,7 +30,7 @@ if (!chromePath) {
 const siteUrl = (process.env.VITE_SITE_URL || '').trim() || 'https://portfolio-gamma-lake-83.vercel.app';
 const cleanDomain = siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
 const rawHtml = fs.readFileSync(templatePath, 'utf8');
-const renderedHtml = rawHtml.replace(/\[FILL:\s*domain\]/g, cleanDomain);
+const renderedHtml = rawHtml.replace(/portfolio\.ankit/g, cleanDomain);
 
 const tempHtmlPath = path.join(__dirname, '.temp-og-render.html');
 fs.writeFileSync(tempHtmlPath, renderedHtml, 'utf8');

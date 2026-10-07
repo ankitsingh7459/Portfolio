@@ -19,10 +19,10 @@ describe('SEO Generators (Pure Logic)', () => {
     expect(sitemap).toContain('<loc>https://example.com/projects/printapm</loc>');
   });
 
-  it('falls back to placeholder domain when siteUrl is empty or unprovided', () => {
+  it('falls back to root paths when siteUrl is empty or unprovided', () => {
     const sitemap = generateSitemap('');
-    expect(sitemap).toContain('<loc>[FILL: domain]/</loc>');
-    expect(sitemap).toContain('<loc>[FILL: domain]/projects/printapm</loc>');
+    expect(sitemap).toContain('<loc>/</loc>');
+    expect(sitemap).toContain('<loc>/projects/printapm</loc>');
   });
 
   it('generates robots.txt referencing the sitemap', () => {
@@ -32,8 +32,8 @@ describe('SEO Generators (Pure Logic)', () => {
     expect(robots).toContain('Sitemap: https://example.com/sitemap.xml');
   });
 
-  it('falls back to placeholder domain in robots.txt when siteUrl is empty', () => {
+  it('falls back to root sitemap path in robots.txt when siteUrl is empty', () => {
     const robots = generateRobotsTxt('');
-    expect(robots).toContain('Sitemap: [FILL: domain]/sitemap.xml');
+    expect(robots).toContain('Sitemap: /sitemap.xml');
   });
 });

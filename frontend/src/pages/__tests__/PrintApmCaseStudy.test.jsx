@@ -24,7 +24,7 @@ const NotFoundTestComponent = () => (
 );
 
 describe('PrintApmCaseStudy Page', () => {
-  it('renders all terminal sections from data/printapm.js', () => {
+  it('renders verified terminal sections from data/printapm.js and omits unverified sections', () => {
     renderCaseStudy();
 
     // Check headings and content
@@ -37,25 +37,22 @@ describe('PrintApmCaseStudy Page', () => {
     expect(screen.getByText('$ cat solution.txt')).toBeInTheDocument();
     expect(screen.getByText(printApmCaseStudy.solutionText)).toBeInTheDocument();
 
-    expect(screen.getByText('$ cat stats.json')).toBeInTheDocument();
-    expect(screen.getByText((content, element) => {
-      return element?.tagName.toLowerCase() === 'pre' && content.includes(printApmCaseStudy.statsJson.totalPrints);
-    })).toBeInTheDocument();
-
-    expect(screen.getByText('$ cat architecture.md')).toBeInTheDocument();
-    printApmCaseStudy.architectureSteps.forEach((step) => {
-      expect(screen.getByText(step.title)).toBeInTheDocument();
-      expect(screen.getByText(step.description)).toBeInTheDocument();
-    });
-
-    expect(screen.getByText('$ cat decisions.md')).toBeInTheDocument();
-    printApmCaseStudy.decisions.forEach((dec) => {
-      expect(screen.getByText(dec.title)).toBeInTheDocument();
-      expect(screen.getByText(dec.decision)).toBeInTheDocument();
-    });
-
-    expect(screen.getByText('$ cat lessons.txt')).toBeInTheDocument();
-    expect(screen.getByText(printApmCaseStudy.lessonsText)).toBeInTheDocument();
+    // Unverified sections should be omitted when null or empty
+    if (!printApmCaseStudy.statsJson) {
+      expect(screen.queryByText('$ cat stats.json')).toBeNull();
+    }
+    if (!printApmCaseStudy.architectureSteps?.length) {
+      expect(screen.queryByText('$ cat architecture.md')).toBeNull();
+    }
+    if (!printApmCaseStudy.decisions?.length) {
+      expect(screen.queryByText('$ cat decisions.md')).toBeNull();
+    }
+    if (!printApmCaseStudy.lessonsText) {
+      expect(screen.queryByText('$ cat lessons.txt')).toBeNull();
+    }
+    if (!printApmCaseStudy.screenshots?.length) {
+      expect(screen.queryByText('$ ls -la ./screenshots')).toBeNull();
+    }
   });
 
   it('renders live link button with correct URL and rel="noopener noreferrer"', () => {

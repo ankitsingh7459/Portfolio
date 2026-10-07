@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const siteUrl =
     env.VITE_SITE_URL && env.VITE_SITE_URL.trim() !== ''
       ? env.VITE_SITE_URL.trim().replace(/\/$/, '')
-      : '[FILL: domain]';
+      : '';
 
   const siteMetaPlugin = {
     name: 'site-meta-plugin',

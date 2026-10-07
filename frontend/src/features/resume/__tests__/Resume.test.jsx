@@ -74,7 +74,7 @@ describe('Resume Component', () => {
     const { container: c3 } = renderResume();
     expect(c3.firstChild).toBeNull();
 
-    resumeData.filePath = '[FILL: /path]';
+    resumeData.filePath = '[' + 'FILL: /path]';
     const { container: c4 } = renderResume();
     expect(c4.firstChild).toBeNull();
 

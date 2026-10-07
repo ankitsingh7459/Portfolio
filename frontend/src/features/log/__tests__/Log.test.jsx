@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { LazyMotion, domAnimation } from 'framer-motion';
 import { Log } from '../Log';
 import { timelineEntries } from '../../../data/timeline';
+import { certifications } from '../../../data/certifications';
 
 const renderLog = () => {
   return render(
@@ -13,14 +14,16 @@ const renderLog = () => {
 };
 
 describe('Log Component', () => {
-  it('renders section heading with git log --oneline command', async () => {
-    renderLog();
-    await waitFor(() => {
+  it('omits section and returns null when empty per ADR-012, or renders heading when entries exist', () => {
+    const { container } = renderLog();
+    if (timelineEntries.length === 0 && certifications.length === 0) {
+      expect(container.firstChild).toBeNull();
+    } else {
       expect(screen.getByText('git log --oneline')).toBeInTheDocument();
-    });
+    }
   });
 
-  it('renders milestones with decorative hashes hidden from screen readers', () => {
+  it('renders milestones with decorative hashes hidden from screen readers when entries exist', () => {
     const { container } = renderLog();
     if (timelineEntries.length > 0) {
       timelineEntries.forEach((entry) => {
@@ -28,6 +31,8 @@ describe('Log Component', () => {
       });
       const hashes = container.querySelectorAll('[aria-hidden="true"]');
       expect(hashes.length).toBeGreaterThan(0);
+    } else {
+      expect(container.firstChild).toBeNull();
     }
   });
 

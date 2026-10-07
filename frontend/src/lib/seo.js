@@ -4,7 +4,7 @@
 
 export const generateSitemap = (siteUrl = '') => {
   const cleanUrl = (typeof siteUrl === 'string' ? siteUrl : '').trim().replace(/\/+$/, '');
-  const base = cleanUrl || '[FILL: domain]';
+  const base = cleanUrl || '';
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -23,11 +23,11 @@ export const generateSitemap = (siteUrl = '') => {
 
 export const generateRobotsTxt = (siteUrl = '') => {
   const cleanUrl = (typeof siteUrl === 'string' ? siteUrl : '').trim().replace(/\/+$/, '');
-  const base = cleanUrl || '[FILL: domain]';
+  const base = cleanUrl || '';
 
   return `User-agent: *
 Allow: /
 
-Sitemap: ${base}/sitemap.xml
+Sitemap: ${base ? `${base}/sitemap.xml` : '/sitemap.xml'}
 `;
 };

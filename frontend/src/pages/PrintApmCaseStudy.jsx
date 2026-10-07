@@ -19,6 +19,12 @@ export const PrintApmCaseStudy = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const hasStats = Boolean(printApmCaseStudy.statsJson && Object.keys(printApmCaseStudy.statsJson).length > 0);
+  const hasArchitecture = Boolean(printApmCaseStudy.architectureSteps && printApmCaseStudy.architectureSteps.length > 0);
+  const hasDecisions = Boolean(printApmCaseStudy.decisions && printApmCaseStudy.decisions.length > 0);
+  const hasLessons = Boolean(printApmCaseStudy.lessonsText && printApmCaseStudy.lessonsText.trim().length > 0);
+  const hasScreenshots = Boolean(printApmCaseStudy.screenshots && printApmCaseStudy.screenshots.length > 0);
+
   return (
     <Layout>
       <article className="section-padding py-16 md:py-24 space-y-12 max-w-4xl mx-auto">
@@ -80,101 +86,111 @@ export const PrintApmCaseStudy = () => {
           </div>
         </section>
 
-        {/* 3. Stats */}
-        <section className="space-y-3" aria-labelledby="stats-heading">
-          <h2 id="stats-heading" className="font-mono text-sm text-[#E8A33D]">
-            $ cat stats.json
-          </h2>
-          <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] overflow-x-auto">
-            <pre className="font-mono text-xs sm:text-sm text-[#F1E9D2] leading-relaxed">
-              {JSON.stringify(printApmCaseStudy.statsJson, null, 2)}
-            </pre>
-          </div>
-        </section>
+        {/* 3. Stats (conditionally rendered only if verified data exists) */}
+        {hasStats && (
+          <section className="space-y-3" aria-labelledby="stats-heading">
+            <h2 id="stats-heading" className="font-mono text-sm text-[#E8A33D]">
+              $ cat stats.json
+            </h2>
+            <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] overflow-x-auto">
+              <pre className="font-mono text-xs sm:text-sm text-[#F1E9D2] leading-relaxed">
+                {JSON.stringify(printApmCaseStudy.statsJson, null, 2)}
+              </pre>
+            </div>
+          </section>
+        )}
 
-        {/* 4. Architecture (High-level 4-step flow only) */}
-        <section className="space-y-3" aria-labelledby="architecture-heading">
-          <h2 id="architecture-heading" className="font-mono text-sm text-[#E8A33D]">
-            $ cat architecture.md
-          </h2>
-          <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] space-y-4">
-            <p className="font-mono text-xs text-[#B9B09A]">
-              // High-level system interaction flow (no internal endpoints or secret references)
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-              {printApmCaseStudy.architectureSteps.map((step, idx) => (
-                <div
-                  key={step.step}
-                  className="border border-[#2E2A21] bg-[#16140F] p-4 rounded-[2px] flex flex-col justify-between"
-                >
-                  <div>
-                    <span className="font-mono text-xs text-[#E8A33D]">0{step.step}.</span>
-                    <h3 className="font-mono text-sm font-semibold text-[#F1E9D2] mt-1.5">
-                      {step.title}
-                    </h3>
-                    <p className="font-sans text-xs text-[#B9B09A] mt-2 leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                  {idx < 3 && (
-                    <div
-                      className="mt-4 text-[#E8A33D] font-mono text-center hidden lg:block select-none"
-                      aria-hidden="true"
-                    >
-                      →
+        {/* 4. Architecture (conditionally rendered only if verified data exists) */}
+        {hasArchitecture && (
+          <section className="space-y-3" aria-labelledby="architecture-heading">
+            <h2 id="architecture-heading" className="font-mono text-sm text-[#E8A33D]">
+              $ cat architecture.md
+            </h2>
+            <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] space-y-4">
+              <p className="font-mono text-xs text-[#B9B09A]">
+                // High-level system interaction flow (no internal endpoints or secret references)
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                {printApmCaseStudy.architectureSteps.map((step, idx) => (
+                  <div
+                    key={step.step}
+                    className="border border-[#2E2A21] bg-[#16140F] p-4 rounded-[2px] flex flex-col justify-between"
+                  >
+                    <div>
+                      <span className="font-mono text-xs text-[#E8A33D]">0{step.step}.</span>
+                      <h3 className="font-mono text-sm font-semibold text-[#F1E9D2] mt-1.5">
+                        {step.title}
+                      </h3>
+                      <p className="font-sans text-xs text-[#B9B09A] mt-2 leading-relaxed">
+                        {step.description}
+                      </p>
                     </div>
-                  )}
+                    {idx < 3 && (
+                      <div
+                        className="mt-4 text-[#E8A33D] font-mono text-center hidden lg:block select-none"
+                        aria-hidden="true"
+                      >
+                        →
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* 5. Decisions (conditionally rendered only if verified data exists) */}
+        {hasDecisions && (
+          <section className="space-y-3" aria-labelledby="decisions-heading">
+            <h2 id="decisions-heading" className="font-mono text-sm text-[#E8A33D]">
+              $ cat decisions.md
+            </h2>
+            <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] space-y-4">
+              {printApmCaseStudy.decisions.map((item) => (
+                <div key={item.title} className="border-l-2 border-[#E8A33D] pl-4 py-1">
+                  <h3 className="font-mono text-sm font-semibold text-[#F1E9D2]">
+                    {item.title}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-[#B9B09A] mt-1 leading-relaxed">
+                    {item.decision}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* 5. Decisions */}
-        <section className="space-y-3" aria-labelledby="decisions-heading">
-          <h2 id="decisions-heading" className="font-mono text-sm text-[#E8A33D]">
-            $ cat decisions.md
-          </h2>
-          <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] space-y-4">
-            {printApmCaseStudy.decisions.map((item) => (
-              <div key={item.title} className="border-l-2 border-[#E8A33D] pl-4 py-1">
-                <h3 className="font-mono text-sm font-semibold text-[#F1E9D2]">
-                  {item.title}
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#B9B09A] mt-1 leading-relaxed">
-                  {item.decision}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* 6. Lessons (conditionally rendered only if verified data exists) */}
+        {hasLessons && (
+          <section className="space-y-3" aria-labelledby="lessons-heading">
+            <h2 id="lessons-heading" className="font-mono text-sm text-[#E8A33D]">
+              $ cat lessons.txt
+            </h2>
+            <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] font-mono text-sm text-[#B9B09A] leading-relaxed">
+              {printApmCaseStudy.lessonsText}
+            </div>
+          </section>
+        )}
 
-        {/* 6. Lessons */}
-        <section className="space-y-3" aria-labelledby="lessons-heading">
-          <h2 id="lessons-heading" className="font-mono text-sm text-[#E8A33D]">
-            $ cat lessons.txt
-          </h2>
-          <div className="border border-[#2E2A21] bg-[#1E1B15] p-5 md:p-6 rounded-[2px] font-mono text-sm text-[#B9B09A] leading-relaxed">
-            {printApmCaseStudy.lessonsText}
-          </div>
-        </section>
-
-        {/* Screenshots Section */}
-        <section className="space-y-3" aria-labelledby="screenshots-heading">
-          <h2 id="screenshots-heading" className="font-mono text-sm text-[#E8A33D]">
-            $ ls -la ./screenshots
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-            {printApmCaseStudy.screenshots.map((screen) => (
-              <Screenshot
-                key={screen.id}
-                src={screen.src}
-                alt={screen.alt}
-                caption={screen.caption}
-              />
-            ))}
-          </div>
-        </section>
+        {/* Screenshots Section (conditionally rendered only if verified data exists) */}
+        {hasScreenshots && (
+          <section className="space-y-3" aria-labelledby="screenshots-heading">
+            <h2 id="screenshots-heading" className="font-mono text-sm text-[#E8A33D]">
+              $ ls -la ./screenshots
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+              {printApmCaseStudy.screenshots.map((screen) => (
+                <Screenshot
+                  key={screen.id}
+                  src={screen.src}
+                  alt={screen.alt}
+                  caption={screen.caption}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* 7. Primary Action: Launch Button */}
         <section className="pt-6 border-t border-[#2E2A21] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

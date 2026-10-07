@@ -2,16 +2,17 @@ import { NAV_TARGETS } from '../../lib/navTargets';
 import { DEFAULT_PROJECTS } from '../../data/projects';
 import { resumeData } from '../../data/resume';
 import { contactData } from '../../data/contact';
+import { timelineEntries } from '../../data/timeline';
+import { certifications } from '../../data/certifications';
 
 const isRealUrl = (url) => {
   if (!url || typeof url !== 'string') return false;
   const trimmed = url.trim();
-  const placeholderTag = '[' + 'FILL';
   if (
     trimmed === '' ||
     trimmed === '#' ||
-    trimmed.startsWith(placeholderTag) ||
-    trimmed.includes(placeholderTag) ||
+    trimmed.startsWith('[') ||
+    trimmed.toLowerCase().includes('fill') ||
     trimmed === 'null' ||
     trimmed === 'undefined'
   ) {
@@ -32,6 +33,11 @@ export const getCommandPaletteItems = () => {
   NAV_TARGETS.forEach((target) => {
     if (target.id === 'resume') {
       if (!resumeData?.available || !isRealUrl(resumeData?.filePath)) {
+        return;
+      }
+    }
+    if (target.id === 'log') {
+      if (!timelineEntries?.length && !certifications?.length) {
         return;
       }
     }
@@ -102,12 +108,22 @@ export const getCommandPaletteItems = () => {
     });
   }
 
-  // 5. Email if confirmed real value exists
-  const placeholderTag = '[' + 'FILL';
+  // 5. LinkedIn profile link
+  if (isRealUrl(contactData?.linkedinUrl)) {
+    items.push({
+      id: 'contact-linkedin',
+      label: 'LinkedIn Profile',
+      category: 'Links',
+      description: 'View LinkedIn profile and professional network',
+      type: 'external',
+      target: contactData.linkedinUrl,
+    });
+  }
+
+  // 6. Email if confirmed real value exists
   if (
     contactData?.email &&
     typeof contactData.email === 'string' &&
-    !contactData.email.includes(placeholderTag) &&
     isRealUrl(`mailto:${contactData.email}`)
   ) {
     items.push({

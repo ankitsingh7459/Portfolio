@@ -9,8 +9,8 @@ const isRealUrl = (url) => {
   if (
     trimmed === '' ||
     trimmed === '#' ||
-    trimmed.startsWith('[FILL') ||
-    trimmed.includes('[FILL') ||
+    trimmed.startsWith('[') ||
+    trimmed.toLowerCase().includes('fill') ||
     trimmed === 'null' ||
     trimmed === 'undefined'
   ) {
@@ -186,7 +186,7 @@ export const Contact = () => {
               <span>direct channels:</span>
             </p>
             <div className="flex flex-wrap items-center gap-4 text-[#B9B09A]">
-              {isGithubReal ? (
+              {isGithubReal && (
                 <a
                   href={contactData.githubUrl}
                   target="_blank"
@@ -197,11 +197,9 @@ export const Contact = () => {
                   <span aria-hidden="true">↗</span>
                   <span className="sr-only"> (opens in new tab)</span>
                 </a>
-              ) : (
-                <span className="text-[#B9B09A]/60 select-none">[github]</span>
               )}
 
-              {isLinkedInReal ? (
+              {isLinkedInReal && (
                 <a
                   href={contactData.linkedinUrl}
                   target="_blank"
@@ -212,8 +210,6 @@ export const Contact = () => {
                   <span aria-hidden="true">↗</span>
                   <span className="sr-only"> (opens in new tab)</span>
                 </a>
-              ) : (
-                <span className="text-[#B9B09A]/60 select-none">[linkedin: pending]</span>
               )}
 
               {isEmailReal && (

@@ -6,8 +6,8 @@ const isRealUrl = (url) => {
   if (
     trimmed === '' ||
     trimmed === '#' ||
-    trimmed.startsWith('[FILL') ||
-    trimmed.includes('[FILL') ||
+    trimmed.startsWith('[') ||
+    trimmed.toLowerCase().includes('fill') ||
     trimmed === 'null' ||
     trimmed === 'undefined'
   ) {
@@ -27,15 +27,17 @@ const Footer = () => {
   const links = [
     { label: 'github', href: contactData.githubUrl, external: true },
     { label: 'linkedin', href: contactData.linkedinUrl, external: true },
-    {
-      label: 'email',
-      href: contactData.email.startsWith('mailto:')
-        ? contactData.email
-        : `mailto:${contactData.email}`,
-      external: false,
-    },
+    contactData.email && isRealUrl(contactData.email)
+      ? {
+          label: 'email',
+          href: contactData.email.startsWith('mailto:')
+            ? contactData.email
+            : `mailto:${contactData.email}`,
+          external: false,
+        }
+      : null,
     { label: 'resume.pdf', href: contactData.resumeUrl, external: true },
-  ];
+  ].filter(Boolean);
 
   return (
     <footer aria-label="Site Footer" className="border-t border-[#2E2A21] bg-[#16140F] py-12 mt-16 text-sm font-mono">
@@ -48,25 +50,20 @@ const Footer = () => {
         <ul className="flex flex-wrap items-center justify-center gap-4 text-xs">
           {links.map((link) => {
             const isReal = isRealUrl(link.href);
+            if (!isReal) return null;
             return (
               <li key={link.label}>
-                {isReal ? (
-                  <a
-                    href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px]"
-                  >
-                    <span>[{link.label}]</span>
-                    {link.external && (
-                      <span className="sr-only"> (opens in new tab)</span>
-                    )}
-                  </a>
-                ) : (
-                  <span className="text-[#B9B09A] select-none" aria-hidden="true">
-                    [{link.label}]
-                  </span>
-                )}
+                <a
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px]"
+                >
+                  <span>[{link.label}]</span>
+                  {link.external && (
+                    <span className="sr-only"> (opens in new tab)</span>
+                  )}
+                </a>
               </li>
             );
           })}
