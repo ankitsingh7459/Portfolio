@@ -112,4 +112,27 @@ describe('API Service (native fetch wrapper)', () => {
       expect.objectContaining({ method: 'DELETE' })
     );
   });
+
+  it('proves that VITE_API_URL must end in /api for backend route resolution', async () => {
+    vi.stubEnv('VITE_API_URL', 'https://portfolio-esod.onrender.com/api');
+    vi.resetModules();
+    const dynamicApi = await import('../api');
+
+    let calledUrl = null;
+    globalThis.fetch = vi.fn().mockImplementation((url) => {
+      calledUrl = url;
+      return Promise.resolve({
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ projects: [] }),
+      });
+    });
+
+    await dynamicApi.getProjects();
+    console.log('[TEST PROOF] Request URL with VITE_API_URL ending in /api:', calledUrl);
+    expect(calledUrl).toBe('https://portfolio-esod.onrender.com/api/projects');
+
+    vi.unstubAllEnvs();
+  });
 });
