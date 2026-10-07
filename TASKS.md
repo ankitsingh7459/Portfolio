@@ -47,7 +47,7 @@
 
 ## Phase 9: Release
 - [x] TASK-025b Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests, preloaded 2 critical font files, immediate hero heading paint for optimal LCP, official mobile Lighthouse Performance >= 90
-- [ ] TASK-027 Security review against SECURITY.md (report issues first, then fix one by one)
+- [x] TASK-027 Security review against SECURITY.md: Gitleaks 0 leaks, npm audit fix (0 vulns), security audit report docs/SECURITY_REVIEW.md, verified CSP and security headers in vercel.json with zero violations (commits `edbf205`, `0957f8b`, `1feaffc`)
 - [ ] TASK-028 Code review against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, SECURITY (report first, then fix)
 - [ ] TASK-029 Playwright E2E suite for TEST_PLAN flows
 - [ ] TASK-030 Preview deployment (Vercel preview of the branch); QA on live preview URL (refresh, direct URLs, slow network, API cold start, mobile); VITE_API_URL is set in Vercel for Preview AND Production; backend FRONTEND_URL/CORS allows the preview and production origins
