@@ -148,11 +148,10 @@ A static audit was performed across all frontend source files (`frontend/src/`):
 
 3. **`trust proxy` Configuration & Proxy Topologies**:
    - *Issue*: `app.set('trust proxy', ...)` is not configured in `backend/app.js`.
-   - *Analysis of Topologies*:
-     - **Single Reverse Proxy (e.g. Render direct)**: Setting `app.set('trust proxy', 1)` correctly trusts the immediate upstream proxy and extracts the client IP from `X-Forwarded-For`.
-     - **Multi-Hop Proxy (e.g. Cloudflare in front of Render)**: Setting `trust proxy: 1` blindly is insufficient; Express will trust Render, causing `req.ip` to resolve to Cloudflare's edge node IP instead of the end user. This causes all visitors passing through Cloudflare to share a single rate-limiting bucket. Multi-hop setups require `trust proxy: 2`, configuring trusted CIDR ranges, or reading Cloudflare's `CF-Connecting-IP` header.
-     - **Direct / Bare Metal**: Setting `trust proxy: 1` without a proxy allows arbitrary clients to spoof `X-Forwarded-For` and bypass rate limiters completely.
-   - *Proposed Fix*: Configure `trust proxy` according to the actual production network topology. For Render without an external CDN, `app.set('trust proxy', 1);` is appropriate. If Cloudflare is active, configure specific Cloudflare IP ranges or proxy hops.
+   - *Topology Analysis*:
+     - Express defaults to `trust proxy: false`, meaning `req.ip` reflects the immediate socket connection address. When deployed behind a reverse proxy (such as Render's routing mesh or an edge CDN), `req.ip` will resolve to the proxy's internal IP rather than the client, causing rate limiters to pool all users together.
+     - Conversely, blindly trusting proxies without verified evidence of the infrastructure topology creates IP spoofing vulnerabilities, as arbitrary clients could spoof `X-Forwarded-For` headers.
+   - *Proposed Fix*: Proxy trust configuration must strictly follow verified production infrastructure documentation and request header evidence. DevOps/the owner must inspect the exact ingress topology (e.g. examining how the hosting platform populates and sanitizes `X-Forwarded-For` or upstream headers) before configuring `trust proxy`. Do not prescribe specific hop counts (e.g. `1` or `2`) or custom headers without verified operational evidence of the full request chain.
 
 4. **CORS Allowlist for Production and Preview Environments**:
    - *Issue*: `backend/app.js` sets `cors({ origin: process.env.FRONTEND_URL || 'http://localhost:5173', credentials: true })`.
@@ -200,8 +199,8 @@ A static audit was performed across all frontend source files (`frontend/src/`):
 
 8. **Visitor IP Privacy & GDPR Subnet Clarification**:
    - *Issue*: `trackVisit` in `analyticsController.js` and `submitContact` in `contactController.js` log raw IP addresses.
-   - *Privacy Clarification*: Truncating IPv4 addresses to `/24` (e.g., `192.168.1.0/24`) constitutes **pseudonymization / truncation**, NOT complete GDPR anonymization. In low-density subnets or when combined with precise access timestamps and user-agent fingerprints, `/24` masking may still allow individual re-identification. Full GDPR anonymization requires either irreversibly hashing IPs with a rotating salt or omitting IP storage altogether.
-   - *Proposed Fix*: For privacy compliance, either drop the IP column from analytics visits or hash the client IP using `crypto.createHash('sha256').update(req.ip + process.env.ANALYTICS_SALT).digest('hex')`.
+   - *Privacy Clarification*: Truncating IPv4 addresses to `/24` (e.g., `192.168.1.0/24`) constitutes **pseudonymization / truncation**, NOT complete GDPR anonymization. In low-density subnets or when combined with precise access timestamps and user-agent fingerprints, `/24` masking may still allow individual re-identification. Furthermore, hashing IP addresses—even with a rotating salt—does **not** automatically establish GDPR anonymization under EDPB and Article 29 Working Party guidance (Opinion 05/2014). Hashed IPs remain pseudonymized data if linkability or singling out persists across requests, or if correlation is possible. True anonymization requires that individuals cannot be singled out or linked by any means reasonably likely to be used; this typically necessitates aggregating metrics (e.g., daily pageview counters without per-request records) or omitting IP storage altogether.
+   - *Proposed Fix*: For privacy compliance, drop individual IP storage from analytics visits in favor of aggregated metrics, or omit IP tracking entirely.
 
 9. **Dead Code & Unused Dependencies Removal**:
    - *Findings*: The following packages in `backend/package.json` are completely unused:
