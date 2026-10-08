@@ -101,8 +101,7 @@ TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview Q
 
 ## Open owner inputs (Internal Documentation)
 - Identity & Bio: Populated with owner-approved draft copy (Ankit Singh; CSE AI & ML undergraduate at Galgotias University; Full-Stack Developer; Co-Founder & Technical Lead at PrintAPM).
-- Profiles & Channels: GitHub (https://github.com/ankitsingh7459) and LinkedIn (https://www.linkedin.com/in/ankit-singh-tech) confirmed. Email remains unprovided (`email: null`), with public links safely omitted.
-- Domain Status: `portfolio-gamma-lake-83.vercel.app` is the default deployment domain assigned by Vercel for preview QA. It is NOT the confirmed production URL (custom domain pending owner assignment).
+- Domain Status: `portfolio-gamma-lake-83.vercel.app` is an unconfirmed deployment URL observed in legacy configurations/logs. It is NOT confirmed as the production URL, nor should it be described as a preview domain based merely on its hostname. Preview deployments enforce `noindex` (via Vercel preview deployment headers and client `<meta name="robots" content="noindex, nofollow">` for draft/preview states), while the production canonical domain remains pending owner configuration. All canonical links currently fall back to relative paths (`/`, `/projects/printapm`) until `VITE_SITE_URL` is formally provided.
 - PrintAPM Verified Content: Production badge, high-level problem and solution text, and live link (`https://printapm.online`) are live. Unverified stats, architecture details, decisions, lessons, and screenshots are omitted from public display per owner instructions and ADR-012.
 - Log & Credentials: Empty at release (`timelineEntries = []`, `certifications = []`); public placeholder omitted from Home and Navbar per ADR-012.
 - Pre-release Check: `npm run check:release` passes with 0 issues (0 `[FILL]` placeholders and 0 empty `href="#"` links).
