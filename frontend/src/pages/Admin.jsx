@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { m } from 'framer-motion';
 import { Lock, Plus, Trash2, Pencil, LogOut } from 'lucide-react';
 import {
@@ -17,6 +17,8 @@ const EMPTY_PROJECT = {
   liveUrl: '',
   featured: false,
 };
+
+const SESSION_EXPIRED_MESSAGE = 'Your session has expired or is invalid. Please sign in again.';
 
 const normalizeProject = (project) => ({
   ...project,
@@ -42,13 +44,24 @@ const Admin = () => {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const clearSession = useCallback((message = '') => {
+    localStorage.removeItem('admin_token');
+    setToken(null);
+    setProjects([]);
+    setForm(EMPTY_PROJECT);
+    setEditingId(null);
+    setLoginForm({ email: '', password: '' });
+    setLoginError(message);
+  }, []);
+
   const fetchProjects = async () => {
     try {
       const res = await getProjects();
       const data = res.data?.data || res.data?.projects || res.data;
       if (Array.isArray(data)) setProjects(data.map(normalizeProject));
-    } catch {
-      setProjects([]);
+    } catch (error) {
+      if (error?.response?.status === 401) clearSession(SESSION_EXPIRED_MESSAGE);
+      else setProjects([]);
     }
   };
 
@@ -62,14 +75,16 @@ const Admin = () => {
         const data = res.data?.data || res.data?.projects || res.data;
         if (Array.isArray(data)) setProjects(data.map(normalizeProject));
       })
-      .catch(() => {
-        if (!ignore) setProjects([]);
+      .catch((error) => {
+        if (ignore) return;
+        if (error?.response?.status === 401) clearSession(SESSION_EXPIRED_MESSAGE);
+        else setProjects([]);
       });
 
     return () => {
       ignore = true;
     };
-  }, [token]);
+  }, [token, clearSession]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -90,8 +105,7 @@ const Admin = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
-    setToken(null);
+    clearSession();
   };
 
   const handleSubmit = async (e) => {
@@ -117,8 +131,9 @@ const Admin = () => {
       setForm(EMPTY_PROJECT);
       setEditingId(null);
       await fetchProjects();
-    } catch {
-      alert('Failed to save project');
+    } catch (error) {
+      if (error?.response?.status === 401) clearSession(SESSION_EXPIRED_MESSAGE);
+      else alert('Failed to save project');
     } finally {
       setLoading(false);
     }
@@ -141,8 +156,9 @@ const Admin = () => {
     try {
       await deleteProject(id);
       await fetchProjects();
-    } catch {
-      alert('Failed to delete');
+    } catch (error) {
+      if (error?.response?.status === 401) clearSession(SESSION_EXPIRED_MESSAGE);
+      else alert('Failed to delete');
     }
   };
 
@@ -164,7 +180,7 @@ const Admin = () => {
           </div>
 
           {loginError && (
-            <p className="mt-2 text-center text-xs font-mono text-[#D9644A] border border-[#D9644A]/30 bg-[#D9644A]/10 p-2 rounded-[2px]">
+            <p role="alert" className="mt-2 text-center text-xs font-mono text-[#D9644A] border border-[#D9644A]/30 bg-[#D9644A]/10 p-2 rounded-[2px]">
               {loginError}
             </p>
           )}

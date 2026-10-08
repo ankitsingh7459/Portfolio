@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Targeted preview preparation completed locally on 2026-10-08. See PREVIEW_READINESS.md for current evidence: mobile menu/palette axe and keyboard checks pass, mocked desktop/mobile admin login/session/CRUD pass, production build/lint/111 unit tests/release check pass, and compressed mobile Lighthouse scores are 88/93/94 (median 93). Live integration remains unverified. Push recommendation is gated on resolving the Vercel project-link mismatch; no push, merge, deploy or production settings change was performed.
+Targeted preview preparation commit `ef42918dd58d69e6afe75908a3d93d762adb6f56` is preserved. Follow-up admin 401 recovery is fixed locally, with 11 focused regressions and 122 total unit tests passing; lint/build/release checks and focused admin browser checks pass. See DEPLOYMENT_AND_SESSION.md for direct GitHub evidence that repository deployments go to Vercel `ankit-singh-portfolio/portfolio`; Production Branch `main` is confirmed by the owner screenshot. Local CLI link `ankit-portfolio-frontend` does not select Git-push targets. Private branch overrides still require accessible signed-in settings. Live integration remains unverified; no push, merge, deploy, relink or remote settings change was performed.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -97,7 +97,7 @@ TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview Q
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Current preview limitations: admin 401 after reload retains the token and displays an empty dashboard; canonical/sitemap domain configuration is unresolved (current local SEO 83); deployed noindex/CSP/CORS and live backend integration remain unverified. The local Vercel CLI link differs from the owner's dashboard project. See PREVIEW_READINESS.md.
+- Current preview limitations: canonical/sitemap domain configuration is unresolved (preparation-build local SEO 83); deployed noindex/CSP/CORS and live backend integration remain unverified. Admin confirmed 401 recovery is now fixed; network/5xx/403 retain sessions. GitHub confirms the `portfolio` deployment association; private preview overrides remain unverified. See DEPLOYMENT_AND_SESSION.md.
 
 ## Open owner inputs (Internal Documentation)
 - Identity & Bio: Populated with owner-approved draft copy (Ankit Singh; CSE AI & ML undergraduate at Galgotias University; Full-Stack Developer; Co-Founder & Technical Lead at PrintAPM).
@@ -107,5 +107,5 @@ TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview Q
 - Pre-release Check: `npm run check:release` passes with 0 issues (0 `[FILL]` placeholders and 0 empty `href="#"` links).
 
 ## Next step
-- Resolve the local CLI-linked project's Git connection and Production Branch before recommending a preview-only push.
+- Verify `portfolio` private Git/branch preview settings through an accessible signed-in session. The local CLI link does not need relinking to push the Git branch. Conditional exact command: `git push -u origin HEAD:refs/heads/redesign/warm-terminal` from the clean prepared branch; never push main for this preview.
 - Local evidence is complete; deployed QA awaits an authorized preview URL. Live admin/auth/CRUD, contact, analytics, CORS, headers, domain SEO and preview noindex are unverified.

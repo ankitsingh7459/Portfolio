@@ -157,7 +157,7 @@ test('successful fixture screenshots', async ({ page }, testInfo) => {
   await page.screenshot({ path: path.join(evidence, `${testInfo.project.name}.png`), fullPage: true });
 });
 
-test('intentional API failure: admin rejected save/delete and expired session limitation', async ({ page }, testInfo) => {
+test('intentional API failure: admin rejected save/delete and expired session recovery', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'Separate failure scenario');
   let expired = false;
   await page.route('**/api/**', async route => {
@@ -187,9 +187,11 @@ test('intentional API failure: admin rejected save/delete and expired session li
   await expect(page.getByRole('heading', { name: 'Failure fixture', exact: true })).toBeVisible();
   expired = true;
   await page.reload();
-  // Characterization: current frontend retains the stored token and shows an empty dashboard on 401.
-  await expect(page.getByRole('button', { name: 'logout' })).toBeVisible();
-  await expect(page.getByText('No projects recorded in database.')).toBeVisible();
-  await writeFile(path.join(evidence, 'admin-failure-limitations.json'), JSON.stringify({ save500: 'alert and form retained', delete500: 'alert and record retained', expired401: 'empty dashboard; no automatic logout' }, null, 2));
+  await expect(page.locator('#admin-email')).toBeVisible();
+  await expect(page.getByRole('alert')).toHaveText('Your session has expired or is invalid. Please sign in again.');
+  await expect(page.getByRole('button', { name: 'logout' })).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('#admin-email')).toBeVisible();
+  await writeFile(path.join(evidence, 'admin-failure-limitations.json'), JSON.stringify({ save500: 'alert and form retained', delete500: 'alert and record retained', expired401: 'session cleared; login shown with readable message' }, null, 2));
 });
 

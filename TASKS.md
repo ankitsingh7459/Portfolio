@@ -56,3 +56,5 @@
 - [ ] TASK-033 (stretch, only after owner approval) one small easter egg
 
 Phase gates: stop and wait for "approved" after Phase 0, Phase 1, and after every phase from Phase 2 onward.
+
+2026-10-08 follow-up to TASK-030: preserved `ef42918`; fixed admin confirmed-401 session recovery without logging out on network/5xx/403. 11 focused regressions and 122 total unit tests pass; lint/build/release checks and 3 focused admin browser tests pass. Read-only GitHub status confirms repository deployments to Vercel `portfolio`; Production Branch `main` is shown by the owner dashboard. CLI link is separate and unchanged. Private preview overrides remain pending accessible sign-in. See docs/DEPLOYMENT_AND_SESSION.md; no push/merge/deploy performed.

@@ -1,5 +1,7 @@
 # Targeted preview readiness — 2026-10-08
 
+Follow-up: see [DEPLOYMENT_AND_SESSION.md](DEPLOYMENT_AND_SESSION.md) for the descendant admin 401 recovery fix and direct GitHub deployment routing evidence. The scores/screenshots below remain historical evidence of the preserved `ef42918` preparation; the listed session-expiry issue is now fixed locally.
+
 Local frontend verification only. No backend code, production settings, push, merge, or deployment was changed. No additional broad review was performed.
 
 ## Branch and scope
