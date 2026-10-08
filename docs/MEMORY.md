@@ -99,30 +99,15 @@ TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview Q
 ## Known issues
 - Zero known issues. All legacy classes (.glass, .neon-text) and deprecated styles have been completely removed from index.css.
 
-## Open owner inputs
-- Owner role/title placeholder: `[FILL: title]` (CSE AI & ML undergraduate, Full-Stack Developer, and Co-Founder & Technical Lead at PrintAPM noted; placeholders kept internal).
-- Hero intro in Ankit's words.
-- 3-4 lines for `about.txt`.
-- Copy language: English (confirmed).
-- data/projects.js descriptions come from the old site; owner rewrites in own words.
-- data/contact.js: email and LinkedIn URL (currently [FILL]).
-- PrintAPM real database metrics (total prints, kiosks deployed, launch date, average upload-to-print time).
-- PrintAPM screenshots (kiosk code screen, mobile upload flow, kiosk photo, blurred admin view).
-- PrintAPM problem statement, solution description, and lessons learned in Ankit's words.
-- Final domain, contact email, LinkedIn, GitHub links.
-- Timeline entries and certifications.
-- Which PrintAPM stack/architecture details are approved for public display.
-- Decision on whether to keep profile-photo.png: dropped in TASK-025 per owner direction (`default: drop`).
-
-## Verification Standards & Audits
-- Headless `--dump-dom` captures rendered HTML elements and route resolution only.
-- Specific client measurements (console errors, scrollWidth vs innerWidth for horizontal scroll) must be explicitly measured or marked as "not measured".
-- Accessibility audit (TASK-024): axe-core run across Default Home, Expanded Terminal, Open Command Palette, and PrintAPM Case Study route with 0 critical, 0 serious, 0 moderate, and 0 minor violations.
-- Responsive audit (TASK-026): Tested across 320px (Mobile Min), 375px (iPhone SE), 414px (Mobile Large), 812x375 (Landscape Mobile), 768px (Tablet Portrait), 1024px (Small Desktop), 1440px (Large Desktop), and 200% Zoom:
-  - Zero horizontal overflow across all tested viewports (Home and /projects/printapm).
-  - Mobile menu toggle open and Escape-to-close verified via CDP.
-  - Interactive touch targets satisfy >=44px minimum touch target guidelines.
+## Open owner inputs (Internal Documentation)
+- Identity & Bio: Populated with owner-approved draft copy (Ankit Singh; CSE AI & ML undergraduate at Galgotias University; Full-Stack Developer; Co-Founder & Technical Lead at PrintAPM).
+- Profiles & Channels: GitHub (https://github.com/ankitsingh7459) and LinkedIn (https://www.linkedin.com/in/ankit-singh-tech) confirmed. Email remains unprovided (`email: null`), with public links safely omitted.
+- Domain Status: `portfolio-gamma-lake-83.vercel.app` is the default deployment domain assigned by Vercel for preview QA. It is NOT the confirmed production URL (custom domain pending owner assignment).
+- PrintAPM Verified Content: Production badge, high-level problem and solution text, and live link (`https://printapm.online`) are live. Unverified stats, architecture details, decisions, lessons, and screenshots are omitted from public display per owner instructions and ADR-012.
+- Log & Credentials: Empty at release (`timelineEntries = []`, `certifications = []`); public placeholder omitted from Home and Navbar per ADR-012.
+- Pre-release Check: `npm run check:release` passes with 0 issues (0 `[FILL]` placeholders and 0 empty `href="#"` links).
 
 ## Next step
-- Phase Gate 9A review and owner approval.
-- Next phase: Phase 9B (Preview deployment: TASK-030).
+- Phase 9B Part 1 complete.
+- Branch is ready for owner push: `git push -u origin redesign/warm-terminal`.
+- Stand by for owner push and notification of live preview deployment URL (`PREVIEW_URL: <url>`).
