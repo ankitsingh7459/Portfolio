@@ -71,6 +71,7 @@ const Navbar = () => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && mobileOpen) {
         setMobileOpen(false);
+        navRef.current?.querySelector('button[aria-label$="navigation menu"]')?.focus();
       }
     };
     window.addEventListener('keydown', handleKeyDown);

@@ -1,7 +1,7 @@
 # Project Memory
 
 ## Current status
-Phase 9B Part 1 completed locally: VITE_API_URL /api suffix proven in unit test, SEO brought to 100/100, og.png regenerated with confirmed domain, zero CSP violations verified via CDP. Standing by for owner push (`git push -u origin redesign/warm-terminal`) and live PREVIEW_URL for Part 2.
+Targeted preview preparation completed locally on 2026-10-08. See PREVIEW_READINESS.md for current evidence: mobile menu/palette axe and keyboard checks pass, mocked desktop/mobile admin login/session/CRUD pass, production build/lint/111 unit tests/release check pass, and compressed mobile Lighthouse scores are 88/93/94 (median 93). Live integration remains unverified. Push recommendation is gated on resolving the Vercel project-link mismatch; no push, merge, deploy or production settings change was performed.
 
 ## Completed
 - TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
@@ -97,16 +97,15 @@ TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview Q
 - Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
 
 ## Known issues
-- Zero known issues. All legacy classes (.glass, .neon-text) and deprecated styles have been completely removed from index.css.
+- Current preview limitations: admin 401 after reload retains the token and displays an empty dashboard; canonical/sitemap domain configuration is unresolved (current local SEO 83); deployed noindex/CSP/CORS and live backend integration remain unverified. The local Vercel CLI link differs from the owner's dashboard project. See PREVIEW_READINESS.md.
 
 ## Open owner inputs (Internal Documentation)
 - Identity & Bio: Populated with owner-approved draft copy (Ankit Singh; CSE AI & ML undergraduate at Galgotias University; Full-Stack Developer; Co-Founder & Technical Lead at PrintAPM).
-- Domain Status: `portfolio-gamma-lake-83.vercel.app` is an unconfirmed deployment URL observed in legacy configurations/logs. It is NOT confirmed as the production URL, nor should it be described as a preview domain based merely on its hostname. Preview deployments enforce `noindex` (via Vercel preview deployment headers and client `<meta name="robots" content="noindex, nofollow">` for draft/preview states), while the production canonical domain remains pending owner configuration. All canonical links currently fall back to relative paths (`/`, `/projects/printapm`) until `VITE_SITE_URL` is formally provided.
+- Domain Status: the owner's 2026-10-08 dashboard screenshot confirms `portfolio-gamma-lake-83.vercel.app` as a production domain of project `portfolio`, with Production Branch `main`. A second screenshot corroborates its deployed commit `9a3440f` in `ankitsingh7459/Portfolio`. Local CLI project `ankit-portfolio-frontend` differs and its Production Branch remains unverified. The local build lacks preview noindex and uses relative canonical/sitemap URLs without `VITE_SITE_URL`; deployed preview noindex must be verified. Earlier SEO 100/noindex claims do not apply to the current local configuration.
 - PrintAPM Verified Content: Production badge, high-level problem and solution text, and live link (`https://printapm.online`) are live. Unverified stats, architecture details, decisions, lessons, and screenshots are omitted from public display per owner instructions and ADR-012.
 - Log & Credentials: Empty at release (`timelineEntries = []`, `certifications = []`); public placeholder omitted from Home and Navbar per ADR-012.
 - Pre-release Check: `npm run check:release` passes with 0 issues (0 `[FILL]` placeholders and 0 empty `href="#"` links).
 
 ## Next step
-- Phase 9B Part 1 complete.
-- Branch is ready for owner push: `git push -u origin redesign/warm-terminal`.
-- Stand by for owner push and notification of live preview deployment URL (`PREVIEW_URL: <url>`).
+- Resolve the local CLI-linked project's Git connection and Production Branch before recommending a preview-only push.
+- Local evidence is complete; deployed QA awaits an authorized preview URL. Live admin/auth/CRUD, contact, analytics, CORS, headers, domain SEO and preview noindex are unverified.
