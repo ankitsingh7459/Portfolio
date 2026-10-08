@@ -1,0 +1,60 @@
+# Tasks (mark `[x]` when done and committed)
+
+## Phase 0: Baseline and hygiene
+- [x] TASK-001 Create branch `redesign/warm-terminal`; `npm ci`; run lint and build; record bundle size and Lighthouse baseline in MEMORY.md (commit `bf8ba56`)
+- [x] TASK-002 Repo hygiene: audit and delete junk files, untrack node_modules/dist, fix README conflict markers, secret scan (commit `1e6ff0e`)
+
+## Phase 1: Docs
+- [x] TASK-003 Create all docs, RULES.md, TASKS.md, .env.example; owner approves (commit `94c36a4`)
+
+## Phase 2: Foundation
+- [x] TASK-004 Remove listed components/hooks/context and unused deps; build still passes
+- [x] TASK-005 Tokens (`styles/tokens.css`), fonts, global CSS per DESIGN.md
+- [x] TASK-006 Shared primitives: useReducedMotion, Reveal, TypedText, SectionHeading; LazyMotion + m components, record new motion chunk size (baseline 146 kB)
+- [x] TASK-007 Shell: Navbar (`~/ankit`, active underline), Footer, layout, keep Router + `/admin` working with new tokens
+
+## Phase 3: Slice 1, Hero
+- [x] TASK-008 Hero static (copy placeholders, `./projects` button)
+- [x] TASK-009 Boot sequence (once, cursor, skip on key/click, reduced motion)
+- [x] TASK-010 Hero mobile + a11y pass + tests
+
+## Phase 4: Slice 2, Projects and PrintAPM case study
+- [x] TASK-011 ProjectRow list from API with fallback, loading/error/empty states, hover motion
+- [x] TASK-012 PrintAPM case study page/section: `cat problem.txt`, `solution.txt`, `stats.json`, `architecture.md` (high level), `decisions.md`, `lessons.txt`, live link; real stats and screenshots from owner only
+- [x] TASK-013 Tests for projects + case study (fallback, links, direct URL)
+
+## Phase 5: Slice 3, About / Stack / Log
+- [x] TASK-014 About (`cat about.txt`)
+- [x] TASK-015 Stack as grouped plain list (`stack.json` style)
+- [x] TASK-016 Timeline and certifications as `git log`
+- [x] TASK-017 GitHub activity restyled, lazy, graceful failure
+
+## Phase 6: Slice 4, Contact / Resume
+- [x] TASK-018 Contact form with validation, API integration, success/error/rate-limit states, direct links
+- [x] TASK-019 Resume viewer/download (`cat resume.pdf`)
+- [x] TASK-019b Motion cleanup: LazyMotion strict enabled, no-restricted-imports rule added, motion chunk reduced from 145.93 kB to 96.85 kB (gzip: 34.46 kB)
+
+## Phase 7: Interactive
+- [x] TASK-020 `lib/terminalCommands` pure parser + Vitest unit tests
+- [x] TASK-021 Terminal UI in hero (desktop), Tab complete, history; mobile fallback buttons
+- [x] TASK-022 Ctrl/Cmd+K command palette (focus trap, Esc, arrows)
+
+## Phase 8: Polish
+- [x] TASK-023 SEO: title/description, OG image, real domain in og:url, sitemap, robots, structured data
+- [x] TASK-024 Accessibility audit and fixes (keyboard, focus, landmarks, contrast, axe-core audit)
+- [x] TASK-025 Performance: fetch wrapper replacing axios (-40.36 kB api chunk), passive ScrollProgress (-10.32 kB motion chunk), font preload, dropped unused 523 kB photo, Lighthouse mobile audit
+- [x] TASK-026 Responsive pass: 320/375/414/768/1024/1440/200% zoom audited with zero overflow, touch targets >=44px, mobile menu Escape handling
+
+## Phase 9: Release
+- [x] TASK-025b Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests, preloaded 2 critical font files, immediate hero heading paint for optimal LCP, official mobile Lighthouse Performance >= 90
+- [x] TASK-027 Security review against SECURITY.md: Gitleaks 0 leaks, npm audit fix (0 vulns), security audit report docs/SECURITY_REVIEW.md, verified CSP and security headers in vercel.json with zero violations (commits `edbf205`, `0957f8b`, `1feaffc`)
+- [x] TASK-028 Code review against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, SECURITY: removed legacy components/ shims, unreferenced assets and dead hook, purged backdrop-blur/shadows in palette, unified Navbar with NAV_TARGETS, updated README env/scripts (commits `bc595bf`, `c59b45d`, `63f1647`, `43ac473`, `f55d6c4`)
+- [x] TASK-029 Playwright E2E suite for TEST_PLAN flows: 47 passed across desktop, tablet, and mobile; zero critical/serious a11y violations; touch targets >= 44x44px; mocked API flows (commit `540c4b4`)
+- [ ] TASK-030 Preview deployment: targeted local preparation completed 2026-10-08 (see docs/PREVIEW_READINESS.md). Mobile menu/palette axe + keyboard checks and mocked desktop/mobile admin login/session/CRUD pass; menu Escape focus fixed; Lighthouse 88/93/94, median 93 with successful API fixtures and compression. Current local SEO 83; live integration, deployed headers/CORS/noindex remain unverified. Owner screenshots show project `portfolio`, Production Branch `main`, matching GitHub commit; local CLI link is `ankit-portfolio-frontend` with unverified Production Branch. Resolve mismatch before recommending push. No deployment performed; Part 2 awaits an authorized preview URL.
+- [ ] TASK-031 Merge to main, production deploy, production QA on live URL; VITE_API_URL is set in Vercel for Preview AND Production; backend FRONTEND_URL/CORS allows the preview and production origins; regenerate og.png after the final domain is set, then view it; pre-deploy check: run `npm run check:release` (`node scripts/check-release.mjs`) and verify `grep -r "\[FILL" frontend/src frontend/public frontend/index.html` returns nothing. A section with no real content at release is removed from Home and the Navbar. No [FILL] may ship.
+- [ ] TASK-032 Monitoring: uptime check on site and `/api/health`, error tracking/analytics decision recorded; update README and all docs
+- [ ] TASK-033 (stretch, only after owner approval) one small easter egg
+
+Phase gates: stop and wait for "approved" after Phase 0, Phase 1, and after every phase from Phase 2 onward.
+
+2026-10-08 follow-up to TASK-030: preserved `ef42918`; fixed admin confirmed-401 session recovery without logging out on network/5xx/403. 11 focused regressions and 122 total unit tests pass; lint/build/release checks and 3 focused admin browser tests pass. Read-only GitHub status confirms repository deployments to Vercel `portfolio`; Production Branch `main` is shown by the owner dashboard. CLI link is separate and unchanged. Private preview overrides remain pending accessible sign-in. See docs/DEPLOYMENT_AND_SESSION.md; no push/merge/deploy performed.

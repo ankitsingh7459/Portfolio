@@ -4,21 +4,59 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ankit Singh | AI/ML Engineer & Developer</title>
-    <meta name="description" content="Portfolio of Ankit Singh - AI/ML Engineer, Vibe Coder, and Tech Enthusiast." />
-    <meta name="keywords" content="Ankit Singh, AI, ML, Developer, Portfolio, AWS, Python, React" />
+    <title>Ankit Singh | Full-Stack Developer</title>
+    <meta name="description" content="Personal portfolio of Ankit Singh, Full-Stack Developer and Co-Founder & Technical Lead at PrintAPM." />
     <meta name="author" content="Ankit Singh" />
-    <meta property="og:title" content="Ankit Singh | AI/ML Engineer" />
-    <meta property="og:description" content="Premium portfolio showcasing AI/ML projects and cloud expertise." />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ankitsingh.dev" />
+    <meta property="og:title" content="Ankit Singh | Full-Stack Developer" />
+    <meta property="og:description" content="Personal portfolio and engineering proof of work." />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og.png" />
+    <meta property="og:image:alt" content="Ankit Singh personal portfolio preview" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0a0a0f" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <meta name="twitter:title" content="Ankit Singh | Full-Stack Developer" />
+    <meta name="twitter:description" content="Personal portfolio and engineering proof of work." />
+    <meta name="twitter:image" content="%SITE_URL%/og.png" />
+
+    <!-- Theme & Color Scheme -->
+    <meta name="theme-color" content="#16140F" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Self-hosted Fonts Preload (at most 2 critical files) -->
+    <link rel="preload" href="/fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Structured Data (JSON-LD Person) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ankit Singh",
+      "url": "%SITE_URL%/",
+      "sameAs": [
+        "https://github.com/ankitsingh7459",
+        "https://www.linkedin.com/in/ankit-singh-tech"
+      ]
+    }
+    </script>
   </head>
   <body>
+    <noscript>
+      <div style="padding: 2rem; font-family: monospace; background: #16140F; color: #F1E9D2; min-height: 100vh;">
+        <h1>Ankit Singh</h1>
+        <p>Personal engineering portfolio and systems proof of work.</p>
+        <p>The interactive terminal and dynamic interface features require JavaScript to be enabled in your browser.</p>
+        <ul>
+          <li><a href="https://github.com/ankitsingh7459" style="color: #E8A33D;">GitHub Profile: github.com/ankitsingh7459</a></li>
+          <li><a href="https://printapm.online" style="color: #E8A33D;">PrintAPM Project: printapm.online</a></li>
+        </ul>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

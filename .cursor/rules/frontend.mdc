@@ -1,0 +1,14 @@
+---
+description: Frontend UI and Animation Rules
+globs: frontend/**
+---
+# Frontend Rules
+
+## UI
+- Follow docs/DESIGN.md exactly. Use tokens, never raw hex in components.
+- Include loading, error, and empty states. Keep mobile responsive.
+- Animations only via shared primitives and always respect reduced motion.
+- UI components contain no fetch logic. Network calls live in `src/services/`.
+- All content strings live in `src/data/`, not scattered through JSX.
+- Owner role/title: [FILL: title]. Never invent facts or metrics.
+- Keep `[FILL: ...]` placeholders out of public-facing website.

@@ -1,52 +1,74 @@
-import { motion } from 'framer-motion';
-import { Code2, Link2, Mail, FileText, Heart } from 'lucide-react';
+import { contactData } from '../../data/contact';
 
-const LINKS = [
-  { icon: Code2, href: 'https://github.com/ankitsingh7459', label: 'GitHub' },
-  { icon: Link2, href: 'https://www.linkedin.com/in/ankit-singh-tech', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:ankitenterprises0001@gmail.com', label: 'Email' },
-  { icon: FileText, href: '/resume.pdf', label: 'Resume' },
-];
+const isRealUrl = (url) => {
+  if (!url || typeof url !== 'string') return false;
+  const trimmed = url.trim();
+  if (
+    trimmed === '' ||
+    trimmed === '#' ||
+    trimmed.startsWith('[') ||
+    trimmed.toLowerCase().includes('fill') ||
+    trimmed === 'null' ||
+    trimmed === 'undefined'
+  ) {
+    return false;
+  }
+  return (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('mailto:') ||
+    trimmed.startsWith('/')
+  );
+};
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
-  return (
-    <footer className="border-t border-white/5 py-12">
-      <motion.div
-        className="section-padding !py-0 flex flex-col items-center gap-8"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <motion.div className="flex gap-4">
-          {LINKS.map((link) => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              target={link.label === 'Email' ? undefined : '_blank'}
-              rel="noopener noreferrer"
-              className="glass flex h-12 w-12 items-center justify-center rounded-xl text-zinc-400 transition-colors hover:text-[#00d4ff] hover:border-[#00d4ff33]"
-              whileHover={{ y: -3, scale: 1.05 }}
-              aria-label={link.label}
-            >
-              <link.icon size={20} />
-            </motion.a>
-          ))}
-        </motion.div>
+  const links = [
+    { label: 'github', href: contactData.githubUrl, external: true },
+    { label: 'linkedin', href: contactData.linkedinUrl, external: true },
+    contactData.email && isRealUrl(contactData.email)
+      ? {
+          label: 'email',
+          href: contactData.email.startsWith('mailto:')
+            ? contactData.email
+            : `mailto:${contactData.email}`,
+          external: false,
+        }
+      : null,
+    { label: 'resume.pdf', href: contactData.resumeUrl, external: true },
+  ].filter(Boolean);
 
-        <motion.p className="flex items-center gap-1 text-sm text-zinc-500">
-          Built with <Heart size={14} className="text-[#a855f7]" /> by{' '}
-          <span className="neon-text font-medium">Ankit Singh</span>
-        </motion.p>
-        <p className="font-mono text-xs text-zinc-600">
-          (c) {year} Ankit Singh. All rights reserved.
-        </p>
-        <p className="text-xs text-zinc-600">
-          Press <kbd className="rounded bg-white/5 px-1.5 py-0.5 font-mono">Ctrl+`</kbd> for
-          terminal | <kbd className="rounded bg-white/5 px-1.5 py-0.5 font-mono">/</kbd> for chat
-        </p>
-      </motion.div>
+  return (
+    <footer aria-label="Site Footer" className="border-t border-[#2E2A21] bg-[#16140F] py-12 mt-16 text-sm font-mono">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-3 text-[#B9B09A]">
+          <span className="text-[#E8A33D]" aria-hidden="true">$</span>
+          <span>echo &quot;Ankit Singh (c) {year}&quot;</span>
+        </div>
+
+        <ul className="flex flex-wrap items-center justify-center gap-4 text-xs">
+          {links.map((link) => {
+            const isReal = isRealUrl(link.href);
+            if (!isReal) return null;
+            return (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="text-[#B9B09A] hover:text-[#E8A33D] transition-colors focus-visible:outline-2 focus-visible:outline-[#E8A33D] focus-visible:outline-offset-2 rounded-[2px]"
+                >
+                  <span>[{link.label}]</span>
+                  {link.external && (
+                    <span className="sr-only"> (opens in new tab)</span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </footer>
   );
 };

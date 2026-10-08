@@ -1,0 +1,111 @@
+# Project Memory
+
+## Current status
+Targeted preview preparation commit `ef42918dd58d69e6afe75908a3d93d762adb6f56` is preserved. Follow-up admin 401 recovery is fixed locally, with 11 focused regressions and 122 total unit tests passing; lint/build/release checks and focused admin browser checks pass. See DEPLOYMENT_AND_SESSION.md for direct GitHub evidence that repository deployments go to Vercel `ankit-singh-portfolio/portfolio`; Production Branch `main` is confirmed by the owner screenshot. Local CLI link `ankit-portfolio-frontend` does not select Git-push targets. Private branch overrides still require accessible signed-in settings. Live integration remains unverified; no push, merge, deploy, relink or remote settings change was performed.
+
+## Completed
+- TASK-001: Baseline established (branch `redesign/warm-terminal`, `npm ci` clean install, baseline lint, baseline production build, asset sizes recorded) — commit `bf8ba56`.
+- TASK-002: Repo hygiene completed (removed 25 junk/log files, updated root & frontend `.gitignore` for `.vercel/`, `.env*`, `dist/`, `node_modules/`, resolved `README.md` merge markers, verified secrets with Gitleaks and history audit) — commit `1e6ff0e`.
+- TASK-003: Created project documentation (docs/PRD.md, docs/ARCHITECTURE.md, docs/DESIGN.md, docs/DECISIONS.md, docs/TEST_PLAN.md, docs/SECURITY.md, RULES.md, TASKS.md, mirrored IDE rules, updated README.md, MEMORY.md) — commit `94c36a4`.
+- TASK-004: Removed deprecated components, hooks, context, utils, and three.js dependencies. Verified zero references. JS uncompressed: 456.83 kB (vs baseline 477.3 kB), CSS: 25.39 kB (vs baseline 31.15 kB) — commit `630b3b1`.
+- TASK-005: Created styles/tokens.css, wired Tailwind @theme with Warm Terminal tokens, configured IBM Plex Mono/Sans fonts via Google Fonts swap link, updated index.html metadata/theme-color, and styled global selection/focus/scrollbar — commit `661a47d`.
+- TASK-006: Created shared primitives (hooks/useReducedMotion, hooks/useReveal, components/Reveal, components/TypedText, components/SectionHeading) with reduced-motion support. Wired LazyMotion with domAnimation — commit `8185f73`.
+- TASK-007: Implemented Warm Terminal shell: redesigned Navbar (`~/ankit` logo, amber active/hover underline, scroll-spy, keyboard accessible, mobile menu), minimal monospace Footer, Layout wrapper, restyled ScrollProgress (2px amber line), and re-skinned `/admin` with Warm Terminal design tokens and `m` components without changing logic — commit `8ad9eb5`.
+- TASK-008: Rebuilt features/hero/Hero.jsx static with Warm Terminal layout (~/ankit $ whoami, h1 in IBM Plex Mono, muted descriptor from data/hero.js, hero line, amber primary action ./projects, bordered mono secondary action cat resume.pdf). Removed neon-glow, old typing role-switcher, and glass classes — commit `3a08e6a`.
+- TASK-009: Implemented one-time terminal boot sequence in Hero: sequential typing with step(2) blinking block cursor on active line only, skippable on keydown/click, instant rendering under prefers-reduced-motion, accessible full text in .sr-only container from initial render, and zero layout shift — commit `231739d`.
+- TASK-010: Verified mobile responsiveness (375/768/1440 px, zero horizontal scroll, break-words wrapping), accessibility (AA/AAA contrast, >=44px tap targets, visible amber focus rings with offset), and installed vitest test suite (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`) with 5 unit tests for Hero. Recorded ADR-010 in docs/DECISIONS.md and LazyMotion instruction in TASKS.md — commit `3d06ce7`.
+- TASK-011: Rebuilt features/projects slice with SectionHeading ("$ ls projects"), bordered ProjectRow items, hover/focus amber marker with x+4px shift, staggered Reveal (0.06s), useProjects hook with 4s timeout and fallback, PrintAPM prepended and featured (ADR-011), and completely removed .glass and .neon-* classes from projects — commit `fbb8512`.
+- TASK-012: Created PrintAPM case study route /projects/printapm (lazy-loaded), terminal layout ($ cat problem.txt, solution.txt, stats.json, architecture.md, decisions.md, lessons.txt, screenshots with dashed placeholder, live link to printapm.online), route title, heading focus, back navigation, and 404 fallback route — commit `9a417ec` (refactored `c850614`).
+- TASK-013: Added test suites for projects slice (API mocking, PrintAPM priority, fallback on failure/timeout, zero '#' links, skeleton loading) and PrintAPM case study (all terminal sections rendered from data, live link attributes, route title, and unknown route 404 fallback). 14 unit tests passing — commit `42df058`.
+- TASK-014: Rebuilt features/about slice with SectionHeading ("$ cat about.txt"), isolated lines in data/about.js ([FILL: about line 1..4]), readable line length max-w-[65ch], Reveal on scroll, and removed old About component with cards/glass/neon — commit `0ea717d`.
+- TASK-015: Rebuilt features/stack slice with SectionHeading ("$ cat stack.json"), semantic dl/dt/dd/ul/li JSON markup with owner-approved technologies, no skill bars/percentages/icons, Reveal animation, and removed old Skills component — commit `412fc59`.
+- TASK-016: Consolidated Timeline and Certifications into features/log/Log.jsx ($ git log --oneline), data in data/timeline.js and data/certifications.js with bare placeholders and null URLs, decorative aria-hidden fake hashes, empty state, and removed legacy Timeline/Certifications components with .glass/.neon-* — commit `2fc0c66`.
+- TASK-017: Rebuilt features/github slice with SectionHeading ("$ gh activity --user ankitsingh7459"), useGitHubActivity hook with 4s timeout and graceful fallback on network failure or rate limits (403/429), terminal summary stats bar, bordered repo rows with hover shift, external profile link, removed legacy cyan/glass/neon styles, and added comprehensive unit test suite across Phase 5 slices — commit `ef6a85b` (fallback sanitized in `c77e146`).
+- TASK-018: Rebuilt features/contact slice with SectionHeading ("$ mail ankit"), useContactForm hook mirroring backend constraints (name 2-100 chars, valid email, message 10-2000 chars), accessible labels, inline errors with aria-describedby, focus management to first invalid input, double-submit protection, terminal status responses (success, 429 rate limit, 500 error, network unavailable), single source of truth in data/contact.js for Contact and Footer, zero unconfirmed emails exposed in DOM, and completely deleted legacy .glass/.neon-text styles — commit `e7a3461`.
+- TASK-019: Created features/resume slice with SectionHeading ("$ cat resume.pdf"), open and download actions for /resume.pdf, last updated metadata from data/resume.js, no embedded iframe (ADR-013), and conditional Navbar/Home visibility gating based on file availability (ADR-012) — commit `58df578`.
+- TASK-019b: Motion cleanup completed. Verified 0 occurrences of motion. or full motion imports across frontend/src. Enabled LazyMotion strict in Root.jsx. Added ESLint no-restricted-imports rule forbidding import of motion from framer-motion. Verified motion chunk reduced from 145.93 kB (gzip: 48.87 kB) to 96.85 kB (gzip: 34.46 kB), saving 49.08 kB uncompressed (-33.6%).
+- TASK-020: Created pure terminal command parser `lib/terminalCommands.js` and targets `lib/navTargets.js` with 23 unit tests — commit `331d96d`.
+- TASK-021: Implemented Hero interactive Terminal panel (desktop input + history/tab completion, mobile button chips) with 10 unit tests — commit `edcd541`.
+- TASK-022: Implemented accessible Command Palette with combobox, listbox, focus trap, restoration, and 9 unit tests — commit `2f5cd43`.
+- TASK-023: SEO slice: dynamic robots.txt/sitemap.xml generator, `usePageMeta` hook, OpenGraph image generator script (19 kB PNG), `%SITE_URL%` Vite plugin, canonical links, and Person JSON-LD — commit `1ed099e`.
+- TASK-024: Accessibility enhancements & audits: skip link pointing to #main, semantic landmarks (<main id="main">, <nav aria-label="Primary">, <footer aria-label="Site Footer">, role="region" for terminal), single h1 heading hierarchy, sr-only static headings with aria-hidden typing effects, WCAG 2.5.3 label-in-name compliance, strong border token `--color-border-strong: #706654` (3.28:1 contrast), universal prefers-reduced-motion CSS resets, and automated axe-core audit via CDP verifying 0 critical and 0 serious violations across default, terminal expanded, command palette open, and case study states — commit `6919668`.
+- TASK-025: Performance pass: replaced axios with native fetch wrapper (saving -40.36 kB / -97% in api chunk, 41.62 kB -> 1.26 kB), refactored ScrollProgress to passive event listener with rAF and GPU transform (saving -10.32 kB / -10.7% in motion chunk, 96.85 kB -> 86.53 kB), trimmed unused italic font weights in index.html, dropped unused 523 kB profile-photo.png, and verified mobile Lighthouse results (Accessibility 100, Best Practices 96, Performance 77, TBT 120ms, CLS 0.016) — commit `4a375a2`.
+- TASK-026: Responsive pass across viewports (320, 375, 414, 768, 1024, 1440, landscape 812x375, 200% zoom): verified zero horizontal overflow, >=44px mobile touch targets, and mobile menu keyboard accessibility — commit `13bc486`.
+- TASK-025b: Performance follow-up: self-hosted IBM Plex Latin WOFF2 fonts with size-adjusted fallbacks (ADR-017), removed Google Fonts external requests and preconnects, preloaded 2 critical Latin weights, optimized hero LCP heading paint, official mobile Lighthouse Performance >= 90 (median 91, peak 95), Accessibility 100, Best Practices 96 — commit `a455468`.
+- TASK-027: Security review against SECURITY.md completed: full Gitleaks history scan (0 leaks), npm audit fix in frontend (0 vulnerabilities), comprehensive audit report written to docs/SECURITY_REVIEW.md, backend security findings documented (report-only), and strict Content-Security-Policy & security headers configured in vercel.json with zero violations verified via CDP across all routes (updated with owner-provided backend origin https://portfolio-esod.onrender.com) — commits `edbf205`, `0957f8b`, `1feaffc`, `4b492ab`.
+- TASK-028: Comprehensive code review completed against PRD, ARCHITECTURE, DESIGN, RULES, TEST_PLAN, and SECURITY. Removed 8 legacy component shim directories in favor of direct feature imports, removed dead useScrollAnimation hook and unused Vite assets, removed backdrop blur and shadow from CommandPalette to adhere strictly to flat Warm Terminal rules, unified Navbar with NAV_TARGETS registry, and documented VITE_SITE_URL and check:release script in README.md — commits `bc595bf`, `c59b45d`, `63f1647`, `43ac473`, `f55d6c4`.
+- TASK-029: Implemented comprehensive Playwright E2E test suite in frontend/e2e/ across desktop (1440x900), tablet (768x1024), and mobile (375x667). 47 passed, 13 skipped, 0 failed. Verified core shell landmarks, single h1, skip link, terminal commands & tab completion, mobile terminal chips, command palette filter & escape restore, contact form validation & mocked 201/429 flows, case study routing & back navigation, 404 with noindex meta tag, admin login form accessibility, automated axe-core audits (0 critical/serious violations), and measured mobile touch targets >= 44x44px — commit `540c4b4`.
+- TASK-030 (Part 1): Pre-push preview verification completed locally. Proven in unit test that VITE_API_URL must end in /api (commit `c521036`); regenerated og.png with confirmed domain text (commit `8d8e536`); verified SEO score 100/100 (Perf 91, A11y 100, BP 96, SEO 100); confirmed zero CSP violations across all routes via CDP; verified Hero boot sequence and reduced motion; audited dependency versions and title claims.
+
+## Current task
+TASK-030 (Part 2): Standing by for owner push and PREVIEW_URL for live preview QA.
+
+## Baseline (TASK-001)
+- Environment: Node.js v22.19.0, Vite 8.0.13, Windows (PowerShell)
+- Dependencies: `npm ci` installed 234 packages cleanly with zero modifications to package-lock.json.
+- Lint status: `npm run lint` passed (0 errors, 0 warnings across all frontend files).
+- Production build status: `npm run build` completed cleanly in 2.02s.
+- CSS asset size:
+  - `dist/assets/index-giSOUB5J.css`: 31.15 kB (gzip: 6.42 kB)
+- JS asset size:
+  - Total JS uncompressed: ~477.3 kB (gzip: ~158.4 kB) across 12 chunks
+  - Major chunks:
+    - `vendor-BtTihjQ6.js`: 230.89 kB (gzip: 74.62 kB)
+    - `motion-BDWxvQg5.js`: 145.93 kB (gzip: 48.87 kB)
+    - `Home-C7gXo3hA.js`: 42.23 kB (gzip: 11.71 kB)
+    - `api-DDbND6_y.js`: 41.69 kB (gzip: 16.20 kB)
+    - `Admin-VS4Met4A.js`: 6.35 kB (gzip: 2.05 kB)
+    - `GitHubActivity-B_pireEq.js`: 3.51 kB (gzip: 1.34 kB)
+    - `index-DUiHF5De.js`: 1.94 kB (gzip: 0.98 kB)
+    - `ParticleBackground-DocJQaWQ.js`: 1.27 kB (gzip: 0.73 kB)
+    - `AnimatedCursor-BJEn55i_.js`: 1.17 kB (gzip: 0.60 kB)
+    - `App-DDAa7sam.js`: 1.12 kB (gzip: 0.57 kB)
+    - `rolldown-runtime-BYbx6iT9.js`: 0.82 kB (gzip: 0.47 kB)
+    - `useScrollAnimation-lHfxrc-m.js`: 0.37 kB (gzip: 0.27 kB)
+- Image asset:
+  - `dist/assets/profile-photo-D2fcBkY4.png`: 523.21 kB
+- HTML:
+  - `dist/index.html`: 1.71 kB (gzip: 0.72 kB)
+- Lighthouse mobile (measured in TASK-025 via local Chrome CDP audit under simulated mobile network throttling 150ms RTT / 1.6 Mbps):
+  - Accessibility: 100 / 100
+  - Best Practices: 96 / 100
+  - Performance: 77 / 100
+  - Total Blocking Time (TBT): 120 ms
+  - Cumulative Layout Shift (CLS): 0.016
+  - First Contentful Paint (FCP): 3.0 s
+  - Largest Contentful Paint (LCP): 4.6 s
+
+## Production Asset Measurements (Phase 8 / Step 0A)
+- Script-computed totals across all files in `dist/assets/` (`scratch/compute_dist_totals.mjs`):
+  - Total JS chunks: 15 files
+  - Total JS raw bytes: 402,221 B (402.22 kB decimal / 392.79 KiB binary)
+  - Total JS gzip bytes: 129,076 B (129.08 kB decimal / 126.05 KiB binary)
+  - Total CSS files: 1 file (`index-MLn6EZjd.css`)
+  - Total CSS raw bytes: 31,671 B (31.67 kB decimal / 30.93 KiB binary)
+  - Total CSS gzip bytes: 6,614 B (6.61 kB decimal / 6.46 KiB binary)
+  - Image assets: 0 B (profile-photo.png deleted)
+- First-load network transfers on "/" (measured via CDP Network events, API unreachable / 503, cache disabled):
+  - JavaScript transferred: 123.98 kB (126,951 B) across 13 chunks (PrintAPM and Admin lazy chunks not loaded)
+  - CSS transferred: 7.96 kB (8,155 B) across 2 requests (local index.css + Google Fonts CSS)
+  - Total all transfers on first load: 208.72 kB (213,730 B) including HTML, fonts, favicon, and 503 responses
+
+## Secret Audit Details
+- Gitleaks scan: Ran Gitleaks (`zricethezav/gitleaks:latest`) via Docker against the full repository Git history (all 6 commits scanned, ~371.18 KB). Result: 0 leaks found.
+- Committed `.env` audit: Ran `git log --all --diff-filter=A --name-only | Select-String -Pattern "\.env"`. Verified that only `frontend/.env.example` and `backend/.env.example` were ever added to Git history; no `.env` files were ever committed.
+- Log file inspection: Inspected `vercel-deploy.txt` and `vercel-deploy-utf8.txt` before removal. Confirmed they contained only Vercel CLI build output and deployment URLs; no tokens, API keys, or passwords were present.
+- Code references: Past references to `password`, `secret`, `key`, and `token` across `backend/config/`, `backend/controllers/`, `backend/middleware/`, `backend/database/schema.sql`, and `README.md` were inspected and confirmed to be standard environment variable bindings (`process.env.DB_PASSWORD || ''`, `process.env.ADMIN_PASSWORD`, `process.env.JWT_SECRET`), schema column definitions, or example placeholders.
+- Scope statement: No real credentials were found in the inspected content. Inspection covered all 6 historical Git commits via Gitleaks rules, git history file addition checks, and inspection of working tree configurations. This does not claim external credential validity or evaluate configurations outside the repository.
+
+## Known issues
+- Current preview limitations: canonical/sitemap domain configuration is unresolved (preparation-build local SEO 83); deployed noindex/CSP/CORS and live backend integration remain unverified. Admin confirmed 401 recovery is now fixed; network/5xx/403 retain sessions. GitHub confirms the `portfolio` deployment association; private preview overrides remain unverified. See DEPLOYMENT_AND_SESSION.md.
+
+## Open owner inputs (Internal Documentation)
+- Identity & Bio: Populated with owner-approved draft copy (Ankit Singh; CSE AI & ML undergraduate at Galgotias University; Full-Stack Developer; Co-Founder & Technical Lead at PrintAPM).
+- Domain Status: the owner's 2026-10-08 dashboard screenshot confirms `portfolio-gamma-lake-83.vercel.app` as a production domain of project `portfolio`, with Production Branch `main`. A second screenshot corroborates its deployed commit `9a3440f` in `ankitsingh7459/Portfolio`. Local CLI project `ankit-portfolio-frontend` differs and its Production Branch remains unverified. The local build lacks preview noindex and uses relative canonical/sitemap URLs without `VITE_SITE_URL`; deployed preview noindex must be verified. Earlier SEO 100/noindex claims do not apply to the current local configuration.
+- PrintAPM Verified Content: Production badge, high-level problem and solution text, and live link (`https://printapm.online`) are live. Unverified stats, architecture details, decisions, lessons, and screenshots are omitted from public display per owner instructions and ADR-012.
+- Log & Credentials: Empty at release (`timelineEntries = []`, `certifications = []`); public placeholder omitted from Home and Navbar per ADR-012.
+- Pre-release Check: `npm run check:release` passes with 0 issues (0 `[FILL]` placeholders and 0 empty `href="#"` links).
+
+## Next step
+- Verify `portfolio` private Git/branch preview settings through an accessible signed-in session. The local CLI link does not need relinking to push the Git branch. Conditional exact command: `git push -u origin HEAD:refs/heads/redesign/warm-terminal` from the clean prepared branch; never push main for this preview.
+- Local evidence is complete; deployed QA awaits an authorized preview URL. Live admin/auth/CRUD, contact, analytics, CORS, headers, domain SEO and preview noindex are unverified.

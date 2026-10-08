@@ -1,22 +1,22 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext.jsx';
+import { LazyMotion, domAnimation } from 'framer-motion';
 
 const App = lazy(() => import('./App'));
 
 const RootLoader = () => (
-  <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f]">
-    <p className="neon-text text-xl font-bold">Loading...</p>
+  <div className="flex min-h-screen items-center justify-center bg-[#16140F]">
+    <p className="text-xl font-mono text-[#E8A33D]">Loading...</p>
   </div>
 );
 
 const Root = () => (
   <BrowserRouter>
-    <ThemeProvider>
+    <LazyMotion features={domAnimation} strict>
       <Suspense fallback={<RootLoader />}>
         <App />
       </Suspense>
-    </ThemeProvider>
+    </LazyMotion>
   </BrowserRouter>
 );
 
