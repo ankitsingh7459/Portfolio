@@ -26,11 +26,12 @@ if (!chromePath) {
   process.exit(1);
 }
 
-// Prepare HTML with interpolated SITE_URL
-const siteUrl = (process.env.VITE_SITE_URL || '').trim() || 'https://portfolio-gamma-lake-83.vercel.app';
-const cleanDomain = siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+// Prepare HTML with interpolated SITE_URL (if provided)
+const siteUrl = (process.env.VITE_SITE_URL || '').trim();
 const rawHtml = fs.readFileSync(templatePath, 'utf8');
-const renderedHtml = rawHtml.replace(/portfolio\.ankit/g, cleanDomain);
+const renderedHtml = siteUrl
+  ? rawHtml.replace(/portfolio\.ankit/g, siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, ''))
+  : rawHtml;
 
 const tempHtmlPath = path.join(__dirname, '.temp-og-render.html');
 fs.writeFileSync(tempHtmlPath, renderedHtml, 'utf8');
